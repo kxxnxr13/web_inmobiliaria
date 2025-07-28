@@ -46,7 +46,12 @@ const propertiesData = [
     yearBuilt: 2020,
     image: "/placeholder.svg",
     featured: true,
-    description: "Hermosa casa moderna de dos plantas con acabados de lujo"
+    description: "Hermosa casa moderna de dos plantas con acabados de lujo, jardín privado y excelente ubicación cerca de centros comerciales y colegios.",
+    amenities: ["Aire acondicionado", "Cocina integral", "Jardín privado", "Seguridad 24/7", "Piscina comunitaria"],
+    pricePerSqm: Math.round(285000 / 180),
+    condition: "Excelente",
+    propertyType: "Casa",
+    lastUpdated: "2024-01-15"
   },
   {
     id: 2,
@@ -61,7 +66,12 @@ const propertiesData = [
     yearBuilt: 2019,
     image: "/placeholder.svg",
     featured: false,
-    description: "Elegante apartamento con vista panorámica al océano"
+    description: "Elegante apartamento con vista panorámica al océano, ubicado en edificio de lujo con amenidades exclusivas.",
+    amenities: ["Vista al océano", "Gimnasio", "Piscina infinity", "Concierge 24/7", "Balcón amplio"],
+    pricePerSqm: Math.round(1800 / 95),
+    condition: "Como nuevo",
+    propertyType: "Apartamento",
+    lastUpdated: "2024-01-14"
   },
   {
     id: 3,
@@ -76,11 +86,16 @@ const propertiesData = [
     yearBuilt: 2021,
     image: "/placeholder.svg",
     featured: true,
-    description: "Amplia casa familiar con jardín privado y piscina"
+    description: "Amplia casa familiar con jardín privado y piscina, perfecta para familias grandes. Zona residencial tranquila.",
+    amenities: ["Piscina privada", "Jardín amplio", "Cuarto de juegos", "Oficina en casa", "Terraza techada"],
+    pricePerSqm: Math.round(320000 / 220),
+    condition: "Nuevo",
+    propertyType: "Casa",
+    lastUpdated: "2024-01-13"
   },
   {
     id: 4,
-    title: "Penthouse Ejecutivo",
+    title: "Penthouse Ejecutivo Premium",
     price: 2500,
     type: "alquiler",
     location: "Zona Centro, Ciudad",
@@ -91,7 +106,12 @@ const propertiesData = [
     yearBuilt: 2022,
     image: "/placeholder.svg",
     featured: false,
-    description: "Lujoso penthouse en el corazón de la ciudad"
+    description: "Lujoso penthouse en el corazón de la ciudad con vistas panorámicas de 360 grados y amenidades premium.",
+    amenities: ["Terraza panorámica", "Jacuzzi privado", "Smart home", "Cocina gourmet", "Valet parking"],
+    pricePerSqm: Math.round(2500 / 150),
+    condition: "Nuevo",
+    propertyType: "Penthouse",
+    lastUpdated: "2024-01-12"
   },
   {
     id: 5,
@@ -106,11 +126,16 @@ const propertiesData = [
     yearBuilt: 2018,
     image: "/placeholder.svg",
     featured: false,
-    description: "Casa tradicional completamente renovada"
+    description: "Casa tradicional completamente renovada con materiales de primera calidad y diseño contemporáneo.",
+    amenities: ["Pisos de madera", "Cocina remodelada", "Baños renovados", "Patio trasero", "Chimenea"],
+    pricePerSqm: Math.round(195000 / 140),
+    condition: "Renovado",
+    propertyType: "Casa",
+    lastUpdated: "2024-01-11"
   },
   {
     id: 6,
-    title: "Apartamento Ejecutivo",
+    title: "Apartamento Ejecutivo Moderno",
     price: 1200,
     type: "alquiler",
     location: "Zona Sur, Ciudad",
@@ -121,11 +146,16 @@ const propertiesData = [
     yearBuilt: 2020,
     image: "/placeholder.svg",
     featured: false,
-    description: "Cómodo apartamento ideal para profesionales"
+    description: "Cómodo apartamento ideal para profesionales, completamente amueblado y listo para habitar.",
+    amenities: ["Completamente amueblado", "Internet incluido", "Lavandería", "Portero", "Área social"],
+    pricePerSqm: Math.round(1200 / 65),
+    condition: "Excelente",
+    propertyType: "Apartamento",
+    lastUpdated: "2024-01-10"
   },
   {
     id: 7,
-    title: "Villa de Lujo con Piscina",
+    title: "Villa de Lujo con Piscina Infinita",
     price: 450000,
     type: "venta",
     location: "Zona Norte, Ciudad",
@@ -136,11 +166,16 @@ const propertiesData = [
     yearBuilt: 2023,
     image: "/placeholder.svg",
     featured: true,
-    description: "Exclusiva villa con todas las comodidades"
+    description: "Exclusiva villa de lujo con piscina infinita, sala de cine, gimnasio privado y todas las comodidades modernas.",
+    amenities: ["Piscina infinita", "Sala de cine", "Gimnasio privado", "Wine cellar", "Smart home", "Jardín paisajista"],
+    pricePerSqm: Math.round(450000 / 350),
+    condition: "Nuevo",
+    propertyType: "Villa",
+    lastUpdated: "2024-01-09"
   },
   {
     id: 8,
-    title: "Apartamento Familiar",
+    title: "Apartamento Familiar Espacioso",
     price: 1600,
     type: "alquiler",
     location: "Zona Este, Ciudad",
@@ -151,11 +186,16 @@ const propertiesData = [
     yearBuilt: 2019,
     image: "/placeholder.svg",
     featured: false,
-    description: "Perfecto para familias con niños"
+    description: "Perfecto para familias con niños, cerca de colegios y parques. Amplio y luminoso con excelente distribución.",
+    amenities: ["Área de juegos", "Cerca de colegios", "Parque infantil", "Salón comunal", "Zona BBQ"],
+    pricePerSqm: Math.round(1600 / 110),
+    condition: "Muy bueno",
+    propertyType: "Apartamento",
+    lastUpdated: "2024-01-08"
   },
   {
     id: 9,
-    title: "Casa Minimalista Moderna",
+    title: "Casa Minimalista Arquitectónica",
     price: 275000,
     type: "venta",
     location: "Zona Centro, Ciudad",
@@ -166,7 +206,72 @@ const propertiesData = [
     yearBuilt: 2021,
     image: "/placeholder.svg",
     featured: false,
-    description: "Diseño minimalista con acabados premium"
+    description: "Diseño minimalista contemporáneo con acabados premium, grandes ventanales y espacios abiertos llenos de luz natural.",
+    amenities: ["Diseño minimalista", "Grandes ventanales", "Espacios abiertos", "Domótica", "Terraza verde"],
+    pricePerSqm: Math.round(275000 / 160),
+    condition: "Como nuevo",
+    propertyType: "Casa",
+    lastUpdated: "2024-01-07"
+  },
+  {
+    id: 10,
+    title: "Loft Industrial Convertido",
+    price: 2200,
+    type: "alquiler",
+    location: "Zona Artística, Ciudad",
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 130,
+    parking: 1,
+    yearBuilt: 2020,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Único loft industrial completamente renovado en zona artística. Techos altos, vigas expuestas y diseño urbano moderno.",
+    amenities: ["Techos altos", "Vigas expuestas", "Diseño industrial", "Zona artística", "Estudios cercanos"],
+    pricePerSqm: Math.round(2200 / 130),
+    condition: "Renovado",
+    propertyType: "Loft",
+    lastUpdated: "2024-01-06"
+  },
+  {
+    id: 11,
+    title: "Casa Ecológica Sostenible",
+    price: 385000,
+    type: "venta",
+    location: "Zona Verde, Ciudad",
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 200,
+    parking: 2,
+    yearBuilt: 2022,
+    image: "/placeholder.svg",
+    featured: true,
+    description: "Casa ecológica con paneles solares, sistema de recolección de agua lluvia y materiales sostenibles.",
+    amenities: ["Paneles solares", "Recolección agua lluvia", "Materiales ecológicos", "Huerto orgánico", "Certificación LEED"],
+    pricePerSqm: Math.round(385000 / 200),
+    condition: "Nuevo",
+    propertyType: "Casa Ecológica",
+    lastUpdated: "2024-01-05"
+  },
+  {
+    id: 12,
+    title: "Dúplex Moderno Vista Ciudad",
+    price: 1950,
+    type: "alquiler",
+    location: "Zona Alta, Ciudad",
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 125,
+    parking: 2,
+    yearBuilt: 2021,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Elegante dúplex en dos niveles con vista panorámica de la ciudad. Diseño moderno y acabados de lujo.",
+    amenities: ["Vista panorámica", "Dos niveles", "Acabados de lujo", "Terraza privada", "Estudio en segundo piso"],
+    pricePerSqm: Math.round(1950 / 125),
+    condition: "Como nuevo",
+    propertyType: "Dúplex",
+    lastUpdated: "2024-01-04"
   }
 ];
 
@@ -313,9 +418,33 @@ const Properties = () => {
                       {property.parking} parking
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500 mb-3 flex items-center">
-                    <Calendar className="h-3 w-3 mr-1" />
-                    Construido en {property.yearBuilt}
+                  <div className="text-xs text-gray-500 mb-3 grid grid-cols-2 gap-2">
+                    <div className="flex items-center">
+                      <Calendar className="h-3 w-3 mr-1" />
+                      {property.yearBuilt}
+                    </div>
+                    <div className="text-right">
+                      ${property.pricePerSqm}/m²
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="text-xs font-medium text-navy-600 mb-2">Estado: {property.condition}</div>
+                    <div className="text-xs font-medium text-navy-600 mb-2">Tipo: {property.propertyType}</div>
+                    <div className="flex flex-wrap gap-1">
+                      {property.amenities.slice(0, 2).map((amenity, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs">
+                          {amenity}
+                        </Badge>
+                      ))}
+                      {property.amenities.length > 2 && (
+                        <Badge variant="outline" className="text-xs">
+                          +{property.amenities.length - 2} más
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 mb-3">
+                    Última actualización: {property.lastUpdated}
                   </div>
                   <Link to={`/propiedad/${property.id}`}>
                     <Button className="w-full bg-navy-800 hover:bg-navy-700">
