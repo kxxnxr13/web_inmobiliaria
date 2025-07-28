@@ -127,6 +127,100 @@ const propertyData = {
       email: "carlos@inmobiliaria.com",
       photo: "/placeholder.svg"
     }
+  },
+  3: {
+    id: 3,
+    title: "Casa Familiar Los Jardines",
+    price: 320000,
+    type: "venta",
+    location: "Zona Este, Ciudad",
+    bedrooms: 5,
+    bathrooms: 4,
+    area: 220,
+    parking: 3,
+    yearBuilt: 2021,
+    description: "Amplia casa familiar con jardín privado y piscina, perfecta para familias grandes. Ubicada en zona residencial tranquila con excelentes escuelas cercanas.",
+    features: [
+      "Piscina privada",
+      "Jardín amplio",
+      "Cuarto de juegos",
+      "Oficina en casa",
+      "Bodega grande",
+      "Terraza techada",
+      "Zona de lavandería",
+      "Sistema de alarma"
+    ],
+    amenities: [
+      { icon: Wifi, label: "Red WiFi mesh" },
+      { icon: Zap, label: "Backup eléctrico" },
+      { icon: Droplets, label: "Cisterna propia" },
+      { icon: Shield, label: "Cámaras de seguridad" },
+      { icon: Trees, label: "Jardín paisajista" },
+      { icon: Utensils, label: "Cocina con isla" },
+      { icon: Wind, label: "Ventilación cruzada" },
+      { icon: Car, label: "Garaje para 3 autos" }
+    ],
+    images: [
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg"
+    ],
+    agent: {
+      name: "Ana Martínez",
+      phone: "+1 (555) 456-7890",
+      email: "ana@inmobiliaria.com",
+      photo: "/placeholder.svg"
+    }
+  },
+  4: {
+    id: 4,
+    title: "Penthouse Ejecutivo",
+    price: 2500,
+    type: "alquiler",
+    location: "Zona Centro, Ciudad",
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 150,
+    parking: 2,
+    yearBuilt: 2022,
+    description: "Lujoso penthouse en el corazón de la ciudad con vistas panorámicas de 360 grados. Ideal para ejecutivos que buscan lujo y comodidad en ubicación céntrica.",
+    features: [
+      "Terraza panorámica",
+      "Jacuzzi privado",
+      "Cocina gourmet",
+      "Walk-in closet",
+      "Estudio privado",
+      "Lavandería equipada",
+      "Smart home",
+      "Servicio de valet"
+    ],
+    amenities: [
+      { icon: Wifi, label: "Internet empresarial" },
+      { icon: Zap, label: "Planta eléctrica" },
+      { icon: Droplets, label: "Agua purificada" },
+      { icon: Shield, label: "Seguridad VIP" },
+      { icon: Trees, label: "Jardín en terraza" },
+      { icon: Utensils, label: "Electrodomésticos premium" },
+      { icon: Wind, label: "Clima centralizado" },
+      { icon: Car, label: "Valet parking" }
+    ],
+    images: [
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg"
+    ],
+    agent: {
+      name: "Roberto Silva",
+      phone: "+1 (555) 321-0987",
+      email: "roberto@inmobiliaria.com",
+      photo: "/placeholder.svg"
+    }
   }
 };
 
