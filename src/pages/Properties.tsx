@@ -31,6 +31,145 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Datos de propiedades más detallados
+const propertiesData = [
+  {
+    id: 1,
+    title: "Casa Moderna Residencial Los Pinos",
+    price: 285000,
+    type: "venta",
+    location: "Zona Norte, Ciudad",
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 180,
+    parking: 2,
+    yearBuilt: 2020,
+    image: "/placeholder.svg",
+    featured: true,
+    description: "Hermosa casa moderna de dos plantas con acabados de lujo"
+  },
+  {
+    id: 2,
+    title: "Apartamento Moderno Vista al Mar",
+    price: 1800,
+    type: "alquiler",
+    location: "Zona Costa, Ciudad",
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 95,
+    parking: 1,
+    yearBuilt: 2019,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Elegante apartamento con vista panorámica al océano"
+  },
+  {
+    id: 3,
+    title: "Casa Familiar Los Jardines",
+    price: 320000,
+    type: "venta",
+    location: "Zona Este, Ciudad",
+    bedrooms: 5,
+    bathrooms: 4,
+    area: 220,
+    parking: 3,
+    yearBuilt: 2021,
+    image: "/placeholder.svg",
+    featured: true,
+    description: "Amplia casa familiar con jardín privado y piscina"
+  },
+  {
+    id: 4,
+    title: "Penthouse Ejecutivo",
+    price: 2500,
+    type: "alquiler",
+    location: "Zona Centro, Ciudad",
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 150,
+    parking: 2,
+    yearBuilt: 2022,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Lujoso penthouse en el corazón de la ciudad"
+  },
+  {
+    id: 5,
+    title: "Casa Tradicional Renovada",
+    price: 195000,
+    type: "venta",
+    location: "Zona Oeste, Ciudad",
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 140,
+    parking: 2,
+    yearBuilt: 2018,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Casa tradicional completamente renovada"
+  },
+  {
+    id: 6,
+    title: "Apartamento Ejecutivo",
+    price: 1200,
+    type: "alquiler",
+    location: "Zona Sur, Ciudad",
+    bedrooms: 1,
+    bathrooms: 1,
+    area: 65,
+    parking: 1,
+    yearBuilt: 2020,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Cómodo apartamento ideal para profesionales"
+  },
+  {
+    id: 7,
+    title: "Villa de Lujo con Piscina",
+    price: 450000,
+    type: "venta",
+    location: "Zona Norte, Ciudad",
+    bedrooms: 6,
+    bathrooms: 5,
+    area: 350,
+    parking: 4,
+    yearBuilt: 2023,
+    image: "/placeholder.svg",
+    featured: true,
+    description: "Exclusiva villa con todas las comodidades"
+  },
+  {
+    id: 8,
+    title: "Apartamento Familiar",
+    price: 1600,
+    type: "alquiler",
+    location: "Zona Este, Ciudad",
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 110,
+    parking: 2,
+    yearBuilt: 2019,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Perfecto para familias con niños"
+  },
+  {
+    id: 9,
+    title: "Casa Minimalista Moderna",
+    price: 275000,
+    type: "venta",
+    location: "Zona Centro, Ciudad",
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 160,
+    parking: 2,
+    yearBuilt: 2021,
+    image: "/placeholder.svg",
+    featured: false,
+    description: "Diseño minimalista con acabados premium"
+  }
+];
+
 const Properties = () => {
   return (
     <div className="min-h-screen bg-background">
