@@ -26,7 +26,10 @@ import {
   Square,
   Heart,
   Share2,
+  Car,
+  Calendar,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Properties = () => {
   return (
