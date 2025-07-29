@@ -66,10 +66,28 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulamos el envío del formulario
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Configuración de EmailJS - Reemplaza con tus IDs reales
+      const serviceId = "YOUR_SERVICE_ID";
+      const templateId = "YOUR_TEMPLATE_ID";
+      const publicKey = "YOUR_PUBLIC_KEY";
 
-      console.log("Datos del formulario:", data);
+      // Parámetros del template de email
+      const templateParams = {
+        from_name: data.name,
+        from_email: data.email,
+        from_phone: data.phone,
+        consultation_type: data.consultationType,
+        message: data.message,
+        to_name: "Equipo Inmobiliaria",
+      };
+
+      // Enviar email usando EmailJS
+      await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
 
       toast({
         title: "¡Mensaje enviado exitosamente!",
@@ -78,9 +96,10 @@ const Contact = () => {
 
       form.reset();
     } catch (error) {
+      console.error("Error al enviar email:", error);
       toast({
         title: "Error al enviar mensaje",
-        description: "Por favor intenta nuevamente.",
+        description: "Por favor intenta nuevamente o contacta por teléfono.",
         variant: "destructive",
       });
     } finally {
