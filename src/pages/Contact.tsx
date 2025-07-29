@@ -71,35 +71,55 @@ const Contact = () => {
       const templateId = "YOUR_TEMPLATE_ID";
       const publicKey = "YOUR_PUBLIC_KEY";
 
-      // Parámetros del template de email
-      const templateParams = {
-        from_name: data.name,
-        from_email: data.email,
-        from_phone: data.phone,
-        consultation_type: data.consultationType,
-        message: data.message,
-        to_name: "Equipo Inmobiliaria",
-      };
+      // Verificar si EmailJS está configurado
+      if (serviceId === "YOUR_SERVICE_ID" || templateId === "YOUR_TEMPLATE_ID" || publicKey === "YOUR_PUBLIC_KEY") {
+        // Modo de demostración - solo simular el envío
+        console.log("Modo demostración - Datos del formulario:", data);
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Enviar email usando EmailJS
-      await emailjs.send(
-        serviceId,
-        templateId,
-        templateParams,
-        publicKey
-      );
+        toast({
+          title: "¡Formulario completado!",
+          description: "EmailJS no está configurado. Los datos se mostraron en consola.",
+        });
+      } else {
+        // Inicializar EmailJS
+        emailjs.init(publicKey);
 
-      toast({
-        title: "¡Mensaje enviado exitosamente!",
-        description: "Nos pondremos en contacto contigo pronto.",
-      });
+        // Parámetros del template de email
+        const templateParams = {
+          from_name: data.name,
+          from_email: data.email,
+          from_phone: data.phone,
+          consultation_type: data.consultationType,
+          message: data.message,
+          to_name: "Equipo Inmobiliaria",
+        };
+
+        // Enviar email usando EmailJS
+        const response = await emailjs.send(
+          serviceId,
+          templateId,
+          templateParams
+        );
+
+        console.log("Email enviado exitosamente:", response);
+
+        toast({
+          title: "¡Mensaje enviado exitosamente!",
+          description: "Nos pondremos en contacto contigo pronto.",
+        });
+      }
 
       form.reset();
     } catch (error) {
       console.error("Error al enviar email:", error);
+
+      // Mensaje de error más específico
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+
       toast({
         title: "Error al enviar mensaje",
-        description: "Por favor intenta nuevamente o contacta por teléfono.",
+        description: `${errorMessage}. Por favor intenta nuevamente o contacta por teléfono.`,
         variant: "destructive",
       });
     } finally {
