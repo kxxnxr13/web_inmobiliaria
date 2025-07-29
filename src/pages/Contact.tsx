@@ -184,72 +184,121 @@ const Contact = () => {
                 Envíanos un Mensaje
               </h2>
               <Card className="p-6">
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Nombre Completo
-                      </label>
-                      <Input placeholder="Tu nombre completo" />
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nombre Completo</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Tu nombre completo" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Teléfono</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Tu número de teléfono" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Teléfono
-                      </label>
-                      <Input placeholder="Tu número de teléfono" />
-                    </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email
-                    </label>
-                    <Input type="email" placeholder="tu@email.com" />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Tipo de Consulta
-                    </label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona el tipo de consulta" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="compra">Quiero Comprar</SelectItem>
-                        <SelectItem value="venta">Quiero Vender</SelectItem>
-                        <SelectItem value="alquiler">
-                          Busco en Alquiler
-                        </SelectItem>
-                        <SelectItem value="inversion">
-                          Inversión Inmobiliaria
-                        </SelectItem>
-                        <SelectItem value="proyecto">
-                          Proyectos en Desarrollo
-                        </SelectItem>
-                        <SelectItem value="otros">Otros</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mensaje
-                    </label>
-                    <Textarea
-                      placeholder="Cuéntanos más sobre lo que necesitas..."
-                      rows={4}
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="tu@email.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <Button
-                    className="w-full bg-gold-500 hover:bg-gold-600"
-                    size="lg"
-                  >
-                    <Send className="mr-2 h-5 w-5" />
-                    Enviar Mensaje
-                  </Button>
-                </form>
+                    <FormField
+                      control={form.control}
+                      name="consultationType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Tipo de Consulta</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecciona el tipo de consulta" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="compra">Quiero Comprar</SelectItem>
+                              <SelectItem value="venta">Quiero Vender</SelectItem>
+                              <SelectItem value="alquiler">
+                                Busco en Alquiler
+                              </SelectItem>
+                              <SelectItem value="inversion">
+                                Inversión Inmobiliaria
+                              </SelectItem>
+                              <SelectItem value="proyecto">
+                                Proyectos en Desarrollo
+                              </SelectItem>
+                              <SelectItem value="otros">Otros</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Mensaje</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Cuéntanos más sobre lo que necesitas..."
+                              rows={4}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      className="w-full bg-gold-500 hover:bg-gold-600"
+                      size="lg"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Enviando...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-5 w-5" />
+                          Enviar Mensaje
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </Form>
               </Card>
             </div>
 
