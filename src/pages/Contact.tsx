@@ -66,10 +66,10 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Configuración de EmailJS - Reemplaza con tus IDs reales
-      const serviceId = "YOUR_SERVICE_ID";
-      const templateId = "YOUR_TEMPLATE_ID";
-      const publicKey = "YOUR_PUBLIC_KEY";
+      // Configuración de EmailJS desde variables de entorno
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
 
       // Verificar si EmailJS está configurado
       if (serviceId === "YOUR_SERVICE_ID" || templateId === "YOUR_TEMPLATE_ID" || publicKey === "YOUR_PUBLIC_KEY") {
