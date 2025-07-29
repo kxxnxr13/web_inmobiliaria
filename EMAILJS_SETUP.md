@@ -29,12 +29,14 @@
 - Copia tu **Public Key**
 
 ### 5. Actualizar el código
-Reemplaza en `src/pages/Contact.tsx`:
+Reemplaza en `src/pages/Contact.tsx` (líneas 70-72):
 ```typescript
 const serviceId = "tu_service_id_aqui";
 const templateId = "tu_template_id_aqui";
 const publicKey = "tu_public_key_aqui";
 ```
+
+**IMPORTANTE:** El código incluye validación automática. Si no configuras los IDs, funcionará en modo demostración mostrando los datos en consola.
 
 ### 6. Template de ejemplo
 ```html
