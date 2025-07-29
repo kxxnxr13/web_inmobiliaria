@@ -36,10 +36,56 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
 
+const contactFormSchema = z.object({
+  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  phone: z.string().min(10, "El teléfono debe tener al menos 10 dígitos"),
+  email: z.string().email("Ingresa un email válido"),
+  consultationType: z.string().min(1, "Selecciona un tipo de consulta"),
+  message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
+});
 
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
-  
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      consultationType: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+
+    try {
+      // Simulamos el envío del formulario
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      console.log("Datos del formulario:", data);
+
+      toast({
+        title: "¡Mensaje enviado exitosamente!",
+        description: "Nos pondremos en contacto contigo pronto.",
+      });
+
+      form.reset();
+    } catch (error) {
+      toast({
+        title: "Error al enviar mensaje",
+        description: "Por favor intenta nuevamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
