@@ -27,10 +27,27 @@ import { useForm } from "@formspree/react";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
+// Definir tipos para el formulario
+interface FormData {
+  nombre: string;
+  telefono: string;
+  email: string;
+  tipoConsulta: string;
+  mensaje: string;
+}
+
+interface FormErrors {
+  nombre?: string;
+  telefono?: string;
+  email?: string;
+  tipoConsulta?: string;
+  mensaje?: string;
+}
+
 const Contact = () => {
   // Tu ID de Formspree configurado
   const [state, handleSubmit] = useForm("xyzppevq");
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     nombre: "",
     telefono: "",
     email: "",
@@ -38,7 +55,7 @@ const Contact = () => {
     mensaje: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   // Validación básica
   const validateForm = () => {
