@@ -115,12 +115,22 @@ app.post('/api/contact', async (req, res) => {
     // Enviar email
     const info = await transporter.sendMail(mailOptions);
 
-    console.log('Email enviado exitosamente:', info.messageId);
+    console.log('Email enviado exitosamente:', info.messageId || 'development-mode');
+
+    // En desarrollo, mostrar el contenido del email en lugar de enviarlo
+    if (process.env.NODE_ENV === 'development') {
+      console.log('--- EMAIL CONTENT (Development Mode) ---');
+      console.log('To:', mailOptions.to);
+      console.log('Subject:', mailOptions.subject);
+      console.log('From:', mailOptions.from);
+      console.log('Content preview:', mailOptions.text.substring(0, 200) + '...');
+      console.log('--- END EMAIL CONTENT ---');
+    }
 
     res.json({
       success: true,
       message: 'Mensaje enviado exitosamente',
-      messageId: info.messageId
+      messageId: info.messageId || 'dev-' + Date.now()
     });
 
   } catch (error) {
