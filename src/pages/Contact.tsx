@@ -51,7 +51,7 @@ const Contact = () => {
     if (!formData.email.trim()) {
       newErrors.email = "El email es obligatorio";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Ingresa un email v��lido";
+      newErrors.email = "Ingresa un email válido";
     }
 
     if (!formData.tipoConsulta) {
@@ -344,9 +344,9 @@ const Contact = () => {
                   </div>
 
                   {/* Campos ocultos para mejor organización en Formspree */}
-                  <input type="hidden" name="_subject" value="Nueva consulta desde el sitio web" />
+                  <input type="hidden" name="_subject" value={`Nueva consulta: ${formData.tipoConsulta || 'General'}`} />
+                  <input type="hidden" name="tipo_consulta" value={formData.tipoConsulta} />
                   <input type="hidden" name="_template" value="table" />
-                  <input type="hidden" name="_next" value={window.location.href} />
 
                   <Button
                     type="submit"
