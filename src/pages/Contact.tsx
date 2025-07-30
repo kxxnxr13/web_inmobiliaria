@@ -24,7 +24,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useForm } from "@formspree/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 const Contact = () => {
