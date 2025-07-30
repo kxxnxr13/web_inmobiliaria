@@ -21,78 +21,11 @@ import {
   Calendar,
   Users,
 } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useState } from "react";
-import { toast } from "sonner";
 
-// Esquema de validación
-const contactSchema = z.object({
-  nombre: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  telefono: z.string().optional(),
-  email: z.string().email("Ingresa un email válido"),
-  tipoConsulta: z.string().min(1, "Selecciona un tipo de consulta"),
-  mensaje: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
-});
 
-type ContactFormData = z.infer<typeof contactSchema>;
 
+  
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
-    // Prevenir múltiples envíos
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (result.success) {
-        toast.success("¡Mensaje enviado exitosamente!", {
-          description: "Te contactaremos pronto. Gracias por escribirnos.",
-        });
-        reset(); // Limpiar el formulario
-      } else {
-        toast.error("Error al enviar el mensaje", {
-          description: result.message || "Por favor, intenta nuevamente.",
-        });
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("Error de conexión", {
-        description: "No se pudo conectar con el servidor. Verifica tu conexión e intenta nuevamente.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -191,62 +124,35 @@ const Contact = () => {
                 Envíanos un Mensaje
               </h2>
               <Card className="p-6">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <form className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Nombre Completo *
+                        Nombre Completo
                       </label>
-                      <Input
-                        {...register("nombre")}
-                        placeholder="Tu nombre completo"
-                        className={errors.nombre ? "border-red-500" : ""}
-                      />
-                      {errors.nombre && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.nombre.message}
-                        </p>
-                      )}
+                      <Input placeholder="Tu nombre completo" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Teléfono
                       </label>
-                      <Input
-                        {...register("telefono")}
-                        placeholder="Tu número de teléfono"
-                      />
+                      <Input placeholder="Tu número de teléfono" />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
+                      Email
                     </label>
-                    <Input
-                      type="email"
-                      {...register("email")}
-                      placeholder="tu@email.com"
-                      className={errors.email ? "border-red-500" : ""}
-                    />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.email.message}
-                      </p>
-                    )}
+                    <Input type="email" placeholder="tu@email.com" />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Tipo de Consulta *
+                      Tipo de Consulta
                     </label>
-                    <Select
-                      value={watch("tipoConsulta") || ""}
-                      onValueChange={(value) => setValue("tipoConsulta", value)}
-                    >
-                      <SelectTrigger
-                        className={errors.tipoConsulta ? "border-red-500" : ""}
-                      >
+                    <Select>
+                      <SelectTrigger>
                         <SelectValue placeholder="Selecciona el tipo de consulta" />
                       </SelectTrigger>
                       <SelectContent>
@@ -264,47 +170,24 @@ const Contact = () => {
                         <SelectItem value="otros">Otros</SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.tipoConsulta && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.tipoConsulta.message}
-                      </p>
-                    )}
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mensaje *
+                      Mensaje
                     </label>
                     <Textarea
-                      {...register("mensaje")}
                       placeholder="Cuéntanos más sobre lo que necesitas..."
                       rows={4}
-                      className={errors.mensaje ? "border-red-500" : ""}
                     />
-                    {errors.mensaje && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.mensaje.message}
-                      </p>
-                    )}
                   </div>
 
                   <Button
-                    type="submit"
                     className="w-full bg-gold-500 hover:bg-gold-600"
                     size="lg"
-                    disabled={isSubmitting}
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-5 w-5" />
-                        Enviar Mensaje
-                      </>
-                    )}
+                    <Send className="mr-2 h-5 w-5" />
+                    Enviar Mensaje
                   </Button>
                 </form>
               </Card>
