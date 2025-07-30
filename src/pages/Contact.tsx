@@ -58,8 +58,8 @@ const Contact = () => {
   const [errors, setErrors] = useState<FormErrors>({});
 
   // Validación básica
-  const validateForm = () => {
-    const newErrors = {};
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
 
     if (!formData.nombre.trim()) {
       newErrors.nombre = "El nombre es obligatorio";
