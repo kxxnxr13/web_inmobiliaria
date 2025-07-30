@@ -38,8 +38,10 @@ const createTransporter = () => {
 
 // Endpoint para envío de emails
 app.post('/api/contact', async (req, res) => {
+  console.log('Nueva request de contacto recibida');
   try {
     const { nombre, telefono, email, tipoConsulta, mensaje } = req.body;
+    console.log('Datos recibidos:', { nombre, email, tipoConsulta });
 
     // Validación básica
     if (!nombre || !email || !mensaje) {
