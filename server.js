@@ -110,9 +110,9 @@ app.post('/api/contact', async (req, res) => {
 
     // Enviar email
     const info = await transporter.sendMail(mailOptions);
-    
-    console.log('Email enviado:', info.messageId);
-    
+
+    console.log('Email enviado exitosamente:', info.messageId);
+
     res.json({
       success: true,
       message: 'Mensaje enviado exitosamente',
