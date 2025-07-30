@@ -84,6 +84,7 @@ const Contact = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
           },
           body: JSON.stringify({
             name: data.name,
@@ -96,8 +97,17 @@ const Contact = () => {
           }),
         });
 
+        const responseData = await response.json();
+
         if (!response.ok) {
-          throw new Error(`Error HTTP: ${response.status}`);
+          // Manejo específico de errores de Formspree
+          if (response.status === 422) {
+            throw new Error("El formulario necesita ser activado. Revisa tu email de Formspree.");
+          } else if (response.status === 429) {
+            throw new Error("Demasiados envíos. Intenta nuevamente más tarde.");
+          } else {
+            throw new Error(responseData.error || `Error HTTP: ${response.status}`);
+          }
         }
 
         toast({
