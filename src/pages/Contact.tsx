@@ -29,7 +29,7 @@ import { toast } from "sonner";
 
 const Contact = () => {
   // Tu ID de Formspree configurado
-  const [state, handleSubmit] = useForm("xrbllppr");
+  const [state, handleSubmit] = useForm("xyzppevq");
   const [formData, setFormData] = useState({
     nombre: "",
     telefono: "",
@@ -51,7 +51,7 @@ const Contact = () => {
     if (!formData.email.trim()) {
       newErrors.email = "El email es obligatorio";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Ingresa un email válido";
+      newErrors.email = "Ingresa un email v��lido";
     }
 
     if (!formData.tipoConsulta) {
