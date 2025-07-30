@@ -95,29 +95,32 @@ const Contact = () => {
     await handleSubmit(e);
   };
 
-  // Mostrar notificación cuando el formulario se envía exitosamente
-  if (state.succeeded) {
-    toast.success("¡Mensaje enviado exitosamente!", {
-      description: "Te contactaremos pronto. Gracias por escribirnos.",
-      duration: 5000,
-    });
-    
-    // Limpiar el formulario después del envío exitoso
-    setFormData({
-      nombre: "",
-      telefono: "",
-      email: "",
-      tipoConsulta: "",
-      mensaje: "",
-    });
-  }
+  // Manejar notificaciones cuando cambie el estado de Formspree
+  useEffect(() => {
+    if (state.succeeded) {
+      toast.success("¡Mensaje enviado exitosamente!", {
+        description: "Te contactaremos pronto. Gracias por escribirnos.",
+        duration: 5000,
+      });
 
-  // Mostrar error si hay problemas con el envío
-  if (state.errors && state.errors.length > 0) {
-    toast.error("Error al enviar el mensaje", {
-      description: "Por favor, intenta nuevamente en unos momentos.",
-    });
-  }
+      // Limpiar el formulario después del envío exitoso
+      setFormData({
+        nombre: "",
+        telefono: "",
+        email: "",
+        tipoConsulta: "",
+        mensaje: "",
+      });
+    }
+  }, [state.succeeded]);
+
+  useEffect(() => {
+    if (state.errors && state.errors.length > 0) {
+      toast.error("Error al enviar el mensaje", {
+        description: "Por favor, intenta nuevamente en unos momentos.",
+      });
+    }
+  }, [state.errors]);
 
   return (
     <div className="min-h-screen bg-background">
