@@ -26,7 +26,7 @@ const createTransporter = () => {
   }
   
   // Configuración por defecto para desarrollo (Ethereal Email - para testing)
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
