@@ -12,9 +12,16 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Configuración del transportador de email
 const createTransporter = () => {
-  // Para desarrollo, puedes usar un servicio como Gmail o Outlook
-  // En producción, usa un servicio profesional como SendGrid, Mailgun, etc.
-  
+  // Para desarrollo, simular envío de email sin SMTP real
+  if (process.env.NODE_ENV === 'development') {
+    return nodemailer.createTransport({
+      streamTransport: true,
+      newline: 'unix',
+      buffer: true
+    });
+  }
+
+  // Para producción, usar un servicio real como Gmail
   if (process.env.EMAIL_SERVICE === 'gmail') {
     return nodemailer.createTransport({
       service: 'gmail',
@@ -24,15 +31,12 @@ const createTransporter = () => {
       }
     });
   }
-  
-  // Configuración por defecto para desarrollo (Ethereal Email - para testing)
+
+  // Configuración por defecto
   return nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-      user: process.env.EMAIL_USER || 'ethereal.user@ethereal.email',
-      pass: process.env.EMAIL_PASSWORD || 'ethereal.password'
-    }
+    streamTransport: true,
+    newline: 'unix',
+    buffer: true
   });
 };
 
