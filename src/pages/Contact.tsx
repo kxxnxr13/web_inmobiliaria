@@ -28,9 +28,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const Contact = () => {
-  // Reemplaza 'YOUR_FORM_ID' con tu ID de Formspree
-  // Obtén tu ID en https://formspree.io/forms
-  const [state, handleSubmit] = useForm("YOUR_FORM_ID");
+  // Tu ID de Formspree configurado
+  const [state, handleSubmit] = useForm("xrbllppr");
   const [formData, setFormData] = useState({
     nombre: "",
     telefono: "",
