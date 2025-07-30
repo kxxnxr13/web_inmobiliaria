@@ -53,8 +53,11 @@ const Contact = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    // Prevenir múltiples envíos
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -63,6 +66,10 @@ const Contact = () => {
         },
         body: JSON.stringify(data),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const result = await response.json();
 
