@@ -65,43 +65,40 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Configuración de EmailJS desde variables de entorno
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
+      // URL de Formspree - reemplaza con tu endpoint real
+      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL || "https://formspree.io/f/demo";
 
-      // Verificar si EmailJS está configurado
-      if (serviceId === "YOUR_SERVICE_ID" || templateId === "YOUR_TEMPLATE_ID" || publicKey === "YOUR_PUBLIC_KEY") {
+      // Verificar si Formspree está configurado
+      if (formspreeUrl === "https://formspree.io/f/demo") {
         // Modo de demostración - solo simular el envío
         console.log("Modo demostración - Datos del formulario:", data);
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         toast({
           title: "¡Formulario completado!",
-          description: "EmailJS no está configurado. Los datos se mostraron en consola.",
+          description: "Configura Formspree para recibir emails reales. Datos mostrados en consola.",
         });
       } else {
-        // Inicializar EmailJS
-        emailjs.init(publicKey);
+        // Enviar datos a Formspree
+        const response = await fetch(formspreeUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            consultationType: data.consultationType,
+            message: data.message,
+            _replyto: data.email,
+            _subject: `Nueva consulta inmobiliaria de ${data.name}`,
+          }),
+        });
 
-        // Parámetros del template de email
-        const templateParams = {
-          from_name: data.name,
-          from_email: data.email,
-          from_phone: data.phone,
-          consultation_type: data.consultationType,
-          message: data.message,
-          to_name: "Equipo Inmobiliaria",
-        };
-
-        // Enviar email usando EmailJS
-        const response = await emailjs.send(
-          serviceId,
-          templateId,
-          templateParams
-        );
-
-        console.log("Email enviado exitosamente:", response);
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
+        }
 
         toast({
           title: "¡Mensaje enviado exitosamente!",
@@ -111,9 +108,8 @@ const Contact = () => {
 
       form.reset();
     } catch (error) {
-      console.error("Error al enviar email:", error);
+      console.error("Error al enviar formulario:", error);
 
-      // Mensaje de error más específico
       const errorMessage = error instanceof Error ? error.message : "Error desconocido";
 
       toast({
@@ -308,7 +304,7 @@ const Contact = () => {
                           <FormLabel>Mensaje</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder="Cuéntanos m��s sobre lo que necesitas..."
+                              placeholder="Cuéntanos más sobre lo que necesitas..."
                               rows={4}
                               {...field}
                             />
