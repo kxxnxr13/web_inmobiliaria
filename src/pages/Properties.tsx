@@ -210,14 +210,14 @@ const Properties = () => {
                     <div className="text-xs font-medium text-navy-600 mb-2">Estado: {property.condition || 'N/A'}</div>
                     <div className="text-xs font-medium text-navy-600 mb-2">Tipo: {property.propertyType || 'N/A'}</div>
                     <div className="flex flex-wrap gap-1">
-                      {(property.amenities || []).slice(0, 2).map((amenity, index) => (
+                      {(property.caracteristicas || []).slice(0, 2).map((caracteristica, index) => (
                         <Badge key={index} variant="secondary" className="text-xs">
-                          {amenity}
+                          {caracteristica}
                         </Badge>
                       ))}
-                      {(property.amenities || []).length > 2 && (
+                      {(property.caracteristicas || []).length > 2 && (
                         <Badge variant="outline" className="text-xs">
-                          +{(property.amenities || []).length - 2} más
+                          +{(property.caracteristicas || []).length - 2} más
                         </Badge>
                       )}
                     </div>
