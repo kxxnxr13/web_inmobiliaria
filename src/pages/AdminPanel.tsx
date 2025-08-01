@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
-import { LogOut, Plus, Shield, Trash2, User, Users, Mail, Calendar, MoreHorizontal } from "lucide-react";
+import { LogOut, Plus, Shield, Trash2, User, Users, Mail, Calendar, MoreHorizontal, Home } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -220,7 +220,7 @@ const AdminPanel = () => {
                         type="password"
                         value={newAdminForm.password}
                         onChange={(e) => setNewAdminForm(prev => ({ ...prev, password: e.target.value }))}
-                        placeholder="••••••••"
+                        placeholder="••••••��•"
                         required
                         minLength={6}
                       />
