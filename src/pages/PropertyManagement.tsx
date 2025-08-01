@@ -60,7 +60,7 @@ const PropertyManagement = () => {
       type: newPropertyForm.type,
       status: newPropertyForm.status,
       imageUrl: newPropertyForm.imageUrl || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400',
-      adminId: user?.id || '1',
+      adminId: 'general', // Propiedades generales que cualquier admin puede gestionar
       featured: false,
       amenities: [],
       condition: 'Excelente',
