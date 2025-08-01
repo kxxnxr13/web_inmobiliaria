@@ -128,76 +128,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="h-6 w-6 text-gold-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-navy-800 mb-2">
-                  Nuestra Oficina
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Av. Principal 123, Centro
-                  <br />
-                  Ciudad, País 12345
-                </p>
-              </CardContent>
-            </Card>
 
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Phone className="h-6 w-6 text-gold-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-navy-800 mb-2">
-                  Teléfonos
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  +1 (555) 123-4567
-                  <br />
-                  +1 (555) 123-4568
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Mail className="h-6 w-6 text-gold-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-navy-800 mb-2">
-                  Email
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  info@inmobiliaria.com
-                  <br />
-                  ventas@inmobiliaria.com
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Clock className="h-6 w-6 text-gold-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-navy-800 mb-2">
-                  Horarios
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Lun - Vie: 9:00 - 18:00
-                  <br />
-                  Sáb: 10:00 - 14:00
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Contact Form and Services */}
       <section className="py-16 bg-white">
