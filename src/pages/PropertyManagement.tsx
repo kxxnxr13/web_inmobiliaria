@@ -169,6 +169,12 @@ const PropertyManagement = () => {
       .map(c => c.trim())
       .filter(c => c.length > 0);
 
+    // Convertir string de servicios a array
+    const serviciosArray = editingProperty.servicios
+      .split(',')
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
     const updatedData = {
       title: editingProperty.title,
       description: editingProperty.description,
