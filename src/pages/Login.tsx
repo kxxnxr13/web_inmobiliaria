@@ -135,10 +135,14 @@ const Login = () => {
               <p className="text-sm text-gray-600">
                 Credenciales de prueba:
               </p>
-              <p className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-gray-500 mt-1 space-y-1">
+                <p><strong>Super Admin:</strong><br />
                 Email: superadmin@inmobiliaria.com<br />
-                Contraseña: admin123
-              </p>
+                Contraseña: admin123</p>
+                <p><strong>Administrador:</strong><br />
+                Email: admin1@inmobiliaria.com<br />
+                Contraseña: admin123</p>
+              </div>
             </div>
           </CardContent>
         </Card>
