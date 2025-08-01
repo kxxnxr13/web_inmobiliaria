@@ -16,6 +16,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import AdminPanel from "./pages/AdminPanel";
 import PropertyManagement from "./pages/PropertyManagement";
+import AmenitiesManagement from "./pages/AmenitiesManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
