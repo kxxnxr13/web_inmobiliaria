@@ -18,6 +18,26 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 import type { Property } from "@/contexts/PropertiesContext";
 
+// Características predefinidas del sistema
+const CARACTERISTICAS_PREDEFINIDAS = [
+  "Acabados de alta calidad",
+  "Espacios amplios y luminosos",
+  "Zona residencial tranquila",
+  "Excelente ubicación",
+  "Fácil acceso a servicios",
+  "Cerca de centros comerciales"
+];
+
+// Servicios y comodidades predefinidos
+const SERVICIOS_PREDEFINIDOS = [
+  "Internet disponible",
+  "Agua potable",
+  "Áreas verdes",
+  "Electricidad",
+  "Zona segura",
+  "Cocina funcional"
+];
+
 const PropertyManagement = () => {
   const { user, logout } = useAuth();
   const { getPropertiesByAdmin, createProperty, deleteProperty, updatePropertyStatus, updateProperty, properties, refreshProperties } = useProperties();
