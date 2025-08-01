@@ -235,6 +235,13 @@ const PropertyManagement = () => {
   // Filtrar propiedades del administrador actual
   const userProperties = getPropertiesByAdmin(user?.id || '');
 
+  // Debug: Log de las propiedades cargadas
+  console.log('=== PROPERTIES LOADED ===');
+  console.log('Total properties available:', properties.length);
+  console.log('User properties:', userProperties.length);
+  console.log('Sample property for debugging:', userProperties[0]);
+  console.log('=== END PROPERTIES LOADED ===');
+
 
 
   return (
