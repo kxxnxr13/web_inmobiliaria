@@ -86,9 +86,15 @@ const PropertyManagement = () => {
       bedrooms: "",
       bathrooms: "",
       area: "",
+      parking: "",
+      yearBuilt: "",
       type: "venta",
       status: "disponible",
-      imageUrl: ""
+      imageUrl: "",
+      condition: "Excelente",
+      propertyType: "Casa",
+      amenities: [],
+      featured: false
     });
     setIsCreateDialogOpen(false);
 
