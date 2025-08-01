@@ -47,6 +47,7 @@ const INITIAL_ADMINS: Admin[] = [
     id: '1',
     email: 'admin1@inmobiliaria.com',
     name: 'Carlos Rodríguez',
+    password: 'admin123',
     createdAt: '2024-01-15',
     isActive: true
   },
@@ -54,6 +55,7 @@ const INITIAL_ADMINS: Admin[] = [
     id: '2',
     email: 'admin2@inmobiliaria.com',
     name: 'María González',
+    password: 'admin123',
     createdAt: '2024-01-20',
     isActive: true
   }
