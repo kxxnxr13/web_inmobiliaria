@@ -55,6 +55,14 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/amenities"
+                element={
+                  <ProtectedRoute requireRole={["admin", "superadmin"]}>
+                    <AmenitiesManagement />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
