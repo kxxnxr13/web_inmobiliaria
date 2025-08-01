@@ -129,6 +129,12 @@ const PropertyManagement = () => {
   };
 
   const handleEditProperty = (property: any) => {
+    // Convertir amenities (nombres) a amenityIds
+    const availableAmenities = getActiveAmenities();
+    const amenityIds = (property.amenities || [])
+      .map((amenityName: string) => availableAmenities.find(a => a.name === amenityName)?.id)
+      .filter(Boolean) as string[];
+
     setEditingProperty({
       ...property,
       price: property.price.toString(),
@@ -137,7 +143,7 @@ const PropertyManagement = () => {
       area: property.area.toString(),
       parking: property.parking?.toString() || '',
       yearBuilt: property.yearBuilt?.toString() || '',
-      amenities: property.amenities || [],
+      amenityIds: amenityIds,
       condition: property.condition || 'Excelente',
       propertyType: property.propertyType || 'Casa',
       featured: property.featured || false,
