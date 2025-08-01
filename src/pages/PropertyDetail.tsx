@@ -545,7 +545,7 @@ const PropertyDetail = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {property.features.map((feature, index) => (
+                  {(property.amenities || defaultFeatures).map((feature, index) => (
                     <div key={index} className="flex items-center">
                       <div className="w-2 h-2 bg-gold-500 rounded-full mr-3"></div>
                       <span className="text-gray-700">{feature}</span>
