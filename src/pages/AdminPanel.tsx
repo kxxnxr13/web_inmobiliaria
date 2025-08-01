@@ -46,7 +46,7 @@ const AdminPanel = () => {
         title: "¡Administrador creado!",
         description: `${newAdminForm.name} ha sido agregado exitosamente.`,
       });
-      setNewAdminForm({ name: "", email: "", isActive: true });
+      setNewAdminForm({ name: "", email: "", password: "", isActive: true });
       setIsCreateDialogOpen(false);
     } else {
       toast({
