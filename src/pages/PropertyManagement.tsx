@@ -136,7 +136,11 @@ const PropertyManagement = () => {
   };
 
   const handleEditProperty = (property: any) => {
-    console.log('Editing property:', property); // Debug log
+    console.log('=== EDITING PROPERTY ===');
+    console.log('Full property object:', property);
+    console.log('Property ID:', property.id);
+    console.log('Property características:', property.caracteristicas);
+    console.log('Property servicios:', property.servicios);
 
     // Convertir array de características a string, manejando casos undefined/null
     const caracteristicasArray = Array.isArray(property.caracteristicas) ? property.caracteristicas : [];
@@ -146,10 +150,11 @@ const PropertyManagement = () => {
     const serviciosArray = Array.isArray(property.servicios) ? property.servicios : [];
     const serviciosString = serviciosArray.join(', ');
 
-    console.log('Características string:', caracteristicasString); // Debug log
-    console.log('Servicios string:', serviciosString); // Debug log
+    console.log('Converted características string:', caracteristicasString);
+    console.log('Converted servicios string:', serviciosString);
+    console.log('=== END EDITING PROPERTY ===');
 
-    setEditingProperty({
+    const editingData = {
       ...property,
       price: property.price.toString(),
       bedrooms: property.bedrooms.toString(),
@@ -162,7 +167,10 @@ const PropertyManagement = () => {
       condition: property.condition || 'Excelente',
       propertyType: property.propertyType || 'Casa',
       featured: property.featured || false,
-    });
+    };
+
+    console.log('Final editing data:', editingData);
+    setEditingProperty(editingData);
     setIsEditDialogOpen(true);
   };
 
