@@ -873,19 +873,37 @@ const PropertyManagement = () => {
                       {formatPrice(property.price, property.type)}
                     </TableCell>
                     <TableCell>
-                      <div className="flex space-x-4 text-sm text-gray-600">
-                        <div className="flex items-center space-x-1">
-                          <Bed className="h-4 w-4" />
-                          <span>{property.bedrooms}</span>
+                      <div className="space-y-2 text-sm text-gray-600">
+                        <div className="flex space-x-3">
+                          <div className="flex items-center space-x-1">
+                            <Bed className="h-4 w-4" />
+                            <span>{property.bedrooms}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <Bath className="h-4 w-4" />
+                            <span>{property.bathrooms}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <Square className="h-4 w-4" />
+                            <span>{property.area}m²</span>
+                          </div>
+                          {property.parking && (
+                            <div className="flex items-center space-x-1">
+                              <Car className="h-4 w-4" />
+                              <span>{property.parking}</span>
+                            </div>
+                          )}
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <Bath className="h-4 w-4" />
-                          <span>{property.bathrooms}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Square className="h-4 w-4" />
-                          <span>{property.area}m²</span>
-                        </div>
+                        {property.yearBuilt && (
+                          <div className="text-xs text-gray-500">
+                            Construido: {property.yearBuilt}
+                          </div>
+                        )}
+                        {property.amenities && property.amenities.length > 0 && (
+                          <div className="text-xs text-gray-500">
+                            {property.amenities.length} características
+                          </div>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell>
