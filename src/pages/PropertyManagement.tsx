@@ -521,37 +521,16 @@ const PropertyManagement = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label>Amenidades</Label>
-                      <div className="max-h-48 overflow-y-auto border rounded-md p-4 space-y-2">
-                        {getActiveAmenities().map((amenity) => (
-                          <div key={amenity.id} className="flex items-center space-x-2">
-                            <input
-                              type="checkbox"
-                              id={`amenity-${amenity.id}`}
-                              checked={newPropertyForm.amenityIds.includes(amenity.id)}
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  setNewPropertyForm(prev => ({
-                                    ...prev,
-                                    amenityIds: [...prev.amenityIds, amenity.id]
-                                  }));
-                                } else {
-                                  setNewPropertyForm(prev => ({
-                                    ...prev,
-                                    amenityIds: prev.amenityIds.filter(id => id !== amenity.id)
-                                  }));
-                                }
-                              }}
-                              className="rounded border-gray-300"
-                            />
-                            <Label htmlFor={`amenity-${amenity.id}`} className="text-sm">
-                              {amenity.name}
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
+                      <Label htmlFor="caracteristicas">Características</Label>
+                      <Textarea
+                        id="caracteristicas"
+                        value={newPropertyForm.caracteristicas}
+                        onChange={(e) => setNewPropertyForm(prev => ({ ...prev, caracteristicas: e.target.value }))}
+                        placeholder="Aire acondicionado, Cocina integral, Jardín privado, Seguridad 24/7..."
+                        rows={3}
+                      />
                       <p className="text-xs text-gray-500">
-                        Selecciona las amenidades que incluye esta propiedad
+                        Separa cada característica con una coma (,)
                       </p>
                     </div>
 
