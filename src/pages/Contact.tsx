@@ -12,6 +12,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
+import {
   MapPin,
   Phone,
   Mail,
@@ -20,125 +29,119 @@ import {
   MessageSquare,
   Calendar,
   Users,
-  CheckCircle,
-  AlertCircle,
+  Loader2,
 } from "lucide-react";
-import { useForm } from "@formspree/react";
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useState } from "react";
 
-// Definir tipos para el formulario
-interface FormData {
-  nombre: string;
-  telefono: string;
-  email: string;
-  tipoConsulta: string;
-  mensaje: string;
-}
+const contactFormSchema = z.object({
+  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  phone: z.string().min(10, "El teléfono debe tener al menos 10 dígitos"),
+  email: z.string().email("Ingresa un email válido"),
+  consultationType: z.string().min(1, "Selecciona un tipo de consulta"),
+  message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
+});
 
-interface FormErrors {
-  nombre?: string;
-  telefono?: string;
-  email?: string;
-  tipoConsulta?: string;
-  mensaje?: string;
-}
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
-  // Tu ID de Formspree configurado
-  const [state, handleSubmit] = useForm("xyzppevq");
-  const [formData, setFormData] = useState<FormData>({
-    nombre: "",
-    telefono: "",
-    email: "",
-    tipoConsulta: "",
-    mensaje: "",
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      consultationType: "",
+      message: "",
+    },
   });
 
-  const [errors, setErrors] = useState<FormErrors>({});
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
 
-  // Validación básica
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+    try {
+      // URL de Formspree - reemplaza con tu endpoint real
+      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL || "https://formspree.io/f/demo";
 
-    if (!formData.nombre.trim()) {
-      newErrors.nombre = "El nombre es obligatorio";
-    }
+      // Verificar si Formspree está configurado
+      if (formspreeUrl === "https://formspree.io/f/demo") {
+        // Modo de demostración - solo simular el envío
+        console.log("Modo demostración - Datos del formulario:", data);
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
-    if (!formData.email.trim()) {
-      newErrors.email = "El email es obligatorio";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Ingresa un email válido";
-    }
+        toast({
+          title: "¡Formulario completado!",
+          description: "Configura Formspree para recibir emails reales. Datos mostrados en consola.",
+        });
+      } else {
+        // Enviar datos a Formspree
+        const response = await fetch(formspreeUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            consultationType: data.consultationType,
+            message: data.message,
+            _replyto: data.email,
+            _subject: `Nueva consulta inmobiliaria de ${data.name}`,
+          }),
+        });
 
-    if (!formData.tipoConsulta) {
-      newErrors.tipoConsulta = "Selecciona un tipo de consulta";
-    }
+        if (!response.ok) {
+          // Manejo específico de errores de Formspree
+          let errorMessage = `Error HTTP: ${response.status}`;
 
-    if (!formData.mensaje.trim()) {
-      newErrors.mensaje = "El mensaje es obligatorio";
-    } else if (formData.mensaje.trim().length < 10) {
-      newErrors.mensaje = "El mensaje debe tener al menos 10 caracteres";
-    }
+          if (response.status === 422) {
+            errorMessage = "🔓 Formulario pendiente de activación. Ve a formspree.io/forms o envía un email a xyzppevq@formspree.io para activarlo.";
+          } else if (response.status === 429) {
+            errorMessage = "Demasiados envíos. Intenta nuevamente más tarde.";
+          } else {
+            // Solo intentar leer JSON si es necesario y es seguro
+            try {
+              const errorData = await response.json();
+              errorMessage = errorData.error || errorMessage;
+            } catch {
+              // Si no se puede leer el JSON, usar el mensaje por defecto
+            }
+          }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+          throw new Error(errorMessage);
+        }
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+        // Solo leer la respuesta si fue exitosa
+        await response.json();
 
-    // Limpiar error del campo cuando el usuario empiece a escribir
-    if (errors[field]) {
-      setErrors(prev => ({
-        ...prev,
-        [field]: undefined
-      }));
-    }
-  };
+        toast({
+          title: "¡Mensaje enviado exitosamente!",
+          description: "Nos pondremos en contacto contigo pronto.",
+        });
+      }
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      toast.error("Por favor, corrige los errores del formulario");
-      return;
-    }
+      form.reset();
+    } catch (error) {
+      console.error("Error al enviar formulario:", error);
 
-    // Llamar a handleSubmit de Formspree
-    await handleSubmit(e);
-  };
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
 
-  // Manejar notificaciones cuando cambie el estado de Formspree
-  useEffect(() => {
-    if (state.succeeded) {
-      toast.success("¡Mensaje enviado exitosamente!", {
-        description: "Te contactaremos pronto. Gracias por escribirnos.",
-        duration: 5000,
+      toast({
+        title: "Error al enviar mensaje",
+        description: `${errorMessage}. Por favor intenta nuevamente o contacta por teléfono.`,
+        variant: "destructive",
       });
-
-      // Limpiar el formulario después del envío exitoso
-      setFormData({
-        nombre: "",
-        telefono: "",
-        email: "",
-        tipoConsulta: "",
-        mensaje: "",
-      });
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [state.succeeded]);
-
-  useEffect(() => {
-    if (state.errors && state.errors.length > 0) {
-      toast.error("Error al enviar el mensaje", {
-        description: "Por favor, intenta nuevamente en unos momentos.",
-      });
-    }
-  }, [state.errors]);
-
+  };
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -236,157 +239,122 @@ const Contact = () => {
               <h2 className="text-3xl font-bold text-navy-800 mb-6">
                 Envíanos un Mensaje
               </h2>
-              
-              {/* Estado de éxito */}
-              {state.succeeded && (
-                <Card className="mb-6 border-green-200 bg-green-50">
-                  <CardContent className="p-4">
-                    <div className="flex items-center text-green-700">
-                      <CheckCircle className="h-5 w-5 mr-2" />
-                      <span className="font-medium">¡Mensaje enviado exitosamente!</span>
-                    </div>
-                    <p className="text-green-600 text-sm mt-1">
-                      Te contactaremos pronto. Gracias por escribirnos.
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Estado de error */}
-              {state.errors && state.errors.length > 0 && (
-                <Card className="mb-6 border-red-200 bg-red-50">
-                  <CardContent className="p-4">
-                    <div className="flex items-center text-red-700">
-                      <AlertCircle className="h-5 w-5 mr-2" />
-                      <span className="font-medium">Error al enviar el mensaje</span>
-                    </div>
-                    <p className="text-red-600 text-sm mt-1">
-                      Por favor, intenta nuevamente en unos momentos.
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-
               <Card className="p-6">
-                <form onSubmit={onSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Nombre Completo *
-                      </label>
-                      <Input
-                        name="nombre"
-                        value={formData.nombre}
-                        onChange={(e) => handleInputChange("nombre", e.target.value)}
-                        placeholder="Tu nombre completo"
-                        className={errors.nombre ? "border-red-500" : ""}
-                        disabled={state.submitting}
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nombre Completo</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Tu nombre completo" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                      {errors.nombre && (
-                        <p className="text-red-500 text-sm mt-1">{errors.nombre}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Teléfono
-                      </label>
-                      <Input
-                        name="telefono"
-                        value={formData.telefono}
-                        onChange={(e) => handleInputChange("telefono", e.target.value)}
-                        placeholder="Tu número de teléfono"
-                        disabled={state.submitting}
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Teléfono</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Tu número de teléfono" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <Input
-                      type="email"
+                    <FormField
+                      control={form.control}
                       name="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      placeholder="tu@email.com"
-                      className={errors.email ? "border-red-500" : ""}
-                      disabled={state.submitting}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="tu@email.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                    )}
-                  </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Tipo de Consulta *
-                    </label>
-                    <Select
-                      name="tipoConsulta"
-                      value={formData.tipoConsulta}
-                      onValueChange={(value) => handleInputChange("tipoConsulta", value)}
-                      disabled={state.submitting}
+                    <FormField
+                      control={form.control}
+                      name="consultationType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Tipo de Consulta</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecciona el tipo de consulta" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="compra">Quiero Comprar</SelectItem>
+                              <SelectItem value="venta">Quiero Vender</SelectItem>
+                              <SelectItem value="alquiler">
+                                Busco en Alquiler
+                              </SelectItem>
+                              <SelectItem value="inversion">
+                                Inversión Inmobiliaria
+                              </SelectItem>
+                              <SelectItem value="proyecto">
+                                Proyectos en Desarrollo
+                              </SelectItem>
+                              <SelectItem value="otros">Otros</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Mensaje</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Cuéntanos más sobre lo que necesitas..."
+                              rows={4}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      className="w-full bg-gold-500 hover:bg-gold-600"
+                      size="lg"
+                      disabled={isSubmitting}
                     >
-                      <SelectTrigger className={errors.tipoConsulta ? "border-red-500" : ""}>
-                        <SelectValue placeholder="Selecciona el tipo de consulta" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="compra">Quiero Comprar</SelectItem>
-                        <SelectItem value="venta">Quiero Vender</SelectItem>
-                        <SelectItem value="alquiler">Busco en Alquiler</SelectItem>
-                        <SelectItem value="inversion">Inversión Inmobiliaria</SelectItem>
-                        <SelectItem value="proyecto">Proyectos en Desarrollo</SelectItem>
-                        <SelectItem value="otros">Otros</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.tipoConsulta && (
-                      <p className="text-red-500 text-sm mt-1">{errors.tipoConsulta}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mensaje *
-                    </label>
-                    <Textarea
-                      name="mensaje"
-                      value={formData.mensaje}
-                      onChange={(e) => handleInputChange("mensaje", e.target.value)}
-                      placeholder="Cuéntanos más sobre lo que necesitas..."
-                      rows={4}
-                      className={errors.mensaje ? "border-red-500" : ""}
-                      disabled={state.submitting}
-                    />
-                    {errors.mensaje && (
-                      <p className="text-red-500 text-sm mt-1">{errors.mensaje}</p>
-                    )}
-                  </div>
-
-                  {/* Campos ocultos para mejor organización en Formspree */}
-                  <input type="hidden" name="_subject" value={`Nueva consulta: ${formData.tipoConsulta || 'General'}`} />
-                  <input type="hidden" name="tipo_consulta" value={formData.tipoConsulta} />
-                  <input type="hidden" name="_template" value="table" />
-
-                  <Button
-                    type="submit"
-                    className="w-full bg-gold-500 hover:bg-gold-600"
-                    size="lg"
-                    disabled={state.submitting}
-                  >
-                    {state.submitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-5 w-5" />
-                        Enviar Mensaje
-                      </>
-                    )}
-                  </Button>
-                </form>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Enviando...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-5 w-5" />
+                          Enviar Mensaje
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </Form>
               </Card>
             </div>
 
@@ -446,20 +414,6 @@ const Contact = () => {
                   </Card>
                 </div>
               </div>
-
-              {/* Instructions Card */}
-              <Card className="p-6 bg-blue-50 border-blue-200">
-                <h3 className="text-lg font-semibold text-navy-800 mb-3">
-                  📧 Configuración de Formspree
-                </h3>
-                <div className="text-sm text-gray-600 space-y-2">
-                  <p><strong>Paso 1:</strong> Ve a <a href="https://formspree.io" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">formspree.io</a></p>
-                  <p><strong>Paso 2:</strong> Crea una cuenta gratuita</p>
-                  <p><strong>Paso 3:</strong> Crea un nuevo formulario</p>
-                  <p><strong>Paso 4:</strong> Reemplaza 'YOUR_FORM_ID' en el código con tu ID real</p>
-                  <p><strong>Paso 5:</strong> ¡Listo! Los emails llegarán a tu correo</p>
-                </div>
-              </Card>
 
               {/* Map Placeholder */}
               <div>
