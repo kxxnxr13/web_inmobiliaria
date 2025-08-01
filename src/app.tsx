@@ -22,41 +22,43 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/propiedades" element={<Properties />} />
-            <Route path="/propiedad/:id" element={<PropertyDetail />} />
-            <Route path="/nosotros" element={<About />} />
-            <Route path="/contacto" element={<Contact />} />
+      <PropertiesProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/propiedades" element={<Properties />} />
+              <Route path="/propiedad/:id" element={<PropertyDetail />} />
+              <Route path="/nosotros" element={<About />} />
+              <Route path="/contacto" element={<Contact />} />
 
-            {/* Admin Routes */}
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requireRole="superadmin">
-                  <AdminPanel />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/properties"
-              element={
-                <ProtectedRoute requireRole="admin">
-                  <PropertyManagement />
-                </ProtectedRoute>
-              }
-            />
+              {/* Admin Routes */}
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute requireRole="superadmin">
+                    <AdminPanel />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/properties"
+                element={
+                  <ProtectedRoute requireRole="admin">
+                    <PropertyManagement />
+                  </ProtectedRoute>
+                }
+              />
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </PropertiesProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
