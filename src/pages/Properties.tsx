@@ -177,36 +177,36 @@ const Properties = () => {
                     </div>
                     <div className="flex items-center">
                       <Car className="h-4 w-4 mr-1" />
-                      {property.parking} parking
+                      {property.parking || 0} parking
                     </div>
                   </div>
                   <div className="text-xs text-gray-500 mb-3 grid grid-cols-2 gap-2">
                     <div className="flex items-center">
                       <Calendar className="h-3 w-3 mr-1" />
-                      {property.yearBuilt}
+                      {property.yearBuilt || 'N/A'}
                     </div>
                     <div className="text-right">
-                      ${property.pricePerSqm}/m²
+                      ${property.pricePerSqm || 0}/m²
                     </div>
                   </div>
                   <div className="mb-4">
-                    <div className="text-xs font-medium text-navy-600 mb-2">Estado: {property.condition}</div>
-                    <div className="text-xs font-medium text-navy-600 mb-2">Tipo: {property.propertyType}</div>
+                    <div className="text-xs font-medium text-navy-600 mb-2">Estado: {property.condition || 'N/A'}</div>
+                    <div className="text-xs font-medium text-navy-600 mb-2">Tipo: {property.propertyType || 'N/A'}</div>
                     <div className="flex flex-wrap gap-1">
-                      {property.amenities.slice(0, 2).map((amenity, index) => (
+                      {(property.amenities || []).slice(0, 2).map((amenity, index) => (
                         <Badge key={index} variant="secondary" className="text-xs">
                           {amenity}
                         </Badge>
                       ))}
-                      {property.amenities.length > 2 && (
+                      {(property.amenities || []).length > 2 && (
                         <Badge variant="outline" className="text-xs">
-                          +{property.amenities.length - 2} más
+                          +{(property.amenities || []).length - 2} más
                         </Badge>
                       )}
                     </div>
                   </div>
                   <div className="text-xs text-gray-400 mb-3">
-                    Última actualización: {property.lastUpdated}
+                    Última actualización: {property.lastUpdated || property.createdAt}
                   </div>
                   <Link to={`/propiedad/${property.id}`}>
                     <Button className="w-full bg-navy-800 hover:bg-navy-700">
