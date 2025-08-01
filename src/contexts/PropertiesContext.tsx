@@ -326,10 +326,29 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Cargar propiedades desde localStorage al inicializar
   useEffect(() => {
-    // Limpiar localStorage corrupto y forzar recarga de datos frescos
-    localStorage.removeItem('properties_data');
-    console.log('Properties data cleared, loading fresh initial properties');
-    setProperties(INITIAL_PROPERTIES);
+    const savedProperties = localStorage.getItem('properties_data');
+    const needsReset = localStorage.getItem('properties_reset_needed');
+
+    if (needsReset !== 'false' && savedProperties) {
+      // Limpiar localStorage corrupto una sola vez
+      localStorage.removeItem('properties_data');
+      localStorage.setItem('properties_reset_needed', 'false');
+      console.log('Properties data cleared, loading fresh initial properties');
+      setProperties(INITIAL_PROPERTIES);
+    } else if (savedProperties && needsReset === 'false') {
+      try {
+        const parsedProperties = JSON.parse(savedProperties);
+        setProperties(parsedProperties);
+        console.log('Properties loaded from localStorage:', parsedProperties.length);
+      } catch (error) {
+        console.error('Error loading properties from localStorage:', error);
+        setProperties(INITIAL_PROPERTIES);
+      }
+    } else {
+      console.log('Loading initial properties for first time');
+      setProperties(INITIAL_PROPERTIES);
+      localStorage.setItem('properties_reset_needed', 'false');
+    }
   }, []);
 
   // Guardar propiedades en localStorage cuando cambie
