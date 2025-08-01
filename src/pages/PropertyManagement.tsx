@@ -138,6 +138,8 @@ const PropertyManagement = () => {
   const handleEditProperty = (property: any) => {
     // Convertir array de características a string
     const caracteristicasString = (property.caracteristicas || []).join(', ');
+    // Convertir array de servicios a string
+    const serviciosString = (property.servicios || []).join(', ');
 
     setEditingProperty({
       ...property,
@@ -148,6 +150,7 @@ const PropertyManagement = () => {
       parking: property.parking?.toString() || '',
       yearBuilt: property.yearBuilt?.toString() || '',
       caracteristicas: caracteristicasString,
+      servicios: serviciosString,
       condition: property.condition || 'Excelente',
       propertyType: property.propertyType || 'Casa',
       featured: property.featured || false,
