@@ -41,25 +41,8 @@ const SUPERADMIN_CREDENTIALS = {
   }
 };
 
-// Datos simulados de administradores iniciales
-const INITIAL_ADMINS: Admin[] = [
-  {
-    id: '1',
-    email: 'admin1@inmobiliaria.com',
-    name: 'Carlos Rodríguez',
-    password: 'admin123',
-    createdAt: '2024-01-15',
-    isActive: true
-  },
-  {
-    id: '2',
-    email: 'admin2@inmobiliaria.com',
-    name: 'María González',
-    password: 'admin123',
-    createdAt: '2024-01-20',
-    isActive: true
-  }
-];
+// No hay administradores iniciales - solo el superadmin puede crearlos
+const INITIAL_ADMINS: Admin[] = [];
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
