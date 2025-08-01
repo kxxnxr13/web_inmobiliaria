@@ -245,7 +245,7 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="mb-4">
-                    <div className="text-xs font-medium text-navy-600 mb-2">Amenidades destacadas:</div>
+                    <div className="text-xs font-medium text-navy-600 mb-2">Características destacadas:</div>
                     <div className="flex flex-wrap gap-1">
                       {(property.caracteristicas || []).slice(0, 3).map((caracteristica, index) => (
                         <Badge key={index} variant="secondary" className="text-xs">
