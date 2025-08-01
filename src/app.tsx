@@ -42,6 +42,14 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/properties"
+              element={
+                <ProtectedRoute requireRole="admin">
+                  <PropertyManagement />
+                </ProtectedRoute>
+              }
+            />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
