@@ -223,9 +223,9 @@ const PropertyManagement = () => {
           <CardHeader>
             <div className="flex justify-between items-center">
               <div>
-                <CardTitle className="text-xl text-navy-800">Mis Propiedades</CardTitle>
+                <CardTitle className="text-xl text-navy-800">Gestión de Propiedades</CardTitle>
                 <CardDescription>
-                  Gestiona tus propiedades registradas en el sistema
+                  Gestiona las propiedades del sistema inmobiliario
                 </CardDescription>
               </div>
               
