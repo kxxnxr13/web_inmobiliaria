@@ -381,7 +381,8 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   };
 
   const getPropertiesByAdmin = (adminId: string): Property[] => {
-    return properties.filter(property => property.adminId === adminId);
+    // Los admins pueden gestionar propiedades 'general' y sus propias propiedades
+    return properties.filter(property => property.adminId === 'general' || property.adminId === adminId);
   };
 
   const getFeaturedProperties = (): Property[] => {
