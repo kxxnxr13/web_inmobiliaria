@@ -118,7 +118,7 @@ const Properties = () => {
               >
                 <div className="relative">
                   <img
-                    src={property.image}
+                    src={property.imageUrl}
                     alt={property.title}
                     className="w-full h-48 object-cover"
                   />
