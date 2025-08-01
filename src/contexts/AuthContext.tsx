@@ -55,10 +55,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(JSON.parse(savedUser));
     }
 
-    // Limpiar administradores corruptos y empezar fresco
-    localStorage.removeItem('admins_data');
-    console.log('Admins data cleared, starting with empty admin list');
-    setAdmins(INITIAL_ADMINS);
+    const savedAdmins = localStorage.getItem('admins_data');
+    const needsReset = localStorage.getItem('admins_reset_needed');
+
+    if (needsReset !== 'false' && savedAdmins) {
+      // Limpiar administradores corruptos una sola vez
+      localStorage.removeItem('admins_data');
+      localStorage.setItem('admins_reset_needed', 'false');
+      console.log('Admins data cleared, starting with empty admin list');
+      setAdmins(INITIAL_ADMINS);
+    } else if (savedAdmins && needsReset === 'false') {
+      try {
+        const parsedAdmins = JSON.parse(savedAdmins);
+        setAdmins(parsedAdmins);
+        console.log('Admins loaded from localStorage:', parsedAdmins.length);
+      } catch (error) {
+        console.error('Error loading admins from localStorage:', error);
+        setAdmins(INITIAL_ADMINS);
+      }
+    } else {
+      console.log('Starting with empty admin list');
+      setAdmins(INITIAL_ADMINS);
+      localStorage.setItem('admins_reset_needed', 'false');
+    }
   }, []);
 
   // Guardar admins en localStorage cuando cambie
