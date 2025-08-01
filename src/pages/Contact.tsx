@@ -97,18 +97,29 @@ const Contact = () => {
           }),
         });
 
-        const responseData = await response.json();
-
         if (!response.ok) {
           // Manejo específico de errores de Formspree
+          let errorMessage = `Error HTTP: ${response.status}`;
+
           if (response.status === 422) {
-            throw new Error("El formulario necesita ser activado. Revisa tu email de Formspree.");
+            errorMessage = "El formulario necesita ser activado. Revisa tu email de Formspree.";
           } else if (response.status === 429) {
-            throw new Error("Demasiados envíos. Intenta nuevamente más tarde.");
+            errorMessage = "Demasiados envíos. Intenta nuevamente más tarde.";
           } else {
-            throw new Error(responseData.error || `Error HTTP: ${response.status}`);
+            // Solo intentar leer JSON si es necesario y es seguro
+            try {
+              const errorData = await response.json();
+              errorMessage = errorData.error || errorMessage;
+            } catch {
+              // Si no se puede leer el JSON, usar el mensaje por defecto
+            }
           }
+
+          throw new Error(errorMessage);
         }
+
+        // Solo leer la respuesta si fue exitosa
+        await response.json();
 
         toast({
           title: "¡Mensaje enviado exitosamente!",
