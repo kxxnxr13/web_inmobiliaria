@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { useProperties } from "@/contexts/PropertiesContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -102,7 +103,7 @@ const propertyData = {
     description: "Amplia casa familiar de dos plantas con jardín privado y piscina, perfecta para familias grandes. Ubicada en el exclusivo conjunto residencial Los Jardines, zona tranquila con excelentes escuelas cercanas y fácil acceso a vías principales.",
     features: [
       "Piscina privada climatizada", "Jardín amplio paisajista", "Cuarto de juegos para niños", "Oficina en casa equipada",
-      "Bodega grande de almacenamiento", "Terraza techada BBQ", "Zona de lavandería independiente", "Sistema de alarma inteligente",
+      "Bodega grande de almacenamiento", "Terraza techada BBQ", "Zona de lavander��a independiente", "Sistema de alarma inteligente",
       "Cocina tipo isla gourmet", "Baño principal con jacuzzi", "Walk-in closet doble", "Habitación de servicio",
       "Sala familiar adicional", "Comedor formal", "Estudio biblioteca", "Garaje para 3 vehículos"
     ],
