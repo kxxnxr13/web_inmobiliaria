@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LogOut, Plus, Home, Edit, Trash2, Eye, MapPin, DollarSign, Bed, Bath, Square, Camera } from "lucide-react";
+import { LogOut, Plus, Home, Edit, Trash2, Eye, MapPin, DollarSign, Bed, Bath, Square, Camera, Car } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProperties } from "@/contexts/PropertiesContext";
 import { useToast } from "@/hooks/use-toast";
