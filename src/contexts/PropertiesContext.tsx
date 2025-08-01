@@ -60,7 +60,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-10',
     adminId: 'general',
     featured: true,
-    amenities: ['Aire acondicionado', 'Cocina integral', 'Jardín privado', 'Seguridad 24/7'],
+    caracteristicas: ['Aire acondicionado', 'Cocina integral', 'Jardín privado', 'Seguridad 24/7'],
     pricePerSqm: Math.round(350000 / 150),
     condition: 'Excelente',
     propertyType: 'Casa'
