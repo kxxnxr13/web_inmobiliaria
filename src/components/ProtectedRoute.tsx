@@ -4,12 +4,12 @@ import { useAuth } from '@/contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requireRole?: 'superadmin' | 'admin';
+  requireRole?: 'superadmin' | 'admin' | ('superadmin' | 'admin')[];
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  children, 
-  requireRole = 'superadmin' 
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  requireRole = 'superadmin'
 }) => {
   const { user, isAuthenticated } = useAuth();
   const location = useLocation();
@@ -19,9 +19,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (requireRole && user?.role !== requireRole) {
-    // Si el usuario no tiene el rol requerido, redirigir al login
-    return <Navigate to="/login" replace />;
+  if (requireRole) {
+    const allowedRoles = Array.isArray(requireRole) ? requireRole : [requireRole];
+    if (!allowedRoles.includes(user?.role as any)) {
+      // Si el usuario no tiene el rol requerido, redirigir al login
+      return <Navigate to="/login" replace />;
+    }
   }
 
   return <>{children}</>;
