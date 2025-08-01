@@ -45,63 +45,8 @@ const Index = () => {
   const [propertyType, setPropertyType] = useState("");
   const [location, setLocation] = useState("");
 
-  // Mock data for featured properties
-  const featuredProperties = [
-    {
-      id: 1,
-      title: "Casa Moderna Residencial Los Pinos",
-      location: "Zona Norte, Ciudad",
-      price: "$450,000",
-      type: "Casa",
-      beds: 4,
-      baths: 3,
-      sqm: 280,
-      parking: 2,
-      yearBuilt: 2020,
-      image: "/placeholder.svg",
-      featured: true,
-      status: "Venta",
-      description: "Hermosa casa moderna de dos plantas con acabados de lujo, jardín privado y excelente ubicación.",
-      amenities: ["Aire acondicionado", "Cocina integral", "Jardín privado", "Seguridad 24/7", "Piscina comunitaria"],
-      pricePerSqm: Math.round(450000 / 280),
-    },
-    {
-      id: 2,
-      title: "Apartamento Moderno Vista al Mar",
-      location: "Zona Costa, Ciudad",
-      price: "$2,500/mes",
-      type: "Apartamento",
-      beds: 2,
-      baths: 2,
-      sqm: 120,
-      parking: 1,
-      yearBuilt: 2019,
-      image: "/placeholder.svg",
-      featured: true,
-      status: "Alquiler",
-      description: "Elegante apartamento con vista panorámica al mar y amenidades de lujo en edificio exclusivo.",
-      amenities: ["Vista al océano", "Gimnasio", "Piscina infinity", "Concierge 24/7", "Balcón amplio"],
-      pricePerSqm: Math.round(2500 / 120),
-    },
-    {
-      id: 3,
-      title: "Penthouse Ejecutivo Premium",
-      location: "Zona Comercial, Ciudad",
-      price: "$850,000",
-      type: "Penthouse",
-      beds: 3,
-      baths: 4,
-      sqm: 450,
-      parking: 3,
-      yearBuilt: 2022,
-      image: "/placeholder.svg",
-      featured: true,
-      status: "Venta",
-      description: "Exclusivo penthouse con terraza panorámica, jacuzzi privado y acabados premium en el corazón de la ciudad.",
-      amenities: ["Terraza panorámica", "Jacuzzi privado", "Smart home", "Cocina gourmet", "Valet parking"],
-      pricePerSqm: Math.round(850000 / 450),
-    },
-  ];
+  const { getFeaturedProperties } = useProperties();
+  const featuredProperties = getFeaturedProperties();
 
 
 
