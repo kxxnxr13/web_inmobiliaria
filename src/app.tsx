@@ -47,7 +47,7 @@ const App = () => (
               <Route
                 path="/properties"
                 element={
-                  <ProtectedRoute requireRole="admin">
+                  <ProtectedRoute requireRole={["admin", "superadmin"]}>
                     <PropertyManagement />
                   </ProtectedRoute>
                 }
