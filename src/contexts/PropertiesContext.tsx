@@ -18,6 +18,7 @@ export interface Property {
   adminId: string;
   featured?: boolean;
   caracteristicas?: string[];
+  servicios?: string[];
   pricePerSqm?: number;
   condition?: string;
   propertyType?: string;
