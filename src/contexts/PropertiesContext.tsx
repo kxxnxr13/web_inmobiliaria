@@ -407,6 +407,19 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     // No es necesario hacer nada aquí ya que getPropertiesByAdmin ya incluye propiedades 'general'
   };
 
+  const refreshProperties = () => {
+    const savedProperties = localStorage.getItem('properties_data');
+    if (savedProperties) {
+      try {
+        const parsedProperties = JSON.parse(savedProperties);
+        setProperties(parsedProperties);
+        console.log('Properties refreshed:', parsedProperties.length, 'properties loaded');
+      } catch (error) {
+        console.error('Error refreshing properties:', error);
+      }
+    }
+  };
+
   const value: PropertiesContextType = {
     properties,
     createProperty,
