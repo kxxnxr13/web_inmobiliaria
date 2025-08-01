@@ -108,6 +108,7 @@ const PropertyManagement = () => {
       condition: "Excelente",
       propertyType: "Casa",
       caracteristicas: "",
+      servicios: "",
       featured: false
     });
     setIsCreateDialogOpen(false);
