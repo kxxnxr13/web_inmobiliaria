@@ -183,6 +183,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Completamente amueblado', 'Internet incluido', 'Lavandería', 'Portero', 'Área social'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Zona segura'],
     pricePerSqm: Math.round(1200 / 65),
     condition: 'Excelente',
     propertyType: 'Apartamento'
@@ -206,6 +207,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: true,
     caracteristicas: ['Piscina infinita', 'Sala de cine', 'Gimnasio privado', 'Wine cellar', 'Smart home', 'Jardín paisajista'],
+    servicios: ['Internet fibra óptica', 'Electricidad', 'Agua potable', 'Áreas verdes', 'Cocina funcional', 'Estacionamiento'],
     pricePerSqm: Math.round(450000 / 350),
     condition: 'Nuevo',
     propertyType: 'Villa'
@@ -229,6 +231,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Área de juegos', 'Cerca de colegios', 'Parque infantil', 'Salón comunal', 'Zona BBQ'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Áreas verdes', 'Zona segura'],
     pricePerSqm: Math.round(1600 / 110),
     condition: 'Muy bueno',
     propertyType: 'Apartamento'
@@ -252,6 +255,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Diseño minimalista', 'Grandes ventanales', 'Espacios abiertos', 'Domótica', 'Terraza verde'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Buena ventilación', 'Áreas verdes'],
     pricePerSqm: Math.round(275000 / 160),
     condition: 'Como nuevo',
     propertyType: 'Casa'
@@ -275,6 +279,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Techos altos', 'Vigas expuestas', 'Diseño industrial', 'Zona artística', 'Estudios cercanos'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Buena ventilación'],
     pricePerSqm: Math.round(2200 / 130),
     condition: 'Renovado',
     propertyType: 'Loft'
