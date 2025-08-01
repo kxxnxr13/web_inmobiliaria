@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { PropertiesProvider } from "@/contexts/PropertiesContext";
-import { AmenitiesProvider } from "@/contexts/AmenitiesContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Properties from "./pages/Properties";
@@ -16,7 +15,6 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import AdminPanel from "./pages/AdminPanel";
 import PropertyManagement from "./pages/PropertyManagement";
-import AmenitiesManagement from "./pages/AmenitiesManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
