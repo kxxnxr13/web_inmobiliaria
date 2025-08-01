@@ -23,8 +23,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <PropertiesProvider>
-        <AmenitiesProvider>
-          <TooltipProvider>
+        <TooltipProvider>
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -53,21 +52,13 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/amenities"
-                element={
-                  <ProtectedRoute requireRole={["admin", "superadmin"]}>
-                    <AmenitiesManagement />
-                  </ProtectedRoute>
-                }
-              />
+
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
           </TooltipProvider>
-        </AmenitiesProvider>
       </PropertiesProvider>
     </AuthProvider>
   </QueryClientProvider>
