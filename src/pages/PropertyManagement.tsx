@@ -101,7 +101,7 @@ const PropertyManagement = () => {
       imageUrl: "",
       condition: "Excelente",
       propertyType: "Casa",
-      amenities: [],
+      amenityIds: [],
       featured: false
     });
     setIsCreateDialogOpen(false);
@@ -676,7 +676,7 @@ const PropertyManagement = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="edit-area">��rea (m²)</Label>
+                          <Label htmlFor="edit-area">Área (m²)</Label>
                           <Input
                             id="edit-area"
                             type="number"
