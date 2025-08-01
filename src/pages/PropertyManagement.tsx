@@ -113,6 +113,12 @@ const PropertyManagement = () => {
       bedrooms: property.bedrooms.toString(),
       bathrooms: property.bathrooms.toString(),
       area: property.area.toString(),
+      parking: property.parking?.toString() || '',
+      yearBuilt: property.yearBuilt?.toString() || '',
+      amenities: property.amenities || [],
+      condition: property.condition || 'Excelente',
+      propertyType: property.propertyType || 'Casa',
+      featured: property.featured || false,
     });
     setIsEditDialogOpen(true);
   };
