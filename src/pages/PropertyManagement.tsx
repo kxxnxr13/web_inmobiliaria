@@ -821,7 +821,7 @@ const PropertyManagement = () => {
                         <Label htmlFor="edit-caracteristicas">Características</Label>
                         <Textarea
                           id="edit-caracteristicas"
-                          value={editingProperty.caracteristicas}
+                          value={editingProperty.caracteristicas || ''}
                           onChange={(e) => setEditingProperty(prev => ({ ...prev, caracteristicas: e.target.value }))}
                           placeholder="Aire acondicionado, Cocina integral, Jardín privado, Seguridad 24/7..."
                           rows={3}
