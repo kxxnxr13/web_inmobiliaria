@@ -24,6 +24,8 @@ const PropertyManagement = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingProperty, setEditingProperty] = useState<any>(null);
   const [newPropertyForm, setNewPropertyForm] = useState({
     title: "",
     description: "",
