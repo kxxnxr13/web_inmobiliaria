@@ -336,6 +336,7 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setProperties(INITIAL_PROPERTIES);
       }
     } else {
+      console.log('No saved properties found, loading initial properties');
       setProperties(INITIAL_PROPERTIES);
     }
   }, []);
