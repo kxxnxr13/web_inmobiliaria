@@ -151,11 +151,11 @@ const PropertyManagement = () => {
 
     if (!editingProperty) return;
 
-    // Convertir amenityIds a nombres de amenidades
-    const availableAmenities = getActiveAmenities();
-    const selectedAmenities = (editingProperty.amenityIds || [])
-      .map(id => availableAmenities.find(a => a.id === id)?.name)
-      .filter(Boolean) as string[];
+    // Convertir string de características a array
+    const caracteristicasArray = editingProperty.caracteristicas
+      .split(',')
+      .map(c => c.trim())
+      .filter(c => c.length > 0);
 
     const updatedData = {
       title: editingProperty.title,
@@ -172,7 +172,7 @@ const PropertyManagement = () => {
       imageUrl: editingProperty.imageUrl,
       condition: editingProperty.condition || 'Excelente',
       propertyType: editingProperty.propertyType || 'Casa',
-      amenities: selectedAmenities,
+      caracteristicas: caracteristicasArray,
       featured: editingProperty.featured || false
     };
 
