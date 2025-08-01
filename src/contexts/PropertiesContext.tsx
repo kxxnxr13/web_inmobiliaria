@@ -83,7 +83,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-15',
     adminId: 'general',
     featured: false,
-    amenities: ['Vista al océano', 'Gimnasio', 'Concierge 24/7'],
+    caracteristicas: ['Vista al océano', 'Gimnasio', 'Concierge 24/7'],
     pricePerSqm: Math.round(1200 / 80),
     condition: 'Como nuevo',
     propertyType: 'Apartamento'
