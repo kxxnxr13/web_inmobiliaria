@@ -66,7 +66,38 @@ const PropertyDetail = () => {
     "Cerca de centros comerciales"
   ];
 
-  // Características por defecto con iconos
+  // Mapeo inteligente de servicios a iconos
+  const getIconForService = (servicio: string) => {
+    const servicioLower = servicio.toLowerCase();
+
+    if (servicioLower.includes('internet') || servicioLower.includes('wifi') || servicioLower.includes('fibra')) {
+      return Wifi;
+    } else if (servicioLower.includes('electric') || servicioLower.includes('luz') || servicioLower.includes('energía')) {
+      return Zap;
+    } else if (servicioLower.includes('agua') || servicioLower.includes('potable') || servicioLower.includes('water')) {
+      return Droplets;
+    } else if (servicioLower.includes('segur') || servicioLower.includes('security') || servicioLower.includes('protec')) {
+      return Shield;
+    } else if (servicioLower.includes('verde') || servicioLower.includes('jardín') || servicioLower.includes('parque') || servicioLower.includes('áreas verdes')) {
+      return Trees;
+    } else if (servicioLower.includes('cocina') || servicioLower.includes('kitchen') || servicioLower.includes('funcional')) {
+      return Utensils;
+    } else if (servicioLower.includes('ventilac') || servicioLower.includes('aire') || servicioLower.includes('climatiz')) {
+      return Wind;
+    } else if (servicioLower.includes('estacion') || servicioLower.includes('parking') || servicioLower.includes('garaje')) {
+      return Car;
+    } else if (servicioLower.includes('piscina') || servicioLower.includes('pool') || servicioLower.includes('natación')) {
+      return Wind; // Usando wind como placeholder para agua/piscina
+    } else if (servicioLower.includes('gimnasio') || servicioLower.includes('ejercicio') || servicioLower.includes('fitness')) {
+      return Shield; // Usando shield como placeholder para gym
+    } else if (servicioLower.includes('lavandería') || servicioLower.includes('laundry') || servicioLower.includes('ropa')) {
+      return Droplets; // Agua para lavandería
+    } else {
+      return Shield; // Icono por defecto
+    }
+  };
+
+  // Servicios por defecto con iconos (para cuando no hay servicios específicos)
   const defaultAmenities = [
     { icon: Wifi, label: "Internet disponible" },
     { icon: Zap, label: "Electricidad" },
