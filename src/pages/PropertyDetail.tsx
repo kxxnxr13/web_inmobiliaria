@@ -520,11 +520,19 @@ const PropertyDetail = () => {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="font-semibold">Año de construcción:</span>{" "}
-                    {property.yearBuilt}
+                    {property.yearBuilt || 'N/A'}
                   </div>
                   <div>
                     <span className="font-semibold">Tipo:</span>{" "}
                     {property.type === "venta" ? "Venta" : "Alquiler"}
+                  </div>
+                  <div>
+                    <span className="font-semibold">Estado:</span>{" "}
+                    {property.status === 'disponible' ? 'Disponible' : property.status}
+                  </div>
+                  <div>
+                    <span className="font-semibold">Condición:</span>{" "}
+                    {property.condition || 'Excelente'}
                   </div>
                 </div>
               </CardContent>
