@@ -330,80 +330,40 @@ const Contact = () => {
               </Card>
             </div>
 
-            {/* Services & Quick Actions */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl font-bold text-navy-800 mb-6">
-                  ¿Cómo Podemos Ayudarte?
-                </h2>
-                <div className="grid gap-4">
-                  <Card className="p-4 hover:shadow-lg transition-shadow cursor-pointer">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-10 h-10 bg-gold-100 rounded-lg flex items-center justify-center">
-                        <MessageSquare className="h-5 w-5 text-gold-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-navy-800">
-                          Consulta General
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          Preguntas sobre servicios y propiedades
-                        </p>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <Card className="p-4 hover:shadow-lg transition-shadow cursor-pointer">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-10 h-10 bg-gold-100 rounded-lg flex items-center justify-center">
-                        <Calendar className="h-5 w-5 text-gold-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-navy-800">
-                          Agendar Cita
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          Reunión presencial con nuestros asesores
-                        </p>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <Card className="p-4 hover:shadow-lg transition-shadow cursor-pointer">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-10 h-10 bg-gold-100 rounded-lg flex items-center justify-center">
-                        <Users className="h-5 w-5 text-gold-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-navy-800">
-                          Asesoría Especializada
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          Consulta con expertos en inversión
-                        </p>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-
-              {/* Contact Information Card */}
+            {/* Contact Information */}
+            <div>
+              <h2 className="text-3xl font-bold text-navy-800 mb-6">
+                Información de Contacto
+              </h2>
               <Card className="p-6 bg-navy-50 border-navy-200">
-                <h3 className="text-xl font-semibold text-navy-800 mb-4">
-                  Información de Contacto
-                </h3>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex items-center">
-                    <MapPin className="h-5 w-5 mr-3 text-gold-500" />
-                    <span className="text-gray-700">Av. Principal 123, Centro</span>
+                    <MapPin className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-navy-800">Dirección</p>
+                      <p className="text-gray-700">Av. Principal 123, Centro</p>
+                    </div>
                   </div>
                   <div className="flex items-center">
-                    <Phone className="h-5 w-5 mr-3 text-gold-500" />
-                    <span className="text-gray-700">+1 (555) 123-4567</span>
+                    <Phone className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-navy-800">Teléfonos</p>
+                      <p className="text-gray-700">+1 (555) 123-4567</p>
+                    </div>
                   </div>
                   <div className="flex items-center">
-                    <Mail className="h-5 w-5 mr-3 text-gold-500" />
-                    <span className="text-gray-700">info@inmobiliaria.com</span>
+                    <Mail className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-navy-800">Email</p>
+                      <p className="text-gray-700">info@inmobiliaria.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-navy-800">Horarios</p>
+                      <p className="text-gray-700">Lun - Vie: 9:00 - 18:00</p>
+                    </div>
                   </div>
                 </div>
               </Card>
