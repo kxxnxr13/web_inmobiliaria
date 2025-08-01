@@ -366,7 +366,7 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       createdAt: new Date().toISOString().split('T')[0],
       lastUpdated: new Date().toISOString().split('T')[0],
       pricePerSqm: propertyData.area ? Math.round(propertyData.price / propertyData.area) : 0,
-      amenities: propertyData.amenities || [],
+      caracteristicas: propertyData.caracteristicas || [],
       condition: propertyData.condition || 'Bueno',
       propertyType: propertyData.propertyType || 'Casa'
     };
