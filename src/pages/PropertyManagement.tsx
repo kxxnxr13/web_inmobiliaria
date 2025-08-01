@@ -110,7 +110,7 @@ const PropertyManagement = () => {
       : `$${price.toLocaleString()}/mes`;
   };
 
-  if (!user || user.role !== 'admin') {
+  if (!user || (user.role !== 'admin' && user.role !== 'superadmin')) {
     navigate('/login');
     return null;
   }
