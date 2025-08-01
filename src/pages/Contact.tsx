@@ -387,37 +387,23 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div>
-                <h3 className="text-xl font-semibold text-navy-800 mb-4">
-                  Nuestra Ubicación
-                </h3>
-                <Card className="h-64 bg-gray-100 flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <MapPin className="h-12 w-12 mx-auto mb-2" />
-                    <p>Mapa Interactivo</p>
-                    <p className="text-sm">Av. Principal 123, Centro</p>
-                  </div>
-                </Card>
-              </div>
-
-              {/* Emergency Contact */}
+              {/* Contact Information Card */}
               <Card className="p-6 bg-navy-50 border-navy-200">
-                <h3 className="text-lg font-semibold text-navy-800 mb-3">
-                  Atención de Emergencia
+                <h3 className="text-xl font-semibold text-navy-800 mb-4">
+                  Información de Contacto
                 </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Para asuntos urgentes fuera del horario de oficina,
-                  contáctanos a través de:
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <Phone className="h-4 w-4 mr-2 text-gold-500" />
-                    <span>WhatsApp: +1 (555) 123-4567</span>
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <MapPin className="h-5 w-5 mr-3 text-gold-500" />
+                    <span className="text-gray-700">Av. Principal 123, Centro</span>
                   </div>
-                  <div className="flex items-center text-sm">
-                    <Mail className="h-4 w-4 mr-2 text-gold-500" />
-                    <span>emergencias@inmobiliaria.com</span>
+                  <div className="flex items-center">
+                    <Phone className="h-5 w-5 mr-3 text-gold-500" />
+                    <span className="text-gray-700">+1 (555) 123-4567</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Mail className="h-5 w-5 mr-3 text-gold-500" />
+                    <span className="text-gray-700">info@inmobiliaria.com</span>
                   </div>
                 </div>
               </Card>
