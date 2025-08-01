@@ -38,6 +38,7 @@ import {
 } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { useProperties } from "@/contexts/PropertiesContext";
 
 const Index = () => {
   const [searchType, setSearchType] = useState("venta");
