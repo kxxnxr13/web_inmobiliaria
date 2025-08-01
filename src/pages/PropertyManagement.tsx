@@ -57,11 +57,11 @@ const PropertyManagement = () => {
   const handleCreateProperty = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Convertir amenityIds a nombres de amenidades
-    const availableAmenities = getActiveAmenities();
-    const selectedAmenities = newPropertyForm.amenityIds
-      .map(id => availableAmenities.find(a => a.id === id)?.name)
-      .filter(Boolean) as string[];
+    // Convertir string de características a array
+    const caracteristicasArray = newPropertyForm.caracteristicas
+      .split(',')
+      .map(c => c.trim())
+      .filter(c => c.length > 0);
 
     const newPropertyData = {
       title: newPropertyForm.title,
@@ -78,7 +78,7 @@ const PropertyManagement = () => {
       imageUrl: newPropertyForm.imageUrl || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400',
       adminId: 'general', // Propiedades generales que cualquier admin puede gestionar
       featured: newPropertyForm.featured,
-      amenities: selectedAmenities,
+      caracteristicas: caracteristicasArray,
       condition: newPropertyForm.condition,
       propertyType: newPropertyForm.propertyType
     };
