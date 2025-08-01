@@ -504,8 +504,8 @@ const PropertyManagement = () => {
             {userProperties.length === 0 && (
               <div className="text-center py-8">
                 <Home className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No tienes propiedades registradas</p>
-                <p className="text-sm text-gray-500">Agrega tu primera propiedad al sistema</p>
+                <p className="text-gray-600">No hay propiedades disponibles para gestionar</p>
+                <p className="text-sm text-gray-500">Agrega una nueva propiedad al sistema</p>
               </div>
             )}
           </CardContent>
