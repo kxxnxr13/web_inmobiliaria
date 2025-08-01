@@ -203,6 +203,20 @@ const AdminPanel = () => {
                         required
                       />
                     </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="password">Contraseña</Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        value={newAdminForm.password}
+                        onChange={(e) => setNewAdminForm(prev => ({ ...prev, password: e.target.value }))}
+                        placeholder="••••••••"
+                        required
+                        minLength={6}
+                      />
+                      <p className="text-xs text-gray-500">Mínimo 6 caracteres</p>
+                    </div>
                     
                     <div className="flex items-center space-x-2">
                       <Switch
