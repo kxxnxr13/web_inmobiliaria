@@ -156,6 +156,12 @@ const PropertyManagement = () => {
 
     if (!editingProperty) return;
 
+    // Convertir amenityIds a nombres de amenidades
+    const availableAmenities = getActiveAmenities();
+    const selectedAmenities = (editingProperty.amenityIds || [])
+      .map(id => availableAmenities.find(a => a.id === id)?.name)
+      .filter(Boolean) as string[];
+
     const updatedData = {
       title: editingProperty.title,
       description: editingProperty.description,
@@ -171,7 +177,7 @@ const PropertyManagement = () => {
       imageUrl: editingProperty.imageUrl,
       condition: editingProperty.condition || 'Excelente',
       propertyType: editingProperty.propertyType || 'Casa',
-      amenities: editingProperty.amenities || [],
+      amenities: selectedAmenities,
       featured: editingProperty.featured || false
     };
 
