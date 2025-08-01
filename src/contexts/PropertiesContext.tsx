@@ -17,7 +17,7 @@ export interface Property {
   createdAt: string;
   adminId: string;
   featured?: boolean;
-  amenities?: string[];
+  caracteristicas?: string[];
   pricePerSqm?: number;
   condition?: string;
   propertyType?: string;
