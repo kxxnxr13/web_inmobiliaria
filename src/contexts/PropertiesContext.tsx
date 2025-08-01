@@ -393,6 +393,11 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     return properties.filter(property => property.status === 'disponible');
   };
 
+  const assignPropertiesToNewAdmin = (adminId: string) => {
+    // Esta función permite que un nuevo admin pueda gestionar propiedades generales
+    // No es necesario hacer nada aquí ya que getPropertiesByAdmin ya incluye propiedades 'general'
+  };
+
   const value: PropertiesContextType = {
     properties,
     createProperty,
