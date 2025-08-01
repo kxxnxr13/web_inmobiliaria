@@ -925,7 +925,21 @@ const PropertyManagement = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="edit-servicios">Servicios y Comodidades</Label>
+                        <div className="flex justify-between items-center">
+                          <Label htmlFor="edit-servicios">Servicios y Comodidades</Label>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setEditingProperty(prev => ({
+                              ...prev,
+                              servicios: SERVICIOS_PREDEFINIDOS.join(", ")
+                            }))}
+                            className="text-xs"
+                          >
+                            Usar predeterminados
+                          </Button>
+                        </div>
                         <Textarea
                           id="edit-servicios"
                           value={editingProperty.servicios || ''}
