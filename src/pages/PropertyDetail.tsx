@@ -97,6 +97,33 @@ const PropertyDetail = () => {
     }
   };
 
+  // Mapeo inteligente para características
+  const getIconForCharacteristic = (caracteristica: string) => {
+    const caracteristicaLower = caracteristica.toLowerCase();
+
+    if (caracteristicaLower.includes('aire') || caracteristicaLower.includes('acondicion') || caracteristicaLower.includes('climat')) {
+      return Wind;
+    } else if (caracteristicaLower.includes('cocina') || caracteristicaLower.includes('integral') || caracteristicaLower.includes('equipada')) {
+      return Utensils;
+    } else if (caracteristicaLower.includes('jardín') || caracteristicaLower.includes('verde') || caracteristicaLower.includes('terraza') || caracteristicaLower.includes('patio')) {
+      return Trees;
+    } else if (caracteristicaLower.includes('segur') || caracteristicaLower.includes('24/7') || caracteristicaLower.includes('vigilancia')) {
+      return Shield;
+    } else if (caracteristicaLower.includes('estacion') || caracteristicaLower.includes('parking') || caracteristicaLower.includes('garaje')) {
+      return Car;
+    } else if (caracteristicaLower.includes('balcón') || caracteristicaLower.includes('vista') || caracteristicaLower.includes('panorámic')) {
+      return Home;
+    } else if (caracteristicaLower.includes('piscina') || caracteristicaLower.includes('jacuzzi') || caracteristicaLower.includes('spa')) {
+      return Droplets;
+    } else if (caracteristicaLower.includes('ubicac') || caracteristicaLower.includes('céntric') || caracteristicaLower.includes('acceso')) {
+      return MapPin;
+    } else if (caracteristicaLower.includes('espacio') || caracteristicaLower.includes('amplio') || caracteristicaLower.includes('luminos')) {
+      return Square;
+    } else {
+      return Building; // Icono por defecto para características
+    }
+  };
+
   // Servicios por defecto con iconos (para cuando no hay servicios específicos)
   const defaultAmenities = [
     { icon: Wifi, label: "Internet disponible" },
