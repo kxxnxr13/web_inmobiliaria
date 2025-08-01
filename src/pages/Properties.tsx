@@ -31,12 +31,29 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useProperties } from "@/contexts/PropertiesContext";
-
-
+import { useState } from "react";
 
 const Properties = () => {
   const { getAvailableProperties } = useProperties();
-  const propertiesData = getAvailableProperties();
+  const allProperties = getAvailableProperties();
+
+  // Estado de paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 6;
+
+  // Calcular propiedades para la página actual
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const propertiesData = allProperties.slice(indexOfFirstProperty, indexOfLastProperty);
+
+  // Calcular total de páginas
+  const totalPages = Math.ceil(allProperties.length / propertiesPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // Scroll hacia arriba cuando se cambie de página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-background">
