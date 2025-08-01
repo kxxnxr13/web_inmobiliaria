@@ -343,7 +343,10 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Guardar propiedades en localStorage cuando cambie
   useEffect(() => {
-    localStorage.setItem('properties_data', JSON.stringify(properties));
+    if (properties.length > 0) {
+      localStorage.setItem('properties_data', JSON.stringify(properties));
+      console.log('Properties saved to localStorage:', properties.length, 'properties');
+    }
   }, [properties]);
 
   const createProperty = (propertyData: Omit<Property, 'id' | 'createdAt' | 'lastUpdated'>) => {
