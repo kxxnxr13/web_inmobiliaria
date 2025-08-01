@@ -568,6 +568,92 @@ const PropertyManagement = () => {
                         </div>
                       </div>
 
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-parking">Estacionamientos</Label>
+                          <Input
+                            id="edit-parking"
+                            type="number"
+                            value={editingProperty.parking || ''}
+                            onChange={(e) => setEditingProperty(prev => ({ ...prev, parking: e.target.value }))}
+                            placeholder="2"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-yearBuilt">Año de Construcción</Label>
+                          <Input
+                            id="edit-yearBuilt"
+                            type="number"
+                            value={editingProperty.yearBuilt || ''}
+                            onChange={(e) => setEditingProperty(prev => ({ ...prev, yearBuilt: e.target.value }))}
+                            placeholder="2020"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-condition">Condición</Label>
+                          <Select
+                            value={editingProperty.condition || 'Excelente'}
+                            onValueChange={(value) =>
+                              setEditingProperty(prev => ({ ...prev, condition: value }))
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Nuevo">Nuevo</SelectItem>
+                              <SelectItem value="Como nuevo">Como nuevo</SelectItem>
+                              <SelectItem value="Excelente">Excelente</SelectItem>
+                              <SelectItem value="Muy bueno">Muy bueno</SelectItem>
+                              <SelectItem value="Bueno">Bueno</SelectItem>
+                              <SelectItem value="Renovado">Renovado</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-propertyType">Tipo de Propiedad</Label>
+                          <Select
+                            value={editingProperty.propertyType || 'Casa'}
+                            onValueChange={(value) =>
+                              setEditingProperty(prev => ({ ...prev, propertyType: value }))
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Casa">Casa</SelectItem>
+                              <SelectItem value="Apartamento">Apartamento</SelectItem>
+                              <SelectItem value="Penthouse">Penthouse</SelectItem>
+                              <SelectItem value="Villa">Villa</SelectItem>
+                              <SelectItem value="Loft">Loft</SelectItem>
+                              <SelectItem value="Dúplex">Dúplex</SelectItem>
+                              <SelectItem value="Casa Ecológica">Casa Ecológica</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="edit-amenities">Características (una por línea)</Label>
+                        <Textarea
+                          id="edit-amenities"
+                          value={(editingProperty.amenities || []).join('\n')}
+                          onChange={(e) => setEditingProperty(prev => ({
+                            ...prev,
+                            amenities: e.target.value.split('\n').filter(item => item.trim() !== '')
+                          }))}
+                          placeholder="Aire acondicionado&#10;Cocina integral&#10;Jardín privado&#10;Seguridad 24/7"
+                          rows={6}
+                        />
+                        <p className="text-xs text-gray-500">Escribe cada característica en una línea separada</p>
+                      </div>
+
                       <div className="space-y-2">
                         <Label htmlFor="edit-imageUrl">URL de Imagen (opcional)</Label>
                         <Input
@@ -576,6 +662,18 @@ const PropertyManagement = () => {
                           onChange={(e) => setEditingProperty(prev => ({ ...prev, imageUrl: e.target.value }))}
                           placeholder="https://..."
                         />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label className="text-base font-semibold">Marcar como Destacada</Label>
+                        <div className="flex items-center space-x-2">
+                          <Switch
+                            id="edit-featured"
+                            checked={editingProperty.featured || false}
+                            onCheckedChange={(checked) => setEditingProperty(prev => ({ ...prev, featured: checked }))}
+                          />
+                          <Label htmlFor="edit-featured">Propiedad destacada</Label>
+                        </div>
                       </div>
 
                       <div className="flex justify-end space-x-2 pt-4">
