@@ -86,6 +86,7 @@ const PropertyManagement = () => {
       adminId: 'general', // Propiedades generales que cualquier admin puede gestionar
       featured: newPropertyForm.featured,
       caracteristicas: caracteristicasArray,
+      servicios: serviciosArray,
       condition: newPropertyForm.condition,
       propertyType: newPropertyForm.propertyType
     };
