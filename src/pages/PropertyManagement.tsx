@@ -430,6 +430,166 @@ const PropertyManagement = () => {
                   </form>
                 </DialogContent>
               </Dialog>
+
+              {/* Diálogo de Edición */}
+              <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Editar Propiedad</DialogTitle>
+                    <DialogDescription>
+                      Modifica los datos de la propiedad.
+                    </DialogDescription>
+                  </DialogHeader>
+
+                  {editingProperty && (
+                    <form onSubmit={handleUpdateProperty} className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-title">Título</Label>
+                          <Input
+                            id="edit-title"
+                            value={editingProperty.title}
+                            onChange={(e) => setEditingProperty(prev => ({ ...prev, title: e.target.value }))}
+                            placeholder="Casa moderna..."
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-price">Precio</Label>
+                          <Input
+                            id="edit-price"
+                            type="number"
+                            value={editingProperty.price}
+                            onChange={(e) => setEditingProperty(prev => ({ ...prev, price: e.target.value }))}
+                            placeholder="350000"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="edit-description">Descripción</Label>
+                        <Textarea
+                          id="edit-description"
+                          value={editingProperty.description}
+                          onChange={(e) => setEditingProperty(prev => ({ ...prev, description: e.target.value }))}
+                          placeholder="Descripción detallada de la propiedad..."
+                          rows={3}
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="edit-location">Ubicación</Label>
+                        <Input
+                          id="edit-location"
+                          value={editingProperty.location}
+                          onChange={(e) => setEditingProperty(prev => ({ ...prev, location: e.target.value }))}
+                          placeholder="Zona Norte, Ciudad"
+                          required
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-bedrooms">Habitaciones</Label>
+                          <Input
+                            id="edit-bedrooms"
+                            type="number"
+                            value={editingProperty.bedrooms}
+                            onChange={(e) => setEditingProperty(prev => ({ ...prev, bedrooms: e.target.value }))}
+                            placeholder="3"
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-bathrooms">Baños</Label>
+                          <Input
+                            id="edit-bathrooms"
+                            type="number"
+                            value={editingProperty.bathrooms}
+                            onChange={(e) => setEditingProperty(prev => ({ ...prev, bathrooms: e.target.value }))}
+                            placeholder="2"
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-area">Área (m²)</Label>
+                          <Input
+                            id="edit-area"
+                            type="number"
+                            value={editingProperty.area}
+                            onChange={(e) => setEditingProperty(prev => ({ ...prev, area: e.target.value }))}
+                            placeholder="150"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-type">Tipo</Label>
+                          <Select
+                            value={editingProperty.type}
+                            onValueChange={(value: 'venta' | 'alquiler') =>
+                              setEditingProperty(prev => ({ ...prev, type: value }))
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="venta">Venta</SelectItem>
+                              <SelectItem value="alquiler">Alquiler</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="edit-status">Estado</Label>
+                          <Select
+                            value={editingProperty.status}
+                            onValueChange={(value: 'disponible' | 'vendida' | 'alquilada') =>
+                              setEditingProperty(prev => ({ ...prev, status: value }))
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="disponible">Disponible</SelectItem>
+                              <SelectItem value="vendida">Vendida</SelectItem>
+                              <SelectItem value="alquilada">Alquilada</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="edit-imageUrl">URL de Imagen (opcional)</Label>
+                        <Input
+                          id="edit-imageUrl"
+                          value={editingProperty.imageUrl}
+                          onChange={(e) => setEditingProperty(prev => ({ ...prev, imageUrl: e.target.value }))}
+                          placeholder="https://..."
+                        />
+                      </div>
+
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                          Cancelar
+                        </Button>
+                        <Button type="submit" className="bg-gold-600 hover:bg-gold-700">
+                          Actualizar Propiedad
+                        </Button>
+                      </div>
+                    </form>
+                  )}
+                </DialogContent>
+              </Dialog>
             </div>
           </CardHeader>
           
