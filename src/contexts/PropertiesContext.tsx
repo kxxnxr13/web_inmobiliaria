@@ -62,6 +62,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: true,
     caracteristicas: ['Aire acondicionado', 'Cocina integral', 'Jardín privado', 'Seguridad 24/7'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Zona segura'],
     pricePerSqm: Math.round(350000 / 150),
     condition: 'Excelente',
     propertyType: 'Casa'
@@ -85,6 +86,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Vista al océano', 'Gimnasio', 'Concierge 24/7'],
+    servicios: ['Internet fibra óptica', 'Electricidad', 'Agua potable', 'Estacionamiento'],
     pricePerSqm: Math.round(1200 / 80),
     condition: 'Como nuevo',
     propertyType: 'Apartamento'
@@ -109,6 +111,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: true,
     caracteristicas: ['Piscina privada', 'Jardín amplio', 'Cuarto de juegos', 'Oficina en casa', 'Terraza techada'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Áreas verdes', 'Estacionamiento'],
     pricePerSqm: Math.round(320000 / 220),
     condition: 'Nuevo',
     propertyType: 'Casa'
@@ -132,6 +135,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Terraza panorámica', 'Jacuzzi privado', 'Smart home', 'Cocina gourmet', 'Valet parking'],
+    servicios: ['Internet fibra óptica', 'Electricidad', 'Agua potable', 'Cocina funcional', 'Estacionamiento'],
     pricePerSqm: Math.round(2500 / 150),
     condition: 'Nuevo',
     propertyType: 'Penthouse'
@@ -155,6 +159,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Pisos de madera', 'Cocina remodelada', 'Baños renovados', 'Patio trasero', 'Chimenea'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Buena ventilación'],
     pricePerSqm: Math.round(195000 / 140),
     condition: 'Renovado',
     propertyType: 'Casa'
