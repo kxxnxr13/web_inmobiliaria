@@ -99,9 +99,18 @@ const AdminPanel = () => {
                 <p className="text-sm font-medium text-navy-800">{user.name}</p>
                 <p className="text-xs text-gray-600">Super Administrador</p>
               </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/properties')}
+                className="text-gold-600 hover:text-gold-700 hover:bg-gold-50"
+              >
+                <Home className="h-4 w-4 mr-2" />
+                Gestionar Propiedades
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={handleLogout}
                 className="text-red-600 hover:text-red-700 hover:bg-red-50"
               >
