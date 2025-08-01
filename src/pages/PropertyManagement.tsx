@@ -811,18 +811,38 @@ const PropertyManagement = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="edit-amenities">Características (una por línea)</Label>
-                        <Textarea
-                          id="edit-amenities"
-                          value={(editingProperty.amenities || []).join('\n')}
-                          onChange={(e) => setEditingProperty(prev => ({
-                            ...prev,
-                            amenities: e.target.value.split('\n').filter(item => item.trim() !== '')
-                          }))}
-                          placeholder="Aire acondicionado&#10;Cocina integral&#10;Jardín privado&#10;Seguridad 24/7"
-                          rows={6}
-                        />
-                        <p className="text-xs text-gray-500">Escribe cada característica en una línea separada</p>
+                        <Label>Amenidades</Label>
+                        <div className="max-h-48 overflow-y-auto border rounded-md p-4 space-y-2">
+                          {getActiveAmenities().map((amenity) => (
+                            <div key={amenity.id} className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                id={`edit-amenity-${amenity.id}`}
+                                checked={(editingProperty.amenityIds || []).includes(amenity.id)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setEditingProperty(prev => ({
+                                      ...prev,
+                                      amenityIds: [...(prev?.amenityIds || []), amenity.id]
+                                    }));
+                                  } else {
+                                    setEditingProperty(prev => ({
+                                      ...prev,
+                                      amenityIds: (prev?.amenityIds || []).filter(id => id !== amenity.id)
+                                    }));
+                                  }
+                                }}
+                                className="rounded border-gray-300"
+                              />
+                              <Label htmlFor={`edit-amenity-${amenity.id}`} className="text-sm">
+                                {amenity.name}
+                              </Label>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          Selecciona las amenidades que incluye esta propiedad
+                        </p>
                       </div>
 
                       <div className="space-y-2">
