@@ -13,6 +13,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import AdminPanel from "./pages/AdminPanel";
+import PropertyManagement from "./pages/PropertyManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
