@@ -824,6 +824,20 @@ const PropertyManagement = () => {
                       </div>
 
                       <div className="space-y-2">
+                        <Label htmlFor="edit-servicios">Servicios y Comodidades</Label>
+                        <Textarea
+                          id="edit-servicios"
+                          value={editingProperty.servicios}
+                          onChange={(e) => setEditingProperty(prev => ({ ...prev, servicios: e.target.value }))}
+                          placeholder="Internet disponible, Electricidad, Agua potable, Zona segura..."
+                          rows={3}
+                        />
+                        <p className="text-xs text-gray-500">
+                          Separa cada servicio con una coma (,)
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
                         <Label htmlFor="edit-imageUrl">URL de Imagen (opcional)</Label>
                         <Input
                           id="edit-imageUrl"
