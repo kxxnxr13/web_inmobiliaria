@@ -30,252 +30,31 @@ import {
   Calendar,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-
-// Datos de propiedades más detallados
-const propertiesData = [
-  {
-    id: 1,
-    title: "Casa Moderna Residencial Los Pinos",
-    price: 285000,
-    type: "venta",
-    location: "Zona Norte, Ciudad",
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 180,
-    parking: 2,
-    yearBuilt: 2020,
-    image: "/placeholder.svg",
-    featured: true,
-    description: "Hermosa casa moderna de dos plantas con acabados de lujo, jardín privado y excelente ubicación cerca de centros comerciales y colegios.",
-    amenities: ["Aire acondicionado", "Cocina integral", "Jardín privado", "Seguridad 24/7", "Piscina comunitaria"],
-    pricePerSqm: Math.round(285000 / 180),
-    condition: "Excelente",
-    propertyType: "Casa",
-    lastUpdated: "2024-01-15"
-  },
-  {
-    id: 2,
-    title: "Apartamento Moderno Vista al Mar",
-    price: 1800,
-    type: "alquiler",
-    location: "Zona Costa, Ciudad",
-    bedrooms: 2,
-    bathrooms: 2,
-    area: 95,
-    parking: 1,
-    yearBuilt: 2019,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Elegante apartamento con vista panorámica al océano, ubicado en edificio de lujo con amenidades exclusivas.",
-    amenities: ["Vista al océano", "Gimnasio", "Piscina infinity", "Concierge 24/7", "Balcón amplio"],
-    pricePerSqm: Math.round(1800 / 95),
-    condition: "Como nuevo",
-    propertyType: "Apartamento",
-    lastUpdated: "2024-01-14"
-  },
-  {
-    id: 3,
-    title: "Casa Familiar Los Jardines",
-    price: 320000,
-    type: "venta",
-    location: "Zona Este, Ciudad",
-    bedrooms: 5,
-    bathrooms: 4,
-    area: 220,
-    parking: 3,
-    yearBuilt: 2021,
-    image: "/placeholder.svg",
-    featured: true,
-    description: "Amplia casa familiar con jardín privado y piscina, perfecta para familias grandes. Zona residencial tranquila.",
-    amenities: ["Piscina privada", "Jardín amplio", "Cuarto de juegos", "Oficina en casa", "Terraza techada"],
-    pricePerSqm: Math.round(320000 / 220),
-    condition: "Nuevo",
-    propertyType: "Casa",
-    lastUpdated: "2024-01-13"
-  },
-  {
-    id: 4,
-    title: "Penthouse Ejecutivo Premium",
-    price: 2500,
-    type: "alquiler",
-    location: "Zona Centro, Ciudad",
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 150,
-    parking: 2,
-    yearBuilt: 2022,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Lujoso penthouse en el corazón de la ciudad con vistas panorámicas de 360 grados y amenidades premium.",
-    amenities: ["Terraza panorámica", "Jacuzzi privado", "Smart home", "Cocina gourmet", "Valet parking"],
-    pricePerSqm: Math.round(2500 / 150),
-    condition: "Nuevo",
-    propertyType: "Penthouse",
-    lastUpdated: "2024-01-12"
-  },
-  {
-    id: 5,
-    title: "Casa Tradicional Renovada",
-    price: 195000,
-    type: "venta",
-    location: "Zona Oeste, Ciudad",
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 140,
-    parking: 2,
-    yearBuilt: 2018,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Casa tradicional completamente renovada con materiales de primera calidad y diseño contemporáneo.",
-    amenities: ["Pisos de madera", "Cocina remodelada", "Baños renovados", "Patio trasero", "Chimenea"],
-    pricePerSqm: Math.round(195000 / 140),
-    condition: "Renovado",
-    propertyType: "Casa",
-    lastUpdated: "2024-01-11"
-  },
-  {
-    id: 6,
-    title: "Apartamento Ejecutivo Moderno",
-    price: 1200,
-    type: "alquiler",
-    location: "Zona Sur, Ciudad",
-    bedrooms: 1,
-    bathrooms: 1,
-    area: 65,
-    parking: 1,
-    yearBuilt: 2020,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Cómodo apartamento ideal para profesionales, completamente amueblado y listo para habitar.",
-    amenities: ["Completamente amueblado", "Internet incluido", "Lavandería", "Portero", "Área social"],
-    pricePerSqm: Math.round(1200 / 65),
-    condition: "Excelente",
-    propertyType: "Apartamento",
-    lastUpdated: "2024-01-10"
-  },
-  {
-    id: 7,
-    title: "Villa de Lujo con Piscina Infinita",
-    price: 450000,
-    type: "venta",
-    location: "Zona Norte, Ciudad",
-    bedrooms: 6,
-    bathrooms: 5,
-    area: 350,
-    parking: 4,
-    yearBuilt: 2023,
-    image: "/placeholder.svg",
-    featured: true,
-    description: "Exclusiva villa de lujo con piscina infinita, sala de cine, gimnasio privado y todas las comodidades modernas.",
-    amenities: ["Piscina infinita", "Sala de cine", "Gimnasio privado", "Wine cellar", "Smart home", "Jardín paisajista"],
-    pricePerSqm: Math.round(450000 / 350),
-    condition: "Nuevo",
-    propertyType: "Villa",
-    lastUpdated: "2024-01-09"
-  },
-  {
-    id: 8,
-    title: "Apartamento Familiar Espacioso",
-    price: 1600,
-    type: "alquiler",
-    location: "Zona Este, Ciudad",
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 110,
-    parking: 2,
-    yearBuilt: 2019,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Perfecto para familias con niños, cerca de colegios y parques. Amplio y luminoso con excelente distribución.",
-    amenities: ["Área de juegos", "Cerca de colegios", "Parque infantil", "Salón comunal", "Zona BBQ"],
-    pricePerSqm: Math.round(1600 / 110),
-    condition: "Muy bueno",
-    propertyType: "Apartamento",
-    lastUpdated: "2024-01-08"
-  },
-  {
-    id: 9,
-    title: "Casa Minimalista Arquitectónica",
-    price: 275000,
-    type: "venta",
-    location: "Zona Centro, Ciudad",
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 160,
-    parking: 2,
-    yearBuilt: 2021,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Diseño minimalista contemporáneo con acabados premium, grandes ventanales y espacios abiertos llenos de luz natural.",
-    amenities: ["Diseño minimalista", "Grandes ventanales", "Espacios abiertos", "Domótica", "Terraza verde"],
-    pricePerSqm: Math.round(275000 / 160),
-    condition: "Como nuevo",
-    propertyType: "Casa",
-    lastUpdated: "2024-01-07"
-  },
-  {
-    id: 10,
-    title: "Loft Industrial Convertido",
-    price: 2200,
-    type: "alquiler",
-    location: "Zona Artística, Ciudad",
-    bedrooms: 2,
-    bathrooms: 2,
-    area: 130,
-    parking: 1,
-    yearBuilt: 2020,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Único loft industrial completamente renovado en zona artística. Techos altos, vigas expuestas y diseño urbano moderno.",
-    amenities: ["Techos altos", "Vigas expuestas", "Diseño industrial", "Zona artística", "Estudios cercanos"],
-    pricePerSqm: Math.round(2200 / 130),
-    condition: "Renovado",
-    propertyType: "Loft",
-    lastUpdated: "2024-01-06"
-  },
-  {
-    id: 11,
-    title: "Casa Ecológica Sostenible",
-    price: 385000,
-    type: "venta",
-    location: "Zona Verde, Ciudad",
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 200,
-    parking: 2,
-    yearBuilt: 2022,
-    image: "/placeholder.svg",
-    featured: true,
-    description: "Casa ecológica con paneles solares, sistema de recolección de agua lluvia y materiales sostenibles.",
-    amenities: ["Paneles solares", "Recolección agua lluvia", "Materiales ecológicos", "Huerto orgánico", "Certificación LEED"],
-    pricePerSqm: Math.round(385000 / 200),
-    condition: "Nuevo",
-    propertyType: "Casa Ecológica",
-    lastUpdated: "2024-01-05"
-  },
-  {
-    id: 12,
-    title: "Dúplex Moderno Vista Ciudad",
-    price: 1950,
-    type: "alquiler",
-    location: "Zona Alta, Ciudad",
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 125,
-    parking: 2,
-    yearBuilt: 2021,
-    image: "/placeholder.svg",
-    featured: false,
-    description: "Elegante dúplex en dos niveles con vista panorámica de la ciudad. Diseño moderno y acabados de lujo.",
-    amenities: ["Vista panorámica", "Dos niveles", "Acabados de lujo", "Terraza privada", "Estudio en segundo piso"],
-    pricePerSqm: Math.round(1950 / 125),
-    condition: "Como nuevo",
-    propertyType: "Dúplex",
-    lastUpdated: "2024-01-04"
-  }
-];
+import { useProperties } from "@/contexts/PropertiesContext";
+import { useState } from "react";
 
 const Properties = () => {
+  const { getAvailableProperties } = useProperties();
+  const allProperties = getAvailableProperties();
+
+  // Estado de paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 6;
+
+  // Calcular propiedades para la página actual
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const propertiesData = allProperties.slice(indexOfFirstProperty, indexOfLastProperty);
+
+  // Calcular total de páginas
+  const totalPages = Math.ceil(allProperties.length / propertiesPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // Scroll hacia arriba cuando se cambie de página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -334,7 +113,7 @@ const Properties = () => {
 
             <div className="flex items-center justify-between mt-4 pt-4 border-t">
               <div className="text-sm text-gray-600">
-                Mostrando {propertiesData.length} propiedades
+                Mostrando {indexOfFirstProperty + 1}-{Math.min(indexOfLastProperty, allProperties.length)} de {allProperties.length} propiedades
               </div>
               <Button variant="outline" size="sm">
                 <Filter className="mr-2 h-4 w-4" />
@@ -356,7 +135,7 @@ const Properties = () => {
               >
                 <div className="relative">
                   <img
-                    src={property.image}
+                    src={property.imageUrl}
                     alt={property.title}
                     className="w-full h-48 object-cover"
                   />
@@ -415,36 +194,36 @@ const Properties = () => {
                     </div>
                     <div className="flex items-center">
                       <Car className="h-4 w-4 mr-1" />
-                      {property.parking} parking
+                      {property.parking || 0} parking
                     </div>
                   </div>
                   <div className="text-xs text-gray-500 mb-3 grid grid-cols-2 gap-2">
                     <div className="flex items-center">
                       <Calendar className="h-3 w-3 mr-1" />
-                      {property.yearBuilt}
+                      {property.yearBuilt || 'N/A'}
                     </div>
                     <div className="text-right">
-                      ${property.pricePerSqm}/m²
+                      ${property.pricePerSqm || 0}/m²
                     </div>
                   </div>
                   <div className="mb-4">
-                    <div className="text-xs font-medium text-navy-600 mb-2">Estado: {property.condition}</div>
-                    <div className="text-xs font-medium text-navy-600 mb-2">Tipo: {property.propertyType}</div>
+                    <div className="text-xs font-medium text-navy-600 mb-2">Estado: {property.condition || 'N/A'}</div>
+                    <div className="text-xs font-medium text-navy-600 mb-2">Tipo: {property.propertyType || 'N/A'}</div>
                     <div className="flex flex-wrap gap-1">
-                      {property.amenities.slice(0, 2).map((amenity, index) => (
+                      {(property.caracteristicas || []).slice(0, 2).map((caracteristica, index) => (
                         <Badge key={index} variant="secondary" className="text-xs">
-                          {amenity}
+                          {caracteristica}
                         </Badge>
                       ))}
-                      {property.amenities.length > 2 && (
+                      {(property.caracteristicas || []).length > 2 && (
                         <Badge variant="outline" className="text-xs">
-                          +{property.amenities.length - 2} más
+                          +{(property.caracteristicas || []).length - 2} más
                         </Badge>
                       )}
                     </div>
                   </div>
                   <div className="text-xs text-gray-400 mb-3">
-                    Última actualización: {property.lastUpdated}
+                    Última actualización: {property.lastUpdated || property.createdAt}
                   </div>
                   <Link to={`/propiedad/${property.id}`}>
                     <Button className="w-full bg-navy-800 hover:bg-navy-700">
@@ -457,19 +236,65 @@ const Properties = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center mt-12">
-            <div className="flex space-x-2">
-              <Button variant="outline" disabled>
-                Anterior
-              </Button>
-              <Button className="bg-navy-800">1</Button>
-              <Button variant="outline">2</Button>
-              <Button variant="outline">3</Button>
-              <Button variant="outline">...</Button>
-              <Button variant="outline">8</Button>
-              <Button variant="outline">Siguiente</Button>
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-12">
+              <div className="flex space-x-2">
+                <Button
+                  variant="outline"
+                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                >
+                  Anterior
+                </Button>
+
+                {/* Botones de números de página */}
+                {Array.from({ length: totalPages }, (_, index) => {
+                  const pageNumber = index + 1;
+                  const isCurrentPage = pageNumber === currentPage;
+
+                  // Mostrar solo páginas cercanas a la actual
+                  if (
+                    pageNumber === 1 ||
+                    pageNumber === totalPages ||
+                    (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                  ) {
+                    return (
+                      <Button
+                        key={pageNumber}
+                        variant={isCurrentPage ? "default" : "outline"}
+                        className={isCurrentPage ? "bg-navy-800" : ""}
+                        onClick={() => handlePageChange(pageNumber)}
+                      >
+                        {pageNumber}
+                      </Button>
+                    );
+                  }
+
+                  // Mostrar puntos suspensivos
+                  if (
+                    pageNumber === currentPage - 2 ||
+                    pageNumber === currentPage + 2
+                  ) {
+                    return (
+                      <Button key={pageNumber} variant="outline" disabled>
+                        ...
+                      </Button>
+                    );
+                  }
+
+                  return null;
+                })}
+
+                <Button
+                  variant="outline"
+                  disabled={currentPage === totalPages}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                >
+                  Siguiente
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

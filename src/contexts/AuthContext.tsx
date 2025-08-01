@@ -41,25 +41,8 @@ const SUPERADMIN_CREDENTIALS = {
   }
 };
 
-// Datos simulados de administradores iniciales
-const INITIAL_ADMINS: Admin[] = [
-  {
-    id: '1',
-    email: 'admin1@inmobiliaria.com',
-    name: 'Carlos Rodríguez',
-    password: 'admin123',
-    createdAt: '2024-01-15',
-    isActive: true
-  },
-  {
-    id: '2',
-    email: 'admin2@inmobiliaria.com',
-    name: 'María González',
-    password: 'admin123',
-    createdAt: '2024-01-20',
-    isActive: true
-  }
-];
+// No hay administradores iniciales - solo el superadmin puede crearlos
+const INITIAL_ADMINS: Admin[] = [];
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -73,8 +56,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     const savedAdmins = localStorage.getItem('admins_data');
-    if (savedAdmins) {
-      setAdmins(JSON.parse(savedAdmins));
+    const needsReset = localStorage.getItem('admins_reset_needed');
+
+    if (needsReset !== 'false' && savedAdmins) {
+      // Limpiar administradores corruptos una sola vez
+      localStorage.removeItem('admins_data');
+      localStorage.setItem('admins_reset_needed', 'false');
+      console.log('Admins data cleared, starting with empty admin list');
+      setAdmins(INITIAL_ADMINS);
+    } else if (savedAdmins && needsReset === 'false') {
+      try {
+        const parsedAdmins = JSON.parse(savedAdmins);
+        setAdmins(parsedAdmins);
+        console.log('Admins loaded from localStorage:', parsedAdmins.length);
+      } catch (error) {
+        console.error('Error loading admins from localStorage:', error);
+        setAdmins(INITIAL_ADMINS);
+      }
+    } else {
+      console.log('Starting with empty admin list');
+      setAdmins(INITIAL_ADMINS);
+      localStorage.setItem('admins_reset_needed', 'false');
     }
   }, []);
 

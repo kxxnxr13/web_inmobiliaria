@@ -38,69 +38,15 @@ import {
 } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { useProperties } from "@/contexts/PropertiesContext";
 
 const Index = () => {
   const [searchType, setSearchType] = useState("venta");
   const [propertyType, setPropertyType] = useState("");
   const [location, setLocation] = useState("");
 
-  // Mock data for featured properties
-  const featuredProperties = [
-    {
-      id: 1,
-      title: "Casa Moderna Residencial Los Pinos",
-      location: "Zona Norte, Ciudad",
-      price: "$450,000",
-      type: "Casa",
-      beds: 4,
-      baths: 3,
-      sqm: 280,
-      parking: 2,
-      yearBuilt: 2020,
-      image: "/placeholder.svg",
-      featured: true,
-      status: "Venta",
-      description: "Hermosa casa moderna de dos plantas con acabados de lujo, jardín privado y excelente ubicación.",
-      amenities: ["Aire acondicionado", "Cocina integral", "Jardín privado", "Seguridad 24/7", "Piscina comunitaria"],
-      pricePerSqm: Math.round(450000 / 280),
-    },
-    {
-      id: 2,
-      title: "Apartamento Moderno Vista al Mar",
-      location: "Zona Costa, Ciudad",
-      price: "$2,500/mes",
-      type: "Apartamento",
-      beds: 2,
-      baths: 2,
-      sqm: 120,
-      parking: 1,
-      yearBuilt: 2019,
-      image: "/placeholder.svg",
-      featured: true,
-      status: "Alquiler",
-      description: "Elegante apartamento con vista panorámica al mar y amenidades de lujo en edificio exclusivo.",
-      amenities: ["Vista al océano", "Gimnasio", "Piscina infinity", "Concierge 24/7", "Balcón amplio"],
-      pricePerSqm: Math.round(2500 / 120),
-    },
-    {
-      id: 3,
-      title: "Penthouse Ejecutivo Premium",
-      location: "Zona Comercial, Ciudad",
-      price: "$850,000",
-      type: "Penthouse",
-      beds: 3,
-      baths: 4,
-      sqm: 450,
-      parking: 3,
-      yearBuilt: 2022,
-      image: "/placeholder.svg",
-      featured: true,
-      status: "Venta",
-      description: "Exclusivo penthouse con terraza panorámica, jacuzzi privado y acabados premium en el corazón de la ciudad.",
-      amenities: ["Terraza panorámica", "Jacuzzi privado", "Smart home", "Cocina gourmet", "Valet parking"],
-      pricePerSqm: Math.round(850000 / 450),
-    },
-  ];
+  const { getFeaturedProperties } = useProperties();
+  const featuredProperties = getFeaturedProperties();
 
 
 
@@ -237,18 +183,18 @@ const Index = () => {
               >
                 <div className="relative">
                   <img
-                    src={property.image}
+                    src={property.imageUrl}
                     alt={property.title}
                     className="w-full h-48 object-cover"
                   />
                   <Badge
                     className={`absolute top-4 left-4 ${
-                      property.status === "Venta"
+                      property.type === "venta"
                         ? "bg-gold-500"
                         : "bg-blue-500"
                     }`}
                   >
-                    {property.status}
+                    {property.type === "venta" ? "En Venta" : "En Alquiler"}
                   </Badge>
                   {property.featured && (
                     <Badge className="absolute top-4 right-4 bg-red-500">
@@ -262,7 +208,7 @@ const Index = () => {
                       {property.title}
                     </CardTitle>
                     <div className="text-xl font-bold text-gold-600">
-                      {property.price}
+                      ${property.price.toLocaleString()}{property.type === "alquiler" ? "/mes" : ""}
                     </div>
                   </div>
                   <CardDescription className="flex items-center text-gray-500">
@@ -277,38 +223,38 @@ const Index = () => {
                   <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
                     <div className="flex items-center">
                       <Bed className="h-4 w-4 mr-1" />
-                      {property.beds} hab
+                      {property.bedrooms} hab
                     </div>
                     <div className="flex items-center">
                       <Bath className="h-4 w-4 mr-1" />
-                      {property.baths} baños
+                      {property.bathrooms} baños
                     </div>
                     <div className="flex items-center">
                       <Square className="h-4 w-4 mr-1" />
-                      {property.sqm} m²
+                      {property.area} m²
                     </div>
                     <div className="flex items-center">
                       <Car className="h-4 w-4 mr-1" />
-                      {property.parking} parking
+                      {property.parking || 0} parking
                     </div>
                   </div>
                   <div className="text-xs text-gray-500 mb-3">
                     <div className="flex justify-between">
-                      <span>Construído: {property.yearBuilt}</span>
-                      <span>${property.pricePerSqm}/m²</span>
+                      <span>Construído: {property.yearBuilt || 'N/A'}</span>
+                      <span>${property.pricePerSqm || 0}/m²</span>
                     </div>
                   </div>
                   <div className="mb-4">
-                    <div className="text-xs font-medium text-navy-600 mb-2">Amenidades destacadas:</div>
+                    <div className="text-xs font-medium text-navy-600 mb-2">Características destacadas:</div>
                     <div className="flex flex-wrap gap-1">
-                      {property.amenities.slice(0, 3).map((amenity, index) => (
+                      {(property.caracteristicas || []).slice(0, 3).map((caracteristica, index) => (
                         <Badge key={index} variant="secondary" className="text-xs">
-                          {amenity}
+                          {caracteristica}
                         </Badge>
                       ))}
-                      {property.amenities.length > 3 && (
+                      {(property.caracteristicas || []).length > 3 && (
                         <Badge variant="outline" className="text-xs">
-                          +{property.amenities.length - 3} más
+                          +{(property.caracteristicas || []).length - 3} más
                         </Badge>
                       )}
                     </div>
