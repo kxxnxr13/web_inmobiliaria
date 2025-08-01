@@ -13,7 +13,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { LogOut, Plus, Home, Edit, Trash2, Eye, MapPin, DollarSign, Bed, Bath, Square, Camera, Car } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProperties } from "@/contexts/PropertiesContext";
-import { useAmenities } from "@/contexts/AmenitiesContext";
 import { useToast } from "@/hooks/use-toast";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
