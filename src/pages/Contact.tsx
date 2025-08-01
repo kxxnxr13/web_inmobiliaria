@@ -26,9 +26,6 @@ import {
   Mail,
   Clock,
   Send,
-  MessageSquare,
-  Calendar,
-  Users,
   Loader2,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
