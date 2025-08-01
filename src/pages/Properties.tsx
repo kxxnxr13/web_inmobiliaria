@@ -113,7 +113,7 @@ const Properties = () => {
 
             <div className="flex items-center justify-between mt-4 pt-4 border-t">
               <div className="text-sm text-gray-600">
-                Mostrando {propertiesData.length} propiedades
+                Mostrando {indexOfFirstProperty + 1}-{Math.min(indexOfLastProperty, allProperties.length)} de {allProperties.length} propiedades
               </div>
               <Button variant="outline" size="sm">
                 <Filter className="mr-2 h-4 w-4" />
