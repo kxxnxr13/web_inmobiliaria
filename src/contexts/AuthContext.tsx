@@ -84,12 +84,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [admins]);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulación de autenticación
+    // Verificar si es superadmin
     if (email === SUPERADMIN_CREDENTIALS.email && password === SUPERADMIN_CREDENTIALS.password) {
       setUser(SUPERADMIN_CREDENTIALS.user);
       localStorage.setItem('auth_user', JSON.stringify(SUPERADMIN_CREDENTIALS.user));
       return true;
     }
+
+    // Verificar si es un administrador
+    const admin = admins.find(a => a.email === email && a.password === password && a.isActive);
+    if (admin) {
+      const adminUser: User = {
+        id: admin.id,
+        email: admin.email,
+        role: 'admin',
+        name: admin.name
+      };
+      setUser(adminUser);
+      localStorage.setItem('auth_user', JSON.stringify(adminUser));
+      return true;
+    }
+
     return false;
   };
 
