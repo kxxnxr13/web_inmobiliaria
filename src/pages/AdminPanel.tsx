@@ -23,6 +23,7 @@ const AdminPanel = () => {
   const [newAdminForm, setNewAdminForm] = useState({
     name: "",
     email: "",
+    password: "",
     isActive: true
   });
 
