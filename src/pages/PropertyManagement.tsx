@@ -599,7 +599,21 @@ const PropertyManagement = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="caracteristicas">Características</Label>
+                      <div className="flex justify-between items-center">
+                        <Label htmlFor="caracteristicas">Características</Label>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setNewPropertyForm(prev => ({
+                            ...prev,
+                            caracteristicas: CARACTERISTICAS_PREDEFINIDAS.join(", ")
+                          }))}
+                          className="text-xs"
+                        >
+                          Usar predeterminadas
+                        </Button>
+                      </div>
                       <Textarea
                         id="caracteristicas"
                         value={newPropertyForm.caracteristicas}
