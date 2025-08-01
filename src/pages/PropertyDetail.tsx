@@ -562,7 +562,7 @@ const PropertyDetail = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {property.amenities.map((amenity, index) => (
+                  {defaultAmenities.map((amenity, index) => (
                     <div key={index} className="flex items-center">
                       <amenity.icon className="h-5 w-5 text-gold-600 mr-3" />
                       <span className="text-gray-700">{amenity.label}</span>
@@ -573,9 +573,11 @@ const PropertyDetail = () => {
                   <h4 className="font-semibold text-navy-800 mb-3">Información Adicional</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600">
                     <div><span className="font-medium">ID Propiedad:</span> #{property.id.toString().padStart(6, '0')}</div>
-                    <div><span className="font-medium">Precio por m²:</span> ${Math.round(property.price / property.area).toLocaleString()}</div>
+                    <div><span className="font-medium">Precio por m²:</span> ${(property.pricePerSqm || Math.round(property.price / property.area)).toLocaleString()}</div>
                     <div><span className="font-medium">Estado:</span> {property.type === 'venta' ? 'Disponible para venta' : 'Disponible para alquiler'}</div>
-                    <div><span className="font-medium">Fecha construcción:</span> {property.yearBuilt}</div>
+                    <div><span className="font-medium">Fecha construcción:</span> {property.yearBuilt || 'No especificado'}</div>
+                    <div><span className="font-medium">Tipo de propiedad:</span> {property.propertyType || 'Propiedad'}</div>
+                    <div><span className="font-medium">Última actualización:</span> {property.lastUpdated || property.createdAt}</div>
                   </div>
                 </div>
               </CardContent>
