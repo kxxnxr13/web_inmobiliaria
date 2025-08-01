@@ -380,6 +380,7 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       lastUpdated: new Date().toISOString().split('T')[0],
       pricePerSqm: propertyData.area ? Math.round(propertyData.price / propertyData.area) : 0,
       caracteristicas: propertyData.caracteristicas || [],
+      servicios: propertyData.servicios || [],
       condition: propertyData.condition || 'Bueno',
       propertyType: propertyData.propertyType || 'Casa'
     };
