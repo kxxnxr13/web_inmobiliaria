@@ -27,13 +27,20 @@ const Login = () => {
 
     try {
       const success = await login(email, password);
-      
+
       if (success) {
         toast({
           title: "¡Bienvenido!",
           description: "Has iniciado sesión exitosamente.",
         });
-        navigate("/admin");
+
+        // Redirigir según el rol del usuario
+        const userData = JSON.parse(localStorage.getItem('auth_user') || '{}');
+        if (userData.role === 'superadmin') {
+          navigate("/admin");
+        } else if (userData.role === 'admin') {
+          navigate("/properties");
+        }
       } else {
         setError("Credenciales incorrectas. Verifica tu email y contraseña.");
       }
