@@ -66,32 +66,8 @@ const PropertyDetail = () => {
     "Cerca de centros comerciales"
   ];
 
-  // Mapeo de iconos para amenidades
-  const iconMap = {
-    Wind, Wifi, Zap, Droplets, Shield, Trees, Utensils, Car,
-    Camera, Home, Building, Users, Phone, Mail
-  };
-
-  // Obtener amenidades disponibles del contexto
-  const availableAmenities = getActiveAmenities();
-
-  // Convertir amenidades de la propiedad (nombres) a objetos con iconos
-  const propertyAmenities = (property?.amenities || [])
-    .map(amenityName => {
-      const amenity = availableAmenities.find(a => a.name === amenityName);
-      if (amenity) {
-        const IconComponent = iconMap[amenity.icon as keyof typeof iconMap] || Shield;
-        return {
-          icon: IconComponent,
-          label: amenity.name
-        };
-      }
-      return null;
-    })
-    .filter(Boolean) as Array<{ icon: any; label: string }>;
-
-  // Si no hay amenidades específicas, usar algunas por defecto
-  const displayAmenities = propertyAmenities.length > 0 ? propertyAmenities : [
+  // Características por defecto con iconos
+  const defaultAmenities = [
     { icon: Wifi, label: "Internet disponible" },
     { icon: Zap, label: "Electricidad" },
     { icon: Droplets, label: "Agua potable" },
