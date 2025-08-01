@@ -115,7 +115,7 @@ const INITIAL_PROPERTIES: Property[] = [
   {
     id: '4',
     title: 'Penthouse Ejecutivo Premium',
-    description: 'Lujoso penthouse en el corazón de la ciudad con vistas panorámicas de 360 grados y amenidades premium.',
+    description: 'Lujoso penthouse en el corazón de la ciudad con vistas panorámicas de 360 grados y características premium.',
     price: 2500,
     location: 'Zona Centro, Ciudad',
     bedrooms: 3,
