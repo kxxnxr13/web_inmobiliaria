@@ -406,7 +406,8 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     updatePropertyStatus,
     getPropertiesByAdmin,
     getFeaturedProperties,
-    getAvailableProperties
+    getAvailableProperties,
+    assignPropertiesToNewAdmin
   };
 
   return (
