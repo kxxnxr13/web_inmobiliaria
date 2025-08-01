@@ -40,7 +40,15 @@ import {
 
 const PropertyDetail = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { properties } = useProperties();
+  const { user } = useAuth();
+
+  // Detectar si viene del panel de admin
+  const fromAdmin = location.state?.from === 'admin' ||
+                   (user && (user.role === 'admin' || user.role === 'superadmin') &&
+                    document.referrer.includes('/properties'));
 
   // Buscar la propiedad por ID en el contexto
   const property = properties.find(p => p.id === id);
