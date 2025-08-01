@@ -136,11 +136,15 @@ const PropertyManagement = () => {
       bedrooms: Number(editingProperty.bedrooms),
       bathrooms: Number(editingProperty.bathrooms),
       area: Number(editingProperty.area),
+      parking: editingProperty.parking ? Number(editingProperty.parking) : undefined,
+      yearBuilt: editingProperty.yearBuilt ? Number(editingProperty.yearBuilt) : undefined,
       type: editingProperty.type,
       status: editingProperty.status,
       imageUrl: editingProperty.imageUrl,
       condition: editingProperty.condition || 'Excelente',
-      propertyType: editingProperty.propertyType || 'Casa'
+      propertyType: editingProperty.propertyType || 'Casa',
+      amenities: editingProperty.amenities || [],
+      featured: editingProperty.featured || false
     };
 
     updateProperty(editingProperty.id, updatedData);
