@@ -517,7 +517,7 @@ const PropertyManagement = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="edit-area">Área (m²)</Label>
+                          <Label htmlFor="edit-area">Área (m��)</Label>
                           <Input
                             id="edit-area"
                             type="number"
@@ -678,7 +678,9 @@ const PropertyManagement = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem
-                            onClick={() => navigate(`/propiedad/${property.id}`)}
+                            onClick={() => navigate(`/propiedad/${property.id}`, {
+                              state: { from: 'admin' }
+                            })}
                           >
                             <Eye className="h-4 w-4 mr-2" />
                             Ver Detalles
