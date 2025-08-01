@@ -422,7 +422,7 @@ const PropertyDetail = () => {
         <div className="relative">
           <Carousel className="w-full">
             <CarouselContent>
-              {property.images.map((image, index) => (
+              {images.map((image, index) => (
                 <CarouselItem key={index}>
                   <div className="relative h-[400px] md:h-[500px] lg:h-[600px]">
                     <img
@@ -435,7 +435,7 @@ const PropertyDetail = () => {
                     </Badge>
                     <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-md flex items-center">
                       <Camera className="mr-2 h-4 w-4" />
-                      {index + 1} / {property.images.length}
+                      {index + 1} / {images.length}
                     </div>
                   </div>
                 </CarouselItem>
