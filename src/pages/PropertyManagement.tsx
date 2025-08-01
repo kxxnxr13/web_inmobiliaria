@@ -136,10 +136,18 @@ const PropertyManagement = () => {
   };
 
   const handleEditProperty = (property: any) => {
-    // Convertir array de características a string
-    const caracteristicasString = (property.caracteristicas || []).join(', ');
-    // Convertir array de servicios a string
-    const serviciosString = (property.servicios || []).join(', ');
+    console.log('Editing property:', property); // Debug log
+
+    // Convertir array de características a string, manejando casos undefined/null
+    const caracteristicasArray = Array.isArray(property.caracteristicas) ? property.caracteristicas : [];
+    const caracteristicasString = caracteristicasArray.join(', ');
+
+    // Convertir array de servicios a string, manejando casos undefined/null
+    const serviciosArray = Array.isArray(property.servicios) ? property.servicios : [];
+    const serviciosString = serviciosArray.join(', ');
+
+    console.log('Características string:', caracteristicasString); // Debug log
+    console.log('Servicios string:', serviciosString); // Debug log
 
     setEditingProperty({
       ...property,
