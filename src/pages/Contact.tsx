@@ -65,77 +65,49 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // URL de Formspree - reemplaza con tu endpoint real
-      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL || "https://formspree.io/f/demo";
+      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL;
 
-      // Verificar si Formspree está configurado
-      if (formspreeUrl === "https://formspree.io/f/demo") {
-        // Modo de demostración - solo simular el envío
-        console.log("Modo demostración - Datos del formulario:", data);
-        await new Promise(resolve => setTimeout(resolve, 2000));
+      const response = await fetch(formspreeUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          consultationType: data.consultationType,
+          message: data.message,
+          _replyto: data.email,
+          _subject: `Nueva consulta inmobiliaria de ${data.name}`,
+        }),
+      });
 
-        toast({
-          title: "¡Formulario completado!",
-          description: "Configura Formspree para recibir emails reales. Datos mostrados en consola.",
-        });
-      } else {
-        // Enviar datos a Formspree
-        const response = await fetch(formspreeUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            consultationType: data.consultationType,
-            message: data.message,
-            _replyto: data.email,
-            _subject: `Nueva consulta inmobiliaria de ${data.name}`,
-          }),
-        });
+      if (!response.ok) {
+        let errorMessage = "Error al enviar el formulario";
 
-        if (!response.ok) {
-          // Manejo específico de errores de Formspree
-          let errorMessage = `Error HTTP: ${response.status}`;
-
-          if (response.status === 422) {
-            errorMessage = "🔓 Formulario pendiente de activación. Ve a formspree.io/forms o envía un email a xyzppevq@formspree.io para activarlo.";
-          } else if (response.status === 429) {
-            errorMessage = "Demasiados envíos. Intenta nuevamente más tarde.";
-          } else {
-            // Solo intentar leer JSON si es necesario y es seguro
-            try {
-              const errorData = await response.json();
-              errorMessage = errorData.error || errorMessage;
-            } catch {
-              // Si no se puede leer el JSON, usar el mensaje por defecto
-            }
-          }
-
-          throw new Error(errorMessage);
+        if (response.status === 422) {
+          errorMessage = "Formulario pendiente de activación en Formspree.";
+        } else if (response.status === 429) {
+          errorMessage = "Demasiados envíos. Intenta nuevamente más tarde.";
         }
 
-        // Solo leer la respuesta si fue exitosa
-        await response.json();
-
-        toast({
-          title: "¡Mensaje enviado exitosamente!",
-          description: "Nos pondremos en contacto contigo pronto.",
-        });
+        throw new Error(errorMessage);
       }
+
+      toast({
+        title: "¡Mensaje enviado exitosamente!",
+        description: "Nos pondremos en contacto contigo pronto.",
+      });
 
       form.reset();
     } catch (error) {
-      console.error("Error al enviar formulario:", error);
-
-      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+      const errorMessage = error instanceof Error ? error.message : "Error al enviar mensaje";
 
       toast({
         title: "Error al enviar mensaje",
-        description: `${errorMessage}. Por favor intenta nuevamente o contacta por teléfono.`,
+        description: `${errorMessage}. Por favor intenta nuevamente.`,
         variant: "destructive",
       });
     } finally {
