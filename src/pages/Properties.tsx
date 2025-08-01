@@ -30,6 +30,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useProperties } from "@/contexts/PropertiesContext";
 
 // Datos de propiedades más detallados
 const propertiesData = [
