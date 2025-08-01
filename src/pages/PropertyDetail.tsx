@@ -104,12 +104,20 @@ const PropertyDetail = () => {
 
       {/* Back Button */}
       <div className="container mx-auto px-4 pt-6">
-        <Link to="/propiedades">
-          <Button variant="outline" className="mb-4">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver a Propiedades
-          </Button>
-        </Link>
+        <Button
+          variant="outline"
+          className="mb-4"
+          onClick={() => {
+            if (fromAdmin) {
+              navigate('/properties');
+            } else {
+              navigate('/propiedades');
+            }
+          }}
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          {fromAdmin ? 'Volver al Panel Admin' : 'Volver a Propiedades'}
+        </Button>
       </div>
 
       {/* Property Images Carousel */}
