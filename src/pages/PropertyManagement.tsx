@@ -118,11 +118,7 @@ const PropertyManagement = () => {
   // Filtrar propiedades del administrador actual
   const userProperties = getPropertiesByAdmin(user?.id || '');
 
-  // Debug: Log información sobre propiedades
-  console.log('Current user:', user?.id, user?.name);
-  console.log('Total properties:', properties.length);
-  console.log('User properties:', userProperties.length);
-  console.log('Properties for admin:', userProperties);
+
 
   return (
     <div className="min-h-screen bg-gray-50">
