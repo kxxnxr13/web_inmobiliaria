@@ -290,18 +290,7 @@ const PropertyManagement = () => {
                 <p className="text-xs text-gray-600">Administrador</p>
               </div>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  refreshProperties();
-                  console.log('Properties refreshed');
-                }}
-                className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Refrescar
-              </Button>
+
               <Button
                 variant="outline"
                 size="sm"
