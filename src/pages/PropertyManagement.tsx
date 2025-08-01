@@ -777,37 +777,16 @@ const PropertyManagement = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label>Amenidades</Label>
-                        <div className="max-h-48 overflow-y-auto border rounded-md p-4 space-y-2">
-                          {getActiveAmenities().map((amenity) => (
-                            <div key={amenity.id} className="flex items-center space-x-2">
-                              <input
-                                type="checkbox"
-                                id={`edit-amenity-${amenity.id}`}
-                                checked={(editingProperty.amenityIds || []).includes(amenity.id)}
-                                onChange={(e) => {
-                                  if (e.target.checked) {
-                                    setEditingProperty(prev => ({
-                                      ...prev,
-                                      amenityIds: [...(prev?.amenityIds || []), amenity.id]
-                                    }));
-                                  } else {
-                                    setEditingProperty(prev => ({
-                                      ...prev,
-                                      amenityIds: (prev?.amenityIds || []).filter(id => id !== amenity.id)
-                                    }));
-                                  }
-                                }}
-                                className="rounded border-gray-300"
-                              />
-                              <Label htmlFor={`edit-amenity-${amenity.id}`} className="text-sm">
-                                {amenity.name}
-                              </Label>
-                            </div>
-                          ))}
-                        </div>
+                        <Label htmlFor="edit-caracteristicas">Características</Label>
+                        <Textarea
+                          id="edit-caracteristicas"
+                          value={editingProperty.caracteristicas}
+                          onChange={(e) => setEditingProperty(prev => ({ ...prev, caracteristicas: e.target.value }))}
+                          placeholder="Aire acondicionado, Cocina integral, Jardín privado, Seguridad 24/7..."
+                          rows={3}
+                        />
                         <p className="text-xs text-gray-500">
-                          Selecciona las amenidades que incluye esta propiedad
+                          Separa cada característica con una coma (,)
                         </p>
                       </div>
 
