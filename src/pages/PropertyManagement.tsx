@@ -59,6 +59,12 @@ const PropertyManagement = () => {
   const handleCreateProperty = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Convertir amenityIds a nombres de amenidades
+    const availableAmenities = getActiveAmenities();
+    const selectedAmenities = newPropertyForm.amenityIds
+      .map(id => availableAmenities.find(a => a.id === id)?.name)
+      .filter(Boolean) as string[];
+
     const newPropertyData = {
       title: newPropertyForm.title,
       description: newPropertyForm.description,
@@ -74,7 +80,7 @@ const PropertyManagement = () => {
       imageUrl: newPropertyForm.imageUrl || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400',
       adminId: 'general', // Propiedades generales que cualquier admin puede gestionar
       featured: newPropertyForm.featured,
-      amenities: newPropertyForm.amenities,
+      amenities: selectedAmenities,
       condition: newPropertyForm.condition,
       propertyType: newPropertyForm.propertyType
     };
@@ -670,7 +676,7 @@ const PropertyManagement = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="edit-area">Área (m²)</Label>
+                          <Label htmlFor="edit-area">��rea (m²)</Label>
                           <Input
                             id="edit-area"
                             type="number"
