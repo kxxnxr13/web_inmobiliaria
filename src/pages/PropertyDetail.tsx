@@ -265,14 +265,14 @@ const PropertyDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Amenities */}
+            {/* Services & Amenities */}
             <Card>
               <CardHeader>
-                <CardTitle>Amenidades</CardTitle>
+                <CardTitle>Servicios y Comodidades</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {displayAmenities.map((amenity, index) => (
+                  {defaultAmenities.map((amenity, index) => (
                     <div key={index} className="flex items-center">
                       <amenity.icon className="h-5 w-5 text-gold-600 mr-3" />
                       <span className="text-gray-700">{amenity.label}</span>
