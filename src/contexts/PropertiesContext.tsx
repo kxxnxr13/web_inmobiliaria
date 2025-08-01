@@ -303,6 +303,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: true,
     caracteristicas: ['Paneles solares', 'Recolección agua lluvia', 'Materiales ecológicos', 'Huerto orgánico', 'Certificación LEED'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Áreas verdes', 'Zona segura'],
     pricePerSqm: Math.round(385000 / 200),
     condition: 'Nuevo',
     propertyType: 'Casa Ecológica'
@@ -326,6 +327,7 @@ const INITIAL_PROPERTIES: Property[] = [
     adminId: 'general',
     featured: false,
     caracteristicas: ['Vista panorámica', 'Dos niveles', 'Acabados de lujo', 'Terraza privada', 'Estudio en segundo piso'],
+    servicios: ['Internet disponible', 'Electricidad', 'Agua potable', 'Cocina funcional', 'Estacionamiento'],
     pricePerSqm: Math.round(1950 / 125),
     condition: 'Como nuevo',
     propertyType: 'Dúplex'
