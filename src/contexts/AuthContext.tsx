@@ -55,10 +55,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(JSON.parse(savedUser));
     }
 
-    const savedAdmins = localStorage.getItem('admins_data');
-    if (savedAdmins) {
-      setAdmins(JSON.parse(savedAdmins));
-    }
+    // Limpiar administradores corruptos y empezar fresco
+    localStorage.removeItem('admins_data');
+    console.log('Admins data cleared, starting with empty admin list');
+    setAdmins(INITIAL_ADMINS);
   }, []);
 
   // Guardar admins en localStorage cuando cambie
