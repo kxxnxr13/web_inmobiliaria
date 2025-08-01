@@ -501,7 +501,7 @@ const PropertyDetail = () => {
                 </div>
                 <div className="text-center">
                   <Car className="h-6 w-6 mx-auto mb-2 text-navy-600" />
-                  <div className="font-semibold">{property.parking}</div>
+                  <div className="font-semibold">{property.parking || 0}</div>
                   <div className="text-sm text-gray-600">Parking</div>
                 </div>
               </div>
