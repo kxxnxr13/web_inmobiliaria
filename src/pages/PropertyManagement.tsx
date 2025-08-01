@@ -65,14 +65,16 @@ const PropertyManagement = () => {
       bedrooms: Number(newPropertyForm.bedrooms),
       bathrooms: Number(newPropertyForm.bathrooms),
       area: Number(newPropertyForm.area),
+      parking: newPropertyForm.parking ? Number(newPropertyForm.parking) : undefined,
+      yearBuilt: newPropertyForm.yearBuilt ? Number(newPropertyForm.yearBuilt) : undefined,
       type: newPropertyForm.type,
       status: newPropertyForm.status,
       imageUrl: newPropertyForm.imageUrl || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400',
       adminId: 'general', // Propiedades generales que cualquier admin puede gestionar
-      featured: false,
-      amenities: [],
-      condition: 'Excelente',
-      propertyType: 'Casa'
+      featured: newPropertyForm.featured,
+      amenities: newPropertyForm.amenities,
+      condition: newPropertyForm.condition,
+      propertyType: newPropertyForm.propertyType
     };
 
     createProperty(newPropertyData);
