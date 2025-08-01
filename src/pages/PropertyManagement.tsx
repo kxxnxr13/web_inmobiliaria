@@ -106,6 +106,47 @@ const PropertyManagement = () => {
     });
   };
 
+  const handleEditProperty = (property: any) => {
+    setEditingProperty({
+      ...property,
+      price: property.price.toString(),
+      bedrooms: property.bedrooms.toString(),
+      bathrooms: property.bathrooms.toString(),
+      area: property.area.toString(),
+    });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateProperty = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!editingProperty) return;
+
+    const updatedData = {
+      title: editingProperty.title,
+      description: editingProperty.description,
+      price: Number(editingProperty.price),
+      location: editingProperty.location,
+      bedrooms: Number(editingProperty.bedrooms),
+      bathrooms: Number(editingProperty.bathrooms),
+      area: Number(editingProperty.area),
+      type: editingProperty.type,
+      status: editingProperty.status,
+      imageUrl: editingProperty.imageUrl,
+      condition: editingProperty.condition || 'Excelente',
+      propertyType: editingProperty.propertyType || 'Casa'
+    };
+
+    updateProperty(editingProperty.id, updatedData);
+    setIsEditDialogOpen(false);
+    setEditingProperty(null);
+
+    toast({
+      title: "¡Propiedad actualizada!",
+      description: `${updatedData.title} ha sido actualizada exitosamente.`,
+    });
+  };
+
   const formatPrice = (price: number, type: Property['type']) => {
     return type === 'venta' 
       ? `$${price.toLocaleString()}` 
