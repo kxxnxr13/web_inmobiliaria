@@ -12,64 +12,17 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LogOut, Plus, Home, Edit, Trash2, Eye, MapPin, DollarSign, Bed, Bath, Square, Camera } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useProperties } from "@/contexts/PropertiesContext";
 import { useToast } from "@/hooks/use-toast";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-interface Property {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  location: string;
-  bedrooms: number;
-  bathrooms: number;
-  area: number;
-  type: 'venta' | 'alquiler';
-  status: 'disponible' | 'vendida' | 'alquilada';
-  imageUrl: string;
-  createdAt: string;
-  adminId: string;
-}
-
-const INITIAL_PROPERTIES: Property[] = [
-  {
-    id: '1',
-    title: 'Casa Moderna en Zona Residencial',
-    description: 'Hermosa casa de 3 habitaciones con jardín privado, perfecta para familias.',
-    price: 350000,
-    location: 'Zona Norte, Ciudad',
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 150,
-    type: 'venta',
-    status: 'disponible',
-    imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400',
-    createdAt: '2024-01-10',
-    adminId: '1'
-  },
-  {
-    id: '2',
-    title: 'Apartamento Céntrico',
-    description: 'Moderno apartamento en el centro de la ciudad con excelente ubicación.',
-    price: 1200,
-    location: 'Centro, Ciudad',
-    bedrooms: 2,
-    bathrooms: 1,
-    area: 80,
-    type: 'alquiler',
-    status: 'disponible',
-    imageUrl: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
-    createdAt: '2024-01-15',
-    adminId: '2'
-  }
-];
+import type { Property } from "@/contexts/PropertiesContext";
 
 const PropertyManagement = () => {
   const { user, logout } = useAuth();
+  const { getPropertiesByAdmin, createProperty, deleteProperty, updatePropertyStatus } = useProperties();
   const navigate = useNavigate();
   const { toast } = useToast();
-
-  const [properties, setProperties] = useState<Property[]>(INITIAL_PROPERTIES);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [newPropertyForm, setNewPropertyForm] = useState({
     title: "",
@@ -95,9 +48,8 @@ const PropertyManagement = () => {
 
   const handleCreateProperty = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const newProperty: Property = {
-      id: Date.now().toString(),
+
+    const newPropertyData = {
       title: newPropertyForm.title,
       description: newPropertyForm.description,
       price: Number(newPropertyForm.price),
@@ -108,11 +60,14 @@ const PropertyManagement = () => {
       type: newPropertyForm.type,
       status: newPropertyForm.status,
       imageUrl: newPropertyForm.imageUrl || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400',
-      createdAt: new Date().toISOString().split('T')[0],
-      adminId: user?.id || '1'
+      adminId: user?.id || '1',
+      featured: false,
+      amenities: [],
+      condition: 'Excelente',
+      propertyType: 'Casa'
     };
 
-    setProperties(prev => [...prev, newProperty]);
+    createProperty(newPropertyData);
     setNewPropertyForm({
       title: "",
       description: "",
@@ -129,12 +84,12 @@ const PropertyManagement = () => {
 
     toast({
       title: "¡Propiedad creada!",
-      description: `${newProperty.title} ha sido agregada exitosamente.`,
+      description: `${newPropertyData.title} ha sido agregada exitosamente.`,
     });
   };
 
   const handleDeleteProperty = (propertyId: string, propertyTitle: string) => {
-    setProperties(prev => prev.filter(prop => prop.id !== propertyId));
+    deleteProperty(propertyId);
     toast({
       title: "Propiedad eliminada",
       description: `${propertyTitle} ha sido eliminada del sistema.`,
@@ -142,13 +97,7 @@ const PropertyManagement = () => {
   };
 
   const handleStatusChange = (propertyId: string, newStatus: Property['status']) => {
-    setProperties(prev => 
-      prev.map(prop => 
-        prop.id === propertyId 
-          ? { ...prop, status: newStatus }
-          : prop
-      )
-    );
+    updatePropertyStatus(propertyId, newStatus);
     toast({
       title: "Estado actualizado",
       description: `El estado de la propiedad ha sido actualizado.`,
@@ -167,7 +116,7 @@ const PropertyManagement = () => {
   }
 
   // Filtrar propiedades del administrador actual
-  const userProperties = properties.filter(prop => prop.adminId === user.id);
+  const userProperties = getPropertiesByAdmin(user?.id || '');
 
   return (
     <div className="min-h-screen bg-gray-50">
