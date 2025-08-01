@@ -517,7 +517,7 @@ const PropertyManagement = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="edit-area">Área (m��)</Label>
+                          <Label htmlFor="edit-area">Área (m²)</Label>
                           <Input
                             id="edit-area"
                             type="number"
@@ -614,10 +614,22 @@ const PropertyManagement = () => {
                         <img
                           src={property.imageUrl}
                           alt={property.title}
-                          className="w-12 h-12 rounded-lg object-cover"
+                          className="w-12 h-12 rounded-lg object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          onClick={() => navigate(`/propiedad/${property.id}`, {
+                            state: { from: 'admin' }
+                          })}
+                          title="Click para ver detalles"
                         />
                         <div>
-                          <p className="font-medium">{property.title}</p>
+                          <p
+                            className="font-medium cursor-pointer hover:text-gold-600 transition-colors"
+                            onClick={() => navigate(`/propiedad/${property.id}`, {
+                              state: { from: 'admin' }
+                            })}
+                            title="Click para ver detalles"
+                          >
+                            {property.title}
+                          </p>
                           <p className="text-sm text-gray-500">{property.createdAt}</p>
                         </div>
                       </div>
