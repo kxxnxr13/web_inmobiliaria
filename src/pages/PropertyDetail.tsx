@@ -103,7 +103,7 @@ const propertyData = {
     description: "Amplia casa familiar de dos plantas con jardín privado y piscina, perfecta para familias grandes. Ubicada en el exclusivo conjunto residencial Los Jardines, zona tranquila con excelentes escuelas cercanas y fácil acceso a vías principales.",
     features: [
       "Piscina privada climatizada", "Jardín amplio paisajista", "Cuarto de juegos para niños", "Oficina en casa equipada",
-      "Bodega grande de almacenamiento", "Terraza techada BBQ", "Zona de lavander��a independiente", "Sistema de alarma inteligente",
+      "Bodega grande de almacenamiento", "Terraza techada BBQ", "Zona de lavandería independiente", "Sistema de alarma inteligente",
       "Cocina tipo isla gourmet", "Baño principal con jacuzzi", "Walk-in closet doble", "Habitación de servicio",
       "Sala familiar adicional", "Comedor formal", "Estudio biblioteca", "Garaje para 3 vehículos"
     ],
@@ -353,7 +353,40 @@ const propertyData = {
 
 const PropertyDetail = () => {
   const { id } = useParams();
-  const property = propertyData[id as keyof typeof propertyData];
+  const { properties } = useProperties();
+
+  // Buscar la propiedad por ID en el contexto
+  const property = properties.find(p => p.id === id);
+
+  // Datos por defecto para propiedades que no tienen todos los campos
+  const defaultFeatures = [
+    "Acabados de alta calidad",
+    "Excelente ubicación",
+    "Espacios amplios y luminosos",
+    "Fácil acceso a servicios",
+    "Zona residencial tranquila",
+    "Cerca de centros comerciales"
+  ];
+
+  const defaultAmenities = [
+    { icon: Wifi, label: "Internet disponible" },
+    { icon: Zap, label: "Electricidad" },
+    { icon: Droplets, label: "Agua potable" },
+    { icon: Shield, label: "Zona segura" },
+    { icon: Trees, label: "Áreas verdes" },
+    { icon: Utensils, label: "Cocina funcional" },
+    { icon: Wind, label: "Buena ventilación" },
+    { icon: Car, label: "Estacionamiento" }
+  ];
+
+  const defaultAgent = {
+    name: "Agente Inmobiliario",
+    phone: "+1 (555) 123-4567",
+    email: "agente@inmobiliaria.com",
+    photo: "/placeholder.svg"
+  };
+
+  const images = [property?.imageUrl || "/placeholder.svg"];
 
   if (!property) {
     return (
