@@ -425,6 +425,92 @@ const PropertyManagement = () => {
                       </div>
                     </div>
 
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="parking">Estacionamientos</Label>
+                        <Input
+                          id="parking"
+                          type="number"
+                          value={newPropertyForm.parking}
+                          onChange={(e) => setNewPropertyForm(prev => ({ ...prev, parking: e.target.value }))}
+                          placeholder="2"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="yearBuilt">Año de Construcción</Label>
+                        <Input
+                          id="yearBuilt"
+                          type="number"
+                          value={newPropertyForm.yearBuilt}
+                          onChange={(e) => setNewPropertyForm(prev => ({ ...prev, yearBuilt: e.target.value }))}
+                          placeholder="2020"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="condition">Condición</Label>
+                        <Select
+                          value={newPropertyForm.condition}
+                          onValueChange={(value) =>
+                            setNewPropertyForm(prev => ({ ...prev, condition: value }))
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Nuevo">Nuevo</SelectItem>
+                            <SelectItem value="Como nuevo">Como nuevo</SelectItem>
+                            <SelectItem value="Excelente">Excelente</SelectItem>
+                            <SelectItem value="Muy bueno">Muy bueno</SelectItem>
+                            <SelectItem value="Bueno">Bueno</SelectItem>
+                            <SelectItem value="Renovado">Renovado</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="propertyType">Tipo de Propiedad</Label>
+                        <Select
+                          value={newPropertyForm.propertyType}
+                          onValueChange={(value) =>
+                            setNewPropertyForm(prev => ({ ...prev, propertyType: value }))
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Casa">Casa</SelectItem>
+                            <SelectItem value="Apartamento">Apartamento</SelectItem>
+                            <SelectItem value="Penthouse">Penthouse</SelectItem>
+                            <SelectItem value="Villa">Villa</SelectItem>
+                            <SelectItem value="Loft">Loft</SelectItem>
+                            <SelectItem value="Dúplex">Dúplex</SelectItem>
+                            <SelectItem value="Casa Ecológica">Casa Ecológica</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="amenities">Características (una por línea)</Label>
+                      <Textarea
+                        id="amenities"
+                        value={newPropertyForm.amenities.join('\n')}
+                        onChange={(e) => setNewPropertyForm(prev => ({
+                          ...prev,
+                          amenities: e.target.value.split('\n').filter(item => item.trim() !== '')
+                        }))}
+                        placeholder="Aire acondicionado&#10;Cocina integral&#10;Jardín privado&#10;Seguridad 24/7"
+                        rows={6}
+                      />
+                      <p className="text-xs text-gray-500">Escribe cada característica en una línea separada</p>
+                    </div>
+
                     <div className="space-y-2">
                       <Label htmlFor="imageUrl">URL de Imagen (opcional)</Label>
                       <Input
@@ -433,6 +519,18 @@ const PropertyManagement = () => {
                         onChange={(e) => setNewPropertyForm(prev => ({ ...prev, imageUrl: e.target.value }))}
                         placeholder="https://..."
                       />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label className="text-base font-semibold">Marcar como Destacada</Label>
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          id="featured"
+                          checked={newPropertyForm.featured}
+                          onCheckedChange={(checked) => setNewPropertyForm(prev => ({ ...prev, featured: checked }))}
+                        />
+                        <Label htmlFor="featured">Propiedad destacada</Label>
+                      </div>
                     </div>
                     
                     <div className="flex justify-end space-x-2 pt-4">
