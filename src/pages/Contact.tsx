@@ -66,7 +66,7 @@ const Contact = () => {
 
     try {
       // URL de Formspree - reemplaza con tu endpoint real
-      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL || "https://formspree.io/f/demo";
+      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL || "https://formspree.io/f/xyzppevq";
 
       // Verificar si Formspree está configurado
       if (formspreeUrl === "https://formspree.io/f/demo") {
