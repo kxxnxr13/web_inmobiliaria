@@ -107,7 +107,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-13',
     adminId: 'general',
     featured: true,
-    amenities: ['Piscina privada', 'Jardín amplio', 'Cuarto de juegos', 'Oficina en casa', 'Terraza techada'],
+    caracteristicas: ['Piscina privada', 'Jardín amplio', 'Cuarto de juegos', 'Oficina en casa', 'Terraza techada'],
     pricePerSqm: Math.round(320000 / 220),
     condition: 'Nuevo',
     propertyType: 'Casa'
@@ -130,7 +130,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-12',
     adminId: 'general',
     featured: false,
-    amenities: ['Terraza panorámica', 'Jacuzzi privado', 'Smart home', 'Cocina gourmet', 'Valet parking'],
+    caracteristicas: ['Terraza panorámica', 'Jacuzzi privado', 'Smart home', 'Cocina gourmet', 'Valet parking'],
     pricePerSqm: Math.round(2500 / 150),
     condition: 'Nuevo',
     propertyType: 'Penthouse'
@@ -153,7 +153,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-11',
     adminId: 'general',
     featured: false,
-    amenities: ['Pisos de madera', 'Cocina remodelada', 'Baños renovados', 'Patio trasero', 'Chimenea'],
+    caracteristicas: ['Pisos de madera', 'Cocina remodelada', 'Baños renovados', 'Patio trasero', 'Chimenea'],
     pricePerSqm: Math.round(195000 / 140),
     condition: 'Renovado',
     propertyType: 'Casa'
@@ -176,7 +176,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-10',
     adminId: 'general',
     featured: false,
-    amenities: ['Completamente amueblado', 'Internet incluido', 'Lavandería', 'Portero', 'Área social'],
+    caracteristicas: ['Completamente amueblado', 'Internet incluido', 'Lavandería', 'Portero', 'Área social'],
     pricePerSqm: Math.round(1200 / 65),
     condition: 'Excelente',
     propertyType: 'Apartamento'
@@ -199,7 +199,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-09',
     adminId: 'general',
     featured: true,
-    amenities: ['Piscina infinita', 'Sala de cine', 'Gimnasio privado', 'Wine cellar', 'Smart home', 'Jardín paisajista'],
+    caracteristicas: ['Piscina infinita', 'Sala de cine', 'Gimnasio privado', 'Wine cellar', 'Smart home', 'Jardín paisajista'],
     pricePerSqm: Math.round(450000 / 350),
     condition: 'Nuevo',
     propertyType: 'Villa'
@@ -222,7 +222,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-08',
     adminId: 'general',
     featured: false,
-    amenities: ['Área de juegos', 'Cerca de colegios', 'Parque infantil', 'Salón comunal', 'Zona BBQ'],
+    caracteristicas: ['Área de juegos', 'Cerca de colegios', 'Parque infantil', 'Salón comunal', 'Zona BBQ'],
     pricePerSqm: Math.round(1600 / 110),
     condition: 'Muy bueno',
     propertyType: 'Apartamento'
@@ -245,7 +245,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-07',
     adminId: 'general',
     featured: false,
-    amenities: ['Diseño minimalista', 'Grandes ventanales', 'Espacios abiertos', 'Domótica', 'Terraza verde'],
+    caracteristicas: ['Diseño minimalista', 'Grandes ventanales', 'Espacios abiertos', 'Domótica', 'Terraza verde'],
     pricePerSqm: Math.round(275000 / 160),
     condition: 'Como nuevo',
     propertyType: 'Casa'
@@ -268,7 +268,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-06',
     adminId: 'general',
     featured: false,
-    amenities: ['Techos altos', 'Vigas expuestas', 'Diseño industrial', 'Zona artística', 'Estudios cercanos'],
+    caracteristicas: ['Techos altos', 'Vigas expuestas', 'Diseño industrial', 'Zona artística', 'Estudios cercanos'],
     pricePerSqm: Math.round(2200 / 130),
     condition: 'Renovado',
     propertyType: 'Loft'
@@ -291,7 +291,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-05',
     adminId: 'general',
     featured: true,
-    amenities: ['Paneles solares', 'Recolección agua lluvia', 'Materiales ecológicos', 'Huerto orgánico', 'Certificación LEED'],
+    caracteristicas: ['Paneles solares', 'Recolección agua lluvia', 'Materiales ecológicos', 'Huerto orgánico', 'Certificación LEED'],
     pricePerSqm: Math.round(385000 / 200),
     condition: 'Nuevo',
     propertyType: 'Casa Ecológica'
@@ -314,7 +314,7 @@ const INITIAL_PROPERTIES: Property[] = [
     lastUpdated: '2024-01-04',
     adminId: 'general',
     featured: false,
-    amenities: ['Vista panorámica', 'Dos niveles', 'Acabados de lujo', 'Terraza privada', 'Estudio en segundo piso'],
+    caracteristicas: ['Vista panorámica', 'Dos niveles', 'Acabados de lujo', 'Terraza privada', 'Estudio en segundo piso'],
     pricePerSqm: Math.round(1950 / 125),
     condition: 'Como nuevo',
     propertyType: 'Dúplex'
