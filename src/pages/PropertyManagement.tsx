@@ -34,9 +34,15 @@ const PropertyManagement = () => {
     bedrooms: "",
     bathrooms: "",
     area: "",
+    parking: "",
+    yearBuilt: "",
     type: "venta" as const,
     status: "disponible" as const,
-    imageUrl: ""
+    imageUrl: "",
+    condition: "Excelente",
+    propertyType: "Casa",
+    amenities: [] as string[],
+    featured: false
   });
 
   const handleLogout = () => {
