@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -26,6 +26,9 @@ import {
   Mail,
   Clock,
   Send,
+  MessageSquare,
+  Calendar,
+  Users,
   Loader2,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -62,49 +65,77 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL;
+      // URL de Formspree - reemplaza con tu endpoint real
+      const formspreeUrl = import.meta.env.VITE_FORMSPREE_URL || "https://formspree.io/f/xyzppevq";
 
-      const response = await fetch(formspreeUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          consultationType: data.consultationType,
-          message: data.message,
-          _replyto: data.email,
-          _subject: `Nueva consulta inmobiliaria de ${data.name}`,
-        }),
-      });
+      // Verificar si Formspree está configurado
+      if (formspreeUrl === "https://formspree.io/f/demo") {
+        // Modo de demostración - solo simular el envío
+        console.log("Modo demostración - Datos del formulario:", data);
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
-      if (!response.ok) {
-        let errorMessage = "Error al enviar el formulario";
+        toast({
+          title: "¡Formulario completado!",
+          description: "Configura Formspree para recibir emails reales. Datos mostrados en consola.",
+        });
+      } else {
+        // Enviar datos a Formspree
+        const response = await fetch(formspreeUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            consultationType: data.consultationType,
+            message: data.message,
+            _replyto: data.email,
+            _subject: `Nueva consulta inmobiliaria de ${data.name}`,
+          }),
+        });
 
-        if (response.status === 422) {
-          errorMessage = "Formulario pendiente de activación en Formspree.";
-        } else if (response.status === 429) {
-          errorMessage = "Demasiados envíos. Intenta nuevamente más tarde.";
+        if (!response.ok) {
+          // Manejo específico de errores de Formspree
+          let errorMessage = `Error HTTP: ${response.status}`;
+
+          if (response.status === 422) {
+            errorMessage = "🔓 Formulario pendiente de activación. Ve a formspree.io/forms o envía un email a xyzppevq@formspree.io para activarlo.";
+          } else if (response.status === 429) {
+            errorMessage = "Demasiados envíos. Intenta nuevamente más tarde.";
+          } else {
+            // Solo intentar leer JSON si es necesario y es seguro
+            try {
+              const errorData = await response.json();
+              errorMessage = errorData.error || errorMessage;
+            } catch {
+              // Si no se puede leer el JSON, usar el mensaje por defecto
+            }
+          }
+
+          throw new Error(errorMessage);
         }
 
-        throw new Error(errorMessage);
-      }
+        // Solo leer la respuesta si fue exitosa
+        await response.json();
 
-      toast({
-        title: "¡Mensaje enviado exitosamente!",
-        description: "Nos pondremos en contacto contigo pronto.",
-      });
+        toast({
+          title: "¡Mensaje enviado exitosamente!",
+          description: "Nos pondremos en contacto contigo pronto.",
+        });
+      }
 
       form.reset();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Error al enviar mensaje";
+      console.error("Error al enviar formulario:", error);
+
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
 
       toast({
         title: "Error al enviar mensaje",
-        description: `${errorMessage}. Por favor intenta nuevamente.`,
+        description: `${errorMessage}. Por favor intenta nuevamente o contacta por teléfono.`,
         variant: "destructive",
       });
     } finally {
@@ -128,10 +159,79 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Contact Information */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="text-center p-6">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="h-6 w-6 text-gold-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-navy-800 mb-2">
+                  Nuestra Oficina
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Av. Principal 123, Centro
+                  <br />
+                  Ciudad, País 12345
+                </p>
+              </CardContent>
+            </Card>
 
+            <Card className="text-center p-6">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Phone className="h-6 w-6 text-gold-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-navy-800 mb-2">
+                  Teléfonos
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  +1 (555) 123-4567
+                  <br />
+                  +1 (555) 123-4568
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Mail className="h-6 w-6 text-gold-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-navy-800 mb-2">
+                  Email
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  info@inmobiliaria.com
+                  <br />
+                  ventas@inmobiliaria.com
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gold-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-6 w-6 text-gold-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-navy-800 mb-2">
+                  Horarios
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Lun - Vie: 9:00 - 18:00
+                  <br />
+                  Sáb: 10:00 - 14:00
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* Contact Form and Services */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -258,44 +358,175 @@ const Contact = () => {
               </Card>
             </div>
 
-            {/* Contact Information */}
-            <div>
-              <h2 className="text-3xl font-bold text-navy-800 mb-6">
-                Información de Contacto
-              </h2>
+            {/* Services & Quick Actions */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-bold text-navy-800 mb-6">
+                  ¿Cómo Podemos Ayudarte?
+                </h2>
+                <div className="grid gap-4">
+                  <Card className="p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-10 h-10 bg-gold-100 rounded-lg flex items-center justify-center">
+                        <MessageSquare className="h-5 w-5 text-gold-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-navy-800">
+                          Consulta General
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Preguntas sobre servicios y propiedades
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card className="p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-10 h-10 bg-gold-100 rounded-lg flex items-center justify-center">
+                        <Calendar className="h-5 w-5 text-gold-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-navy-800">
+                          Agendar Cita
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Reunión presencial con nuestros asesores
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card className="p-4 hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-10 h-10 bg-gold-100 rounded-lg flex items-center justify-center">
+                        <Users className="h-5 w-5 text-gold-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-navy-800">
+                          Asesoría Especializada
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          Consulta con expertos en inversión
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Map Placeholder */}
+              <div>
+                <h3 className="text-xl font-semibold text-navy-800 mb-4">
+                  Nuestra Ubicación
+                </h3>
+                <Card className="h-64 bg-gray-100 flex items-center justify-center">
+                  <div className="text-center text-gray-500">
+                    <MapPin className="h-12 w-12 mx-auto mb-2" />
+                    <p>Mapa Interactivo</p>
+                    <p className="text-sm">Av. Principal 123, Centro</p>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Emergency Contact */}
               <Card className="p-6 bg-navy-50 border-navy-200">
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <MapPin className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-navy-800">Dirección</p>
-                      <p className="text-gray-700">Av. Principal 123, Centro</p>
-                    </div>
+                <h3 className="text-lg font-semibold text-navy-800 mb-3">
+                  Atención de Emergencia
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Para asuntos urgentes fuera del horario de oficina,
+                  contáctanos a través de:
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center text-sm">
+                    <Phone className="h-4 w-4 mr-2 text-gold-500" />
+                    <span>WhatsApp: +1 (555) 123-4567</span>
                   </div>
-                  <div className="flex items-center">
-                    <Phone className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-navy-800">Teléfonos</p>
-                      <p className="text-gray-700">+1 (555) 123-4567</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <Mail className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-navy-800">Email</p>
-                      <p className="text-gray-700">info@inmobiliaria.com</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="h-5 w-5 mr-3 text-gold-500 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-navy-800">Horarios</p>
-                      <p className="text-gray-700">Lun - Vie: 9:00 - 18:00</p>
-                    </div>
+                  <div className="flex items-center text-sm">
+                    <Mail className="h-4 w-4 mr-2 text-gold-500" />
+                    <span>emergencias@inmobiliaria.com</span>
                   </div>
                 </div>
               </Card>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-navy-800 mb-4">
+              Preguntas Frecuentes
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Encuentra respuestas rápidas a las consultas más comunes sobre
+              nuestros servicios inmobiliarios.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="p-6">
+              <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-lg text-navy-800">
+                  ¿Cuánto tiempo toma vender una propiedad?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <p className="text-gray-600 text-sm">
+                  El tiempo promedio de venta varía entre 60-90 días,
+                  dependiendo del tipo de propiedad, ubicación y condiciones del
+                  mercado. Nuestro equipo trabaja para optimizar este proceso.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6">
+              <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-lg text-navy-800">
+                  ¿Ofrecen servicios de financiamiento?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <p className="text-gray-600 text-sm">
+                  Sí, trabajamos con los principales bancos y instituciones
+                  financieras para ofrecer las mejores opciones de crédito
+                  hipotecario a nuestros clientes.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6">
+              <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-lg text-navy-800">
+                  ¿Qué incluye la asesoría en inversión?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <p className="text-gray-600 text-sm">
+                  Incluye análisis de mercado, evaluación de rentabilidad,
+                  asesoría legal, y seguimiento post-inversión para maximizar el
+                  retorno de su capital.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6">
+              <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-lg text-navy-800">
+                  ¿Manejan propiedades comerciales?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <p className="text-gray-600 text-sm">
+                  Sí, tenemos un departamento especializado en bienes raíces
+                  comerciales incluyendo oficinas, locales, bodegas y terrenos
+                  para desarrollo.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
