@@ -593,12 +593,12 @@ const PropertyDetail = () => {
               <CardContent>
                 <div className="text-center mb-6">
                   <img
-                    src={property.agent.photo}
-                    alt={property.agent.name}
+                    src={defaultAgent.photo}
+                    alt={defaultAgent.name}
                     className="w-20 h-20 rounded-full mx-auto mb-3 object-cover"
                   />
                   <h3 className="font-semibold text-lg text-navy-800">
-                    {property.agent.name}
+                    {defaultAgent.name}
                   </h3>
                   <p className="text-gray-600 text-sm">Agente Inmobiliario</p>
                 </div>
@@ -606,7 +606,7 @@ const PropertyDetail = () => {
                 <div className="space-y-4">
                   <Button className="w-full bg-gold-500 hover:bg-gold-600">
                     <Phone className="mr-2 h-4 w-4" />
-                    {property.agent.phone}
+                    {defaultAgent.phone}
                   </Button>
                   <Button variant="outline" className="w-full">
                     <Mail className="mr-2 h-4 w-4" />
