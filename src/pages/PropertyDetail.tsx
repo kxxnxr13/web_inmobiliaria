@@ -313,12 +313,15 @@ const PropertyDetail = () => {
                   {(property.caracteristicas && property.caracteristicas.length > 0
                     ? property.caracteristicas
                     : defaultFeatures
-                  ).map((feature, index) => (
-                    <div key={index} className="flex items-center">
-                      <div className="w-2 h-2 bg-gold-500 rounded-full mr-3"></div>
-                      <span className="text-gray-700">{feature}</span>
-                    </div>
-                  ))}
+                  ).map((feature, index) => {
+                    const IconComponent = getIconForCharacteristic(feature);
+                    return (
+                      <div key={index} className="flex items-center">
+                        <IconComponent className="h-4 w-4 text-gold-600 mr-3" />
+                        <span className="text-gray-700">{feature}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
