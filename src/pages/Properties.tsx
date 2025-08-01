@@ -236,19 +236,65 @@ const Properties = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center mt-12">
-            <div className="flex space-x-2">
-              <Button variant="outline" disabled>
-                Anterior
-              </Button>
-              <Button className="bg-navy-800">1</Button>
-              <Button variant="outline">2</Button>
-              <Button variant="outline">3</Button>
-              <Button variant="outline">...</Button>
-              <Button variant="outline">8</Button>
-              <Button variant="outline">Siguiente</Button>
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-12">
+              <div className="flex space-x-2">
+                <Button
+                  variant="outline"
+                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                >
+                  Anterior
+                </Button>
+
+                {/* Botones de números de página */}
+                {Array.from({ length: totalPages }, (_, index) => {
+                  const pageNumber = index + 1;
+                  const isCurrentPage = pageNumber === currentPage;
+
+                  // Mostrar solo páginas cercanas a la actual
+                  if (
+                    pageNumber === 1 ||
+                    pageNumber === totalPages ||
+                    (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                  ) {
+                    return (
+                      <Button
+                        key={pageNumber}
+                        variant={isCurrentPage ? "default" : "outline"}
+                        className={isCurrentPage ? "bg-navy-800" : ""}
+                        onClick={() => handlePageChange(pageNumber)}
+                      >
+                        {pageNumber}
+                      </Button>
+                    );
+                  }
+
+                  // Mostrar puntos suspensivos
+                  if (
+                    pageNumber === currentPage - 2 ||
+                    pageNumber === currentPage + 2
+                  ) {
+                    return (
+                      <Button key={pageNumber} variant="outline" disabled>
+                        ...
+                      </Button>
+                    );
+                  }
+
+                  return null;
+                })}
+
+                <Button
+                  variant="outline"
+                  disabled={currentPage === totalPages}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                >
+                  Siguiente
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
