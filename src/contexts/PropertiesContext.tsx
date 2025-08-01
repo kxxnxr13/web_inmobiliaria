@@ -327,7 +327,15 @@ export const PropertiesProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   useEffect(() => {
     const savedProperties = localStorage.getItem('properties_data');
     if (savedProperties) {
-      setProperties(JSON.parse(savedProperties));
+      try {
+        const parsedProperties = JSON.parse(savedProperties);
+        setProperties(parsedProperties);
+      } catch (error) {
+        console.error('Error loading properties from localStorage:', error);
+        setProperties(INITIAL_PROPERTIES);
+      }
+    } else {
+      setProperties(INITIAL_PROPERTIES);
     }
   }, []);
 
