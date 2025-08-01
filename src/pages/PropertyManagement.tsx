@@ -99,7 +99,7 @@ const PropertyManagement = () => {
       imageUrl: "",
       condition: "Excelente",
       propertyType: "Casa",
-      amenityIds: [],
+      caracteristicas: "",
       featured: false
     });
     setIsCreateDialogOpen(false);
