@@ -44,6 +44,7 @@ const PropertyDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { properties } = useProperties();
+  const { getActiveAmenities } = useAmenities();
   const { user } = useAuth();
 
   // Detectar si viene del panel de admin
