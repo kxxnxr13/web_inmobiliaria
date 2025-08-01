@@ -35,6 +35,9 @@ import {
   Calendar,
   ArrowLeft,
   Camera,
+  Home,
+  Building,
+  Users,
 } from "lucide-react";
 
 
