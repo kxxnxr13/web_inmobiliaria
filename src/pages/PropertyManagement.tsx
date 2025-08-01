@@ -20,7 +20,7 @@ import type { Property } from "@/contexts/PropertiesContext";
 
 const PropertyManagement = () => {
   const { user, logout } = useAuth();
-  const { getPropertiesByAdmin, createProperty, deleteProperty, updatePropertyStatus, properties, refreshProperties } = useProperties();
+  const { getPropertiesByAdmin, createProperty, deleteProperty, updatePropertyStatus, updateProperty, properties, refreshProperties } = useProperties();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
