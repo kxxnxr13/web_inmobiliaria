@@ -277,6 +277,9 @@ const propertiesData = [
 ];
 
 const Properties = () => {
+  const { getAvailableProperties } = useProperties();
+  const propertiesData = getAvailableProperties();
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
