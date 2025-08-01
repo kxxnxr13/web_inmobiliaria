@@ -913,9 +913,9 @@ const PropertyManagement = () => {
                             Construido: {property.yearBuilt}
                           </div>
                         )}
-                        {property.amenities && property.amenities.length > 0 && (
+                        {property.caracteristicas && property.caracteristicas.length > 0 && (
                           <div className="text-xs text-gray-500">
-                            {property.amenities.length} características
+                            {property.caracteristicas.length} características
                           </div>
                         )}
                       </div>
