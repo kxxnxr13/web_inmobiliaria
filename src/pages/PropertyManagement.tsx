@@ -162,13 +162,17 @@ const PropertyManagement = () => {
     console.log('Property características:', property.caracteristicas);
     console.log('Property servicios:', property.servicios);
 
-    // Convertir array de características a string, manejando casos undefined/null
+    // Convertir array de características a string, usar predeterminadas si está vacío
     const caracteristicasArray = Array.isArray(property.caracteristicas) ? property.caracteristicas : [];
-    const caracteristicasString = caracteristicasArray.join(', ');
+    const caracteristicasString = caracteristicasArray.length > 0
+      ? caracteristicasArray.join(', ')
+      : CARACTERISTICAS_PREDEFINIDAS.join(', ');
 
-    // Convertir array de servicios a string, manejando casos undefined/null
+    // Convertir array de servicios a string, usar predeterminados si está vacío
     const serviciosArray = Array.isArray(property.servicios) ? property.servicios : [];
-    const serviciosString = serviciosArray.join(', ');
+    const serviciosString = serviciosArray.length > 0
+      ? serviciosArray.join(', ')
+      : SERVICIOS_PREDEFINIDOS.join(', ');
 
     console.log('Converted características string:', caracteristicasString);
     console.log('Converted servicios string:', serviciosString);
