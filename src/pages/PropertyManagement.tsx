@@ -127,8 +127,8 @@ const PropertyManagement = () => {
       imageUrl: "",
       condition: "Excelente",
       propertyType: "Casa",
-      caracteristicas: "",
-      servicios: "",
+      caracteristicas: CARACTERISTICAS_PREDEFINIDAS.join(", "),
+      servicios: SERVICIOS_PREDEFINIDOS.join(", "),
       featured: false
     });
     setIsCreateDialogOpen(false);
