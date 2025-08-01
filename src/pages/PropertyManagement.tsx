@@ -43,7 +43,7 @@ const PropertyManagement = () => {
     imageUrl: "",
     condition: "Excelente",
     propertyType: "Casa",
-    amenities: [] as string[],
+    amenityIds: [] as string[],
     featured: false
   });
 
