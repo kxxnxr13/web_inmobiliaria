@@ -191,6 +191,7 @@ const PropertyManagement = () => {
       condition: editingProperty.condition || 'Excelente',
       propertyType: editingProperty.propertyType || 'Casa',
       caracteristicas: caracteristicasArray,
+      servicios: serviciosArray,
       featured: editingProperty.featured || false
     };
 
