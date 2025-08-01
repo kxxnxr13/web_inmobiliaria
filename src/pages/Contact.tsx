@@ -102,7 +102,7 @@ const Contact = () => {
           let errorMessage = `Error HTTP: ${response.status}`;
 
           if (response.status === 422) {
-            errorMessage = "🔓 Formulario pendiente de activación. Ve a formspree.io/forms o envía un email a xrbllppr@formspree.io para activarlo.";
+            errorMessage = "🔓 Formulario pendiente de activación. Ve a formspree.io/forms o envía un email a xyzppevq@formspree.io para activarlo.";
           } else if (response.status === 429) {
             errorMessage = "Demasiados envíos. Intenta nuevamente más tarde.";
           } else {
