@@ -272,7 +272,13 @@ const PropertyDetail = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {defaultAmenities.map((amenity, index) => (
+                  {(property.servicios && property.servicios.length > 0
+                    ? property.servicios.map((servicio, index) => ({
+                        icon: defaultAmenities[index % defaultAmenities.length].icon,
+                        label: servicio
+                      }))
+                    : defaultAmenities
+                  ).map((amenity, index) => (
                     <div key={index} className="flex items-center">
                       <amenity.icon className="h-5 w-5 text-gold-600 mr-3" />
                       <span className="text-gray-700">{amenity.label}</span>
