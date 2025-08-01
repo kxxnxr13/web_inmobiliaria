@@ -33,6 +33,7 @@ interface PropertiesContextType {
   getPropertiesByAdmin: (adminId: string) => Property[];
   getFeaturedProperties: () => Property[];
   getAvailableProperties: () => Property[];
+  assignPropertiesToNewAdmin: (adminId: string) => void;
 }
 
 const PropertiesContext = createContext<PropertiesContextType | undefined>(undefined);
