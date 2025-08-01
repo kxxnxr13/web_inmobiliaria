@@ -2,6 +2,7 @@ import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { useProperties } from "@/contexts/PropertiesContext";
+import { useAmenities } from "@/contexts/AmenitiesContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
