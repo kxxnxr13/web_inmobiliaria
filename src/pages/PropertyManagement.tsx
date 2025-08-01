@@ -850,7 +850,16 @@ const PropertyManagement = () => {
                           >
                             {property.title}
                           </p>
-                          <p className="text-sm text-gray-500">{property.createdAt}</p>
+                          <div className="text-sm text-gray-500 space-y-1">
+                            <p>{property.createdAt}</p>
+                            <div className="flex items-center space-x-2">
+                              <span className="px-2 py-1 bg-gray-100 rounded text-xs">{property.propertyType}</span>
+                              <span className="px-2 py-1 bg-gray-100 rounded text-xs">{property.condition}</span>
+                              {property.featured && (
+                                <span className="px-2 py-1 bg-gold-100 text-gold-800 rounded text-xs">Destacada</span>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </TableCell>
