@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -44,9 +44,41 @@ const Index = () => {
   const [searchType, setSearchType] = useState("venta");
   const [propertyType, setPropertyType] = useState("");
   const [location, setLocation] = useState("");
+  const navigate = useNavigate();
 
   const { getFeaturedProperties } = useProperties();
   const featuredProperties = getFeaturedProperties();
+
+  // Función para manejar la búsqueda
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    // Crear parámetros URL para la búsqueda
+    const searchParams = new URLSearchParams();
+
+    if (location.trim()) {
+      searchParams.set('location', location.trim());
+    }
+
+    if (searchType) {
+      searchParams.set('saleType', searchType);
+    }
+
+    if (propertyType) {
+      searchParams.set('type', propertyType);
+    }
+
+    // Navegar a la página de propiedades con parámetros
+    const queryString = searchParams.toString();
+    navigate(`/propiedades${queryString ? '?' + queryString : ''}`);
+  };
+
+  // Manejar Enter en el input
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
 
 
@@ -102,6 +134,7 @@ const Index = () => {
                     placeholder="Ubicación, barrio o ciudad..."
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     className="h-12 text-gray-800"
                   />
                 </div>
@@ -113,11 +146,14 @@ const Index = () => {
                     <SelectItem value="casa">Casa</SelectItem>
                     <SelectItem value="apartamento">Apartamento</SelectItem>
                     <SelectItem value="penthouse">Penthouse</SelectItem>
-                    <SelectItem value="terreno">Terreno</SelectItem>
-                    <SelectItem value="comercial">Comercial</SelectItem>
+                    <SelectItem value="villa">Villa</SelectItem>
+                    <SelectItem value="loft">Loft</SelectItem>
+                    <SelectItem value="duplex">Dúplex</SelectItem>
+                    <SelectItem value="casa ecologica">Casa Ecológica</SelectItem>
                   </SelectContent>
                 </Select>
                 <Button
+                  onClick={handleSearch}
                   size="lg"
                   className="h-12 bg-gold-500 hover:bg-gold-600 text-white"
                 >

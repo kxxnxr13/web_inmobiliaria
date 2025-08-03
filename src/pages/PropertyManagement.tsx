@@ -56,8 +56,8 @@ const PropertyManagement = () => {
     area: "",
     parking: "",
     yearBuilt: "",
-    type: "venta" as const,
-    status: "disponible" as const,
+    type: "venta" as Property['type'],
+    status: "disponible" as Property['status'],
     imageUrl: "",
     condition: "Excelente",
     propertyType: "Casa",
@@ -122,8 +122,8 @@ const PropertyManagement = () => {
       area: "",
       parking: "",
       yearBuilt: "",
-      type: "venta",
-      status: "disponible",
+      type: "venta" as Property['type'],
+      status: "disponible" as Property['status'],
       imageUrl: "",
       condition: "Excelente",
       propertyType: "Casa",
@@ -251,7 +251,7 @@ const PropertyManagement = () => {
       : `$${price.toLocaleString()}/mes`;
   };
 
-  if (!user || (user.role !== 'admin' && user.role !== 'superadmin')) {
+  if (!user || user.role !== 'admin') {
     navigate('/login');
     return null;
   }
@@ -482,7 +482,7 @@ const PropertyManagement = () => {
                         <Label htmlFor="type">Tipo</Label>
                         <Select
                           value={newPropertyForm.type}
-                          onValueChange={(value: 'venta' | 'alquiler') => 
+                          onValueChange={(value: Property['type']) =>
                             setNewPropertyForm(prev => ({ ...prev, type: value }))
                           }
                         >
@@ -500,7 +500,7 @@ const PropertyManagement = () => {
                         <Label htmlFor="status">Estado</Label>
                         <Select
                           value={newPropertyForm.status}
-                          onValueChange={(value: 'disponible' | 'vendida' | 'alquilada') => 
+                          onValueChange={(value: Property['status']) =>
                             setNewPropertyForm(prev => ({ ...prev, status: value }))
                           }
                         >
@@ -780,7 +780,7 @@ const PropertyManagement = () => {
                           <Label htmlFor="edit-type">Tipo</Label>
                           <Select
                             value={editingProperty.type}
-                            onValueChange={(value: 'venta' | 'alquiler') =>
+                            onValueChange={(value: Property['type']) =>
                               setEditingProperty(prev => ({ ...prev, type: value }))
                             }
                           >
@@ -798,7 +798,7 @@ const PropertyManagement = () => {
                           <Label htmlFor="edit-status">Estado</Label>
                           <Select
                             value={editingProperty.status}
-                            onValueChange={(value: 'disponible' | 'vendida' | 'alquilada') =>
+                            onValueChange={(value: Property['status']) =>
                               setEditingProperty(prev => ({ ...prev, status: value }))
                             }
                           >
