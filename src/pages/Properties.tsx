@@ -36,9 +36,9 @@ import {
   Home,
   DollarSign,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useProperties } from "@/contexts/PropertiesContext";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 const Properties = () => {
   const { getAvailableProperties } = useProperties();
