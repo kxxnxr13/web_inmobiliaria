@@ -251,7 +251,7 @@ const PropertyManagement = () => {
       : `$${price.toLocaleString()}/mes`;
   };
 
-  if (!user || (user.role !== 'admin' && user.role !== 'superadmin')) {
+  if (!user || user.role !== 'admin') {
     navigate('/login');
     return null;
   }
