@@ -43,6 +43,7 @@ import { useState, useMemo, useEffect } from "react";
 const Properties = () => {
   const { getAvailableProperties } = useProperties();
   const allProperties = getAvailableProperties();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // Estados de búsqueda
   const [searchLocation, setSearchLocation] = useState("");
