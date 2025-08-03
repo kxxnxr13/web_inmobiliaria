@@ -44,9 +44,41 @@ const Index = () => {
   const [searchType, setSearchType] = useState("venta");
   const [propertyType, setPropertyType] = useState("");
   const [location, setLocation] = useState("");
+  const navigate = useNavigate();
 
   const { getFeaturedProperties } = useProperties();
   const featuredProperties = getFeaturedProperties();
+
+  // Función para manejar la búsqueda
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    // Crear parámetros URL para la búsqueda
+    const searchParams = new URLSearchParams();
+
+    if (location.trim()) {
+      searchParams.set('location', location.trim());
+    }
+
+    if (searchType) {
+      searchParams.set('saleType', searchType);
+    }
+
+    if (propertyType) {
+      searchParams.set('type', propertyType);
+    }
+
+    // Navegar a la página de propiedades con parámetros
+    const queryString = searchParams.toString();
+    navigate(`/propiedades${queryString ? '?' + queryString : ''}`);
+  };
+
+  // Manejar Enter en el input
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
 
 
