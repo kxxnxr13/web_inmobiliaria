@@ -31,23 +31,83 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useProperties } from "@/contexts/PropertiesContext";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const Properties = () => {
   const { getAvailableProperties } = useProperties();
   const allProperties = getAvailableProperties();
 
+  // Estados de búsqueda
+  const [searchLocation, setSearchLocation] = useState("");
+  const [searchType, setSearchType] = useState("");
+  const [searchPriceRange, setSearchPriceRange] = useState("");
+
   // Estado de paginación
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
 
+  // Filtrar propiedades basado en criterios de búsqueda
+  const filteredProperties = useMemo(() => {
+    let filtered = allProperties;
+
+    // Filtro por ubicación
+    if (searchLocation.trim()) {
+      filtered = filtered.filter(property =>
+        property.location.toLowerCase().includes(searchLocation.toLowerCase()) ||
+        property.title.toLowerCase().includes(searchLocation.toLowerCase())
+      );
+    }
+
+    // Filtro por tipo de propiedad
+    if (searchType) {
+      filtered = filtered.filter(property => {
+        const propertyType = property.propertyType?.toLowerCase() || '';
+        return propertyType.includes(searchType.toLowerCase());
+      });
+    }
+
+    // Filtro por rango de precios
+    if (searchPriceRange) {
+      filtered = filtered.filter(property => {
+        const price = property.price;
+        switch (searchPriceRange) {
+          case "0-100k":
+            return price >= 0 && price <= 100000;
+          case "100k-300k":
+            return price > 100000 && price <= 300000;
+          case "300k-500k":
+            return price > 300000 && price <= 500000;
+          case "500k+":
+            return price > 500000;
+          default:
+            return true;
+        }
+      });
+    }
+
+    return filtered;
+  }, [allProperties, searchLocation, searchType, searchPriceRange]);
+
   // Calcular propiedades para la página actual
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
-  const propertiesData = allProperties.slice(indexOfFirstProperty, indexOfLastProperty);
+  const propertiesData = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty);
 
   // Calcular total de páginas
-  const totalPages = Math.ceil(allProperties.length / propertiesPerPage);
+  const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+
+  // Resetear página cuando cambian los filtros
+  const handleSearch = () => {
+    setCurrentPage(1);
+  };
+
+  // Limpiar filtros
+  const clearFilters = () => {
+    setSearchLocation("");
+    setSearchType("");
+    setSearchPriceRange("");
+    setCurrentPage(1);
+  };
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
