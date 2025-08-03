@@ -150,6 +150,7 @@ const Index = () => {
                   </SelectContent>
                 </Select>
                 <Button
+                  onClick={handleSearch}
                   size="lg"
                   className="h-12 bg-gold-500 hover:bg-gold-600 text-white"
                 >
