@@ -60,6 +60,28 @@ const Properties = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
 
+  // Leer parámetros URL al cargar el componente
+  useEffect(() => {
+    const locationParam = searchParams.get('location');
+    const saleTypeParam = searchParams.get('saleType');
+    const typeParam = searchParams.get('type');
+
+    if (locationParam) {
+      setSearchLocation(locationParam);
+    }
+    if (saleTypeParam) {
+      setSearchSaleType(saleTypeParam);
+    }
+    if (typeParam) {
+      setSearchType(typeParam);
+    }
+
+    // Si hay parámetros, también abrir filtros avanzados para mejor visibilidad
+    if (locationParam || saleTypeParam || typeParam) {
+      setShowAdvancedFilters(true);
+    }
+  }, [searchParams]);
+
   // Filtrar propiedades basado en criterios de búsqueda
   const filteredProperties = useMemo(() => {
     let filtered = allProperties;
