@@ -210,8 +210,26 @@ const Properties = () => {
       {/* Properties Grid */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {propertiesData.map((property) => (
+          {filteredProperties.length === 0 ? (
+            <div className="text-center py-16">
+              <Search className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                No se encontraron propiedades
+              </h3>
+              <p className="text-gray-500 mb-6">
+                {searchLocation || searchType || searchPriceRange
+                  ? "Intenta ajustar tus criterios de búsqueda"
+                  : "No hay propiedades disponibles en este momento"}
+              </p>
+              {(searchLocation || searchType || searchPriceRange) && (
+                <Button onClick={clearFilters} variant="outline">
+                  Ver todas las propiedades
+                </Button>
+              )}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {propertiesData.map((property) => (
               <Card
                 key={property.id}
                 className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105"
@@ -315,8 +333,9 @@ const Properties = () => {
                   </Link>
                 </CardContent>
               </Card>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* Pagination */}
           {totalPages > 1 && (
