@@ -146,8 +146,10 @@ const Index = () => {
                     <SelectItem value="casa">Casa</SelectItem>
                     <SelectItem value="apartamento">Apartamento</SelectItem>
                     <SelectItem value="penthouse">Penthouse</SelectItem>
-                    <SelectItem value="terreno">Terreno</SelectItem>
-                    <SelectItem value="comercial">Comercial</SelectItem>
+                    <SelectItem value="villa">Villa</SelectItem>
+                    <SelectItem value="loft">Loft</SelectItem>
+                    <SelectItem value="duplex">Dúplex</SelectItem>
+                    <SelectItem value="casa ecologica">Casa Ecológica</SelectItem>
                   </SelectContent>
                 </Select>
                 <Button
