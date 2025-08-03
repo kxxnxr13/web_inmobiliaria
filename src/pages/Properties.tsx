@@ -28,6 +28,13 @@ import {
   Share2,
   Car,
   Calendar,
+  ChevronDown,
+  ChevronUp,
+  X,
+  SortAsc,
+  SortDesc,
+  Home,
+  DollarSign,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useProperties } from "@/contexts/PropertiesContext";
@@ -245,18 +252,31 @@ const Properties = () => {
       <section className="py-8 bg-gray-50 border-b">
         <div className="container mx-auto px-4">
           <div className="bg-white rounded-xl p-6 shadow-lg">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {/* Filtros principales */}
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
               <div className="md:col-span-2">
                 <Input
-                  placeholder="Buscar por ubicación..."
+                  placeholder="Buscar ubicación, características..."
                   className="h-12"
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
                 />
               </div>
+
+              {/* Filtro Venta/Alquiler */}
+              <Select value={searchSaleType} onValueChange={setSearchSaleType}>
+                <SelectTrigger className="h-12">
+                  <SelectValue placeholder="Venta/Alquiler" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="venta">En Venta</SelectItem>
+                  <SelectItem value="alquiler">En Alquiler</SelectItem>
+                </SelectContent>
+              </Select>
+
               <Select value={searchType} onValueChange={setSearchType}>
                 <SelectTrigger className="h-12">
-                  <SelectValue placeholder="Tipo" />
+                  <SelectValue placeholder="Tipo Propiedad" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="casa">Casa</SelectItem>
@@ -268,9 +288,10 @@ const Properties = () => {
                   <SelectItem value="casa ecologica">Casa Ecológica</SelectItem>
                 </SelectContent>
               </Select>
+
               <Select value={searchPriceRange} onValueChange={setSearchPriceRange}>
                 <SelectTrigger className="h-12">
-                  <SelectValue placeholder="Precio" />
+                  <SelectValue placeholder="Rango Precio" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="0-100k">$0 - $100,000</SelectItem>
@@ -279,6 +300,7 @@ const Properties = () => {
                   <SelectItem value="500k+">$500,000+</SelectItem>
                 </SelectContent>
               </Select>
+
               <Button
                 className="h-12 bg-gold-500 hover:bg-gold-600"
                 onClick={handleSearch}
@@ -288,25 +310,129 @@ const Properties = () => {
               </Button>
             </div>
 
-            <div className="flex items-center justify-between mt-4 pt-4 border-t">
-              <div className="text-sm text-gray-600">
-                Mostrando {filteredProperties.length > 0 ? indexOfFirstProperty + 1 : 0}-{Math.min(indexOfLastProperty, filteredProperties.length)} de {filteredProperties.length} propiedades
-                {(searchLocation || searchType || searchPriceRange) && (
-                  <span className="ml-2 text-gold-600 font-medium">
+            {/* Filtros avanzados colapsables */}
+            <div className="border-t pt-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                className="mb-4"
+              >
+                <Filter className="mr-2 h-4 w-4" />
+                Filtros Avanzados
+                {activeFiltersCount > 0 && (
+                  <Badge className="ml-2 bg-gold-500 text-white">
+                    {activeFiltersCount}
+                  </Badge>
+                )}
+                {showAdvancedFilters ? (
+                  <ChevronUp className="ml-2 h-4 w-4" />
+                ) : (
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                )}
+              </Button>
+
+              {showAdvancedFilters && (
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
+                  {/* Habitaciones */}
+                  <Select value={searchBedrooms} onValueChange={setSearchBedrooms}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Habitaciones" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 habitación</SelectItem>
+                      <SelectItem value="2">2 habitaciones</SelectItem>
+                      <SelectItem value="3">3 habitaciones</SelectItem>
+                      <SelectItem value="4+">4+ habitaciones</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  {/* Baños */}
+                  <Select value={searchBathrooms} onValueChange={setSearchBathrooms}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Baños" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 baño</SelectItem>
+                      <SelectItem value="2">2 baños</SelectItem>
+                      <SelectItem value="3+">3+ baños</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  {/* Área */}
+                  <Select value={searchAreaRange} onValueChange={setSearchAreaRange}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Área (m²)" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="0-100">0 - 100 m²</SelectItem>
+                      <SelectItem value="100-150">100 - 150 m²</SelectItem>
+                      <SelectItem value="150-200">150 - 200 m²</SelectItem>
+                      <SelectItem value="200+">200+ m²</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  {/* Ordenamiento */}
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Ordenar por" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="newest">Más recientes</SelectItem>
+                      <SelectItem value="price-low">Precio: menor a mayor</SelectItem>
+                      <SelectItem value="price-high">Precio: mayor a menor</SelectItem>
+                      <SelectItem value="area-large">Área: mayor a menor</SelectItem>
+                      <SelectItem value="area-small">Área: menor a mayor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              {/* Chips de filtros activos */}
+              {activeFiltersCount > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {getActiveFilterChips().map((chip, index) => (
+                    <Badge key={index} variant="secondary" className="flex items-center gap-1 px-3 py-1">
+                      {chip.label}
+                      <X
+                        className="h-3 w-3 cursor-pointer hover:text-red-500"
+                        onClick={chip.clear}
+                      />
+                    </Badge>
+                  ))}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearFilters}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Limpiar todos
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-gray-600 flex items-center gap-2">
+                <span>
+                  Mostrando {filteredProperties.length > 0 ? indexOfFirstProperty + 1 : 0}-{Math.min(indexOfLastProperty, filteredProperties.length)} de {filteredProperties.length} propiedades
+                </span>
+                {activeFiltersCount > 0 && (
+                  <span className="text-gold-600 font-medium">
                     (filtradas de {allProperties.length} total)
                   </span>
                 )}
-              </div>
-              <div className="flex space-x-2">
-                {(searchLocation || searchType || searchPriceRange) && (
-                  <Button variant="outline" size="sm" onClick={clearFilters}>
-                    Limpiar Filtros
-                  </Button>
+                {filteredProperties.length > 0 && (
+                  <div className="flex items-center text-xs text-gray-500 ml-4">
+                    <SortAsc className="h-3 w-3 mr-1" />
+                    Ordenado por: {
+                      sortBy === "newest" ? "Más recientes" :
+                      sortBy === "price-low" ? "Precio: menor a mayor" :
+                      sortBy === "price-high" ? "Precio: mayor a menor" :
+                      sortBy === "area-large" ? "Área: mayor a menor" :
+                      "Área: menor a mayor"
+                    }
+                  </div>
                 )}
-                <Button variant="outline" size="sm">
-                  <Filter className="mr-2 h-4 w-4" />
-                  Más Filtros
-                </Button>
               </div>
             </div>
           </div>
