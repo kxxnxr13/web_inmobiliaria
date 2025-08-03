@@ -134,6 +134,7 @@ const Index = () => {
                     placeholder="Ubicación, barrio o ciudad..."
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     className="h-12 text-gray-800"
                   />
                 </div>
