@@ -184,12 +184,24 @@ const Properties = () => {
 
             <div className="flex items-center justify-between mt-4 pt-4 border-t">
               <div className="text-sm text-gray-600">
-                Mostrando {indexOfFirstProperty + 1}-{Math.min(indexOfLastProperty, allProperties.length)} de {allProperties.length} propiedades
+                Mostrando {filteredProperties.length > 0 ? indexOfFirstProperty + 1 : 0}-{Math.min(indexOfLastProperty, filteredProperties.length)} de {filteredProperties.length} propiedades
+                {(searchLocation || searchType || searchPriceRange) && (
+                  <span className="ml-2 text-gold-600 font-medium">
+                    (filtradas de {allProperties.length} total)
+                  </span>
+                )}
               </div>
-              <Button variant="outline" size="sm">
-                <Filter className="mr-2 h-4 w-4" />
-                Más Filtros
-              </Button>
+              <div className="flex space-x-2">
+                {(searchLocation || searchType || searchPriceRange) && (
+                  <Button variant="outline" size="sm" onClick={clearFilters}>
+                    Limpiar Filtros
+                  </Button>
+                )}
+                <Button variant="outline" size="sm">
+                  <Filter className="mr-2 h-4 w-4" />
+                  Más Filtros
+                </Button>
+              </div>
             </div>
           </div>
         </div>
