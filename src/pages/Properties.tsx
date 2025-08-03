@@ -41,6 +41,12 @@ const Properties = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [searchType, setSearchType] = useState("");
   const [searchPriceRange, setSearchPriceRange] = useState("");
+  const [searchSaleType, setSearchSaleType] = useState(""); // venta/alquiler
+  const [searchBedrooms, setSearchBedrooms] = useState("");
+  const [searchBathrooms, setSearchBathrooms] = useState("");
+  const [searchAreaRange, setSearchAreaRange] = useState("");
+  const [sortBy, setSortBy] = useState("newest"); // newest, price-low, price-high, area-large, area-small
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
   // Estado de paginación
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,12 +56,25 @@ const Properties = () => {
   const filteredProperties = useMemo(() => {
     let filtered = allProperties;
 
-    // Filtro por ubicación
+    // Filtro por ubicación (búsqueda más flexible)
     if (searchLocation.trim()) {
-      filtered = filtered.filter(property =>
-        property.location.toLowerCase().includes(searchLocation.toLowerCase()) ||
-        property.title.toLowerCase().includes(searchLocation.toLowerCase())
-      );
+      const searchTerm = searchLocation.toLowerCase();
+      filtered = filtered.filter(property => {
+        const title = property.title.toLowerCase();
+        const location = property.location.toLowerCase();
+        const description = property.description.toLowerCase();
+        const characteristics = (property.caracteristicas || []).join(' ').toLowerCase();
+
+        return title.includes(searchTerm) ||
+               location.includes(searchTerm) ||
+               description.includes(searchTerm) ||
+               characteristics.includes(searchTerm);
+      });
+    }
+
+    // Filtro por tipo de venta/alquiler
+    if (searchSaleType) {
+      filtered = filtered.filter(property => property.type === searchSaleType);
     }
 
     // Filtro por tipo de propiedad
@@ -85,8 +104,66 @@ const Properties = () => {
       });
     }
 
-    return filtered;
-  }, [allProperties, searchLocation, searchType, searchPriceRange]);
+    // Filtro por habitaciones
+    if (searchBedrooms) {
+      const bedrooms = parseInt(searchBedrooms);
+      filtered = filtered.filter(property => {
+        if (searchBedrooms === "4+") {
+          return property.bedrooms >= 4;
+        }
+        return property.bedrooms === bedrooms;
+      });
+    }
+
+    // Filtro por baños
+    if (searchBathrooms) {
+      const bathrooms = parseInt(searchBathrooms);
+      filtered = filtered.filter(property => {
+        if (searchBathrooms === "3+") {
+          return property.bathrooms >= 3;
+        }
+        return property.bathrooms === bathrooms;
+      });
+    }
+
+    // Filtro por área
+    if (searchAreaRange) {
+      filtered = filtered.filter(property => {
+        const area = property.area;
+        switch (searchAreaRange) {
+          case "0-100":
+            return area >= 0 && area <= 100;
+          case "100-150":
+            return area > 100 && area <= 150;
+          case "150-200":
+            return area > 150 && area <= 200;
+          case "200+":
+            return area > 200;
+          default:
+            return true;
+        }
+      });
+    }
+
+    // Ordenamiento
+    const sorted = [...filtered].sort((a, b) => {
+      switch (sortBy) {
+        case "price-low":
+          return a.price - b.price;
+        case "price-high":
+          return b.price - a.price;
+        case "area-large":
+          return b.area - a.area;
+        case "area-small":
+          return a.area - b.area;
+        case "newest":
+        default:
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    });
+
+    return sorted;
+  }, [allProperties, searchLocation, searchSaleType, searchType, searchPriceRange, searchBedrooms, searchBathrooms, searchAreaRange, sortBy]);
 
   // Calcular propiedades para la página actual
   const indexOfLastProperty = currentPage * propertiesPerPage;
@@ -106,7 +183,36 @@ const Properties = () => {
     setSearchLocation("");
     setSearchType("");
     setSearchPriceRange("");
+    setSearchSaleType("");
+    setSearchBedrooms("");
+    setSearchBathrooms("");
+    setSearchAreaRange("");
+    setSortBy("newest");
     setCurrentPage(1);
+  };
+
+  // Contar filtros activos
+  const activeFiltersCount = [
+    searchLocation,
+    searchType,
+    searchPriceRange,
+    searchSaleType,
+    searchBedrooms,
+    searchBathrooms,
+    searchAreaRange
+  ].filter(Boolean).length;
+
+  // Generar chips de filtros activos
+  const getActiveFilterChips = () => {
+    const chips = [];
+    if (searchLocation) chips.push({ label: `Ubicación: ${searchLocation}`, clear: () => setSearchLocation("") });
+    if (searchSaleType) chips.push({ label: `Tipo: ${searchSaleType === 'venta' ? 'Venta' : 'Alquiler'}`, clear: () => setSearchSaleType("") });
+    if (searchType) chips.push({ label: `Propiedad: ${searchType}`, clear: () => setSearchType("") });
+    if (searchPriceRange) chips.push({ label: `Precio: $${searchPriceRange.replace('k', ',000')}`, clear: () => setSearchPriceRange("") });
+    if (searchBedrooms) chips.push({ label: `${searchBedrooms} hab`, clear: () => setSearchBedrooms("") });
+    if (searchBathrooms) chips.push({ label: `${searchBathrooms} baños`, clear: () => setSearchBathrooms("") });
+    if (searchAreaRange) chips.push({ label: `Área: ${searchAreaRange}m²`, clear: () => setSearchAreaRange("") });
+    return chips;
   };
 
   const handlePageChange = (pageNumber: number) => {
