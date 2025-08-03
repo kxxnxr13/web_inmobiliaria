@@ -141,9 +141,14 @@ const Properties = () => {
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               <div className="md:col-span-2">
-                <Input placeholder="Buscar por ubicación..." className="h-12" />
+                <Input
+                  placeholder="Buscar por ubicación..."
+                  className="h-12"
+                  value={searchLocation}
+                  onChange={(e) => setSearchLocation(e.target.value)}
+                />
               </div>
-              <Select>
+              <Select value={searchType} onValueChange={setSearchType}>
                 <SelectTrigger className="h-12">
                   <SelectValue placeholder="Tipo" />
                 </SelectTrigger>
@@ -151,10 +156,13 @@ const Properties = () => {
                   <SelectItem value="casa">Casa</SelectItem>
                   <SelectItem value="apartamento">Apartamento</SelectItem>
                   <SelectItem value="penthouse">Penthouse</SelectItem>
-                  <SelectItem value="terreno">Terreno</SelectItem>
+                  <SelectItem value="villa">Villa</SelectItem>
+                  <SelectItem value="loft">Loft</SelectItem>
+                  <SelectItem value="duplex">Dúplex</SelectItem>
+                  <SelectItem value="casa ecologica">Casa Ecológica</SelectItem>
                 </SelectContent>
               </Select>
-              <Select>
+              <Select value={searchPriceRange} onValueChange={setSearchPriceRange}>
                 <SelectTrigger className="h-12">
                   <SelectValue placeholder="Precio" />
                 </SelectTrigger>
@@ -165,7 +173,10 @@ const Properties = () => {
                   <SelectItem value="500k+">$500,000+</SelectItem>
                 </SelectContent>
               </Select>
-              <Button className="h-12 bg-gold-500 hover:bg-gold-600">
+              <Button
+                className="h-12 bg-gold-500 hover:bg-gold-600"
+                onClick={handleSearch}
+              >
                 <Search className="mr-2 h-5 w-5" />
                 Buscar
               </Button>
